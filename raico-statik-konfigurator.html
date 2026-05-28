@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAICO THERM+ — Pfosten-Riegel Statik-Konfigurator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a1a;font-size:14px;line-height:1.5;background:#f0f0ee;min-height:100vh}
+.app{max-width:1040px;margin:0 auto;padding:1rem}
+.header{background:#1B4F8A;color:#fff;padding:.85rem 1.25rem;border-radius:8px;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.header h1{font-size:16px;font-weight:500}
+.header p{font-size:11px;opacity:.7;margin-top:2px}
+.logo{font-size:12px;font-weight:700;letter-spacing:.1em;opacity:.9;text-align:right;white-space:nowrap}
+.logo span{display:block;font-size:9px;font-weight:400;opacity:.7;margin-top:1px}
+.norm-switch{display:flex;background:rgba(255,255,255,.15);border-radius:20px;padding:2px;gap:2px;flex-shrink:0}
+.norm-btn{padding:3px 11px;border-radius:16px;font-size:11px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.8);font-family:inherit;transition:.15s}
+.norm-btn.active{background:#fff;color:#1B4F8A;font-weight:500}
+.tabs{display:flex;gap:2px;margin-bottom:.75rem;background:#e8e8e6;border-radius:8px;padding:3px}
+.tab{flex:1;padding:7px 4px;text-align:center;font-size:12px;border-radius:6px;cursor:pointer;border:none;background:none;color:#666;transition:.15s;font-family:inherit;white-space:nowrap}
+.tab.active{background:#fff;color:#1a1a1a;font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem}
+.card{background:#fff;border:0.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:.85rem 1rem}
+.card h3{font-size:10px;font-weight:500;color:#666;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.07em}
+label{display:block;font-size:11px;color:#666;margin-bottom:2px;margin-top:8px}
+label:first-of-type{margin-top:0}
+input[type=number],input[type=text],select{width:100%;padding:6px 9px;border:0.5px solid rgba(0,0,0,0.15);border-radius:6px;font-size:12px;font-family:inherit;background:#fff;color:#1a1a1a;outline:none;transition:border .15s}
+input:focus,select:focus{border-color:#1B4F8A}
+.input-unit{position:relative}
+.input-unit input{padding-right:30px}
+.input-unit span{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;color:#888;pointer-events:none}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:.15s}
+.btn-primary{background:#1B4F8A;color:#fff}.btn-primary:hover{background:#15427a}
+.btn-sm{padding:5px 10px;font-size:11px;border:0.5px solid rgba(0,0,0,.15);background:#fff;color:#1a1a1a;border-radius:6px;cursor:pointer;font-family:inherit}
+.rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.5rem;margin:.5rem 0}
+.rc{background:#f5f5f3;border-radius:6px;padding:.6rem .75rem}
+.rc .lbl{font-size:10px;color:#666;margin-bottom:2px}
+.rc .val{font-size:17px;font-weight:500;line-height:1.1;color:#1a1a1a}
+.rc .unt{font-size:10px;color:#888}
+.rc.ok{border-left:3px solid #2E7D52}.rc.warn{border-left:3px solid #B86800}.rc.err{border-left:3px solid #8B1A1A}.rc.info{border-left:3px solid #1B4F8A}
+.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.pill.ok{background:#E6F5EC;color:#2E7D52}.pill.warn{background:#FEF3DC;color:#B86800}.pill.err{background:#FAEAEA;color:#8B1A1A}.pill.info{background:#E8F0FA;color:#1B4F8A}
+.alert{padding:.6rem .85rem;border-radius:6px;font-size:12px;margin-bottom:.6rem;line-height:1.4}
+.alert-warn{background:#FEF3DC;color:#B86800}.alert-ok{background:#E6F5EC;color:#2E7D52}.alert-err{background:#FAEAEA;color:#8B1A1A}.alert-info{background:#E8F0FA;color:#1B4F8A}
+.pb{height:7px;background:#e8e8e6;border-radius:4px;overflow:hidden;margin:.25rem 0 .6rem}
+.pf{height:100%;border-radius:4px;transition:.3s}
+.ut{display:flex;justify-content:space-between;font-size:10px;color:#666}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:#f5f5f3;padding:6px 8px;text-align:left;font-weight:500;font-size:10px;color:#666;border-bottom:0.5px solid rgba(0,0,0,.1)}
+td{padding:6px 8px;border-bottom:0.5px solid rgba(0,0,0,.08);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.po{border:0.5px solid rgba(0,0,0,.12);border-radius:6px;padding:.5rem .75rem;cursor:pointer;transition:.12s;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.po:hover{border-color:#1B4F8A;background:#E8F0FA}.po.sel{border-color:#1B4F8A;background:#E8F0FA;border-width:1.5px}
+.po .pn{font-weight:500;font-size:12px;color:#1a1a1a}.po .pv{font-size:10px;color:#666;margin-top:1px}.po .pz{font-size:10px;padding:2px 6px;border-radius:8px;background:#f0f0ee;color:#444}
+.dv{border:none;border-top:0.5px solid rgba(0,0,0,.1);margin:.75rem 0}
+.fn{font-size:10px;color:#888;margin-top:.4rem;line-height:1.5}
+.ra{display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap;align-items:center}
+.st{font-size:13px;font-weight:500;color:#1a1a1a;margin:.75rem 0 .4rem}
+.hidden{display:none}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;background:#E8F0FA;color:#1B4F8A;margin-right:3px;margin-bottom:3px}
+.badge{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;display:inline-block}
+.b0{background:#E8F0FA;color:#1B4F8A}.b1{background:#E6F5EC;color:#2E7D52}.b2{background:#FEF3DC;color:#B86800}.b3{background:#FAEAEA;color:#8B1A1A}.b4{background:#F0E8F5;color:#6B1A8B}
+.sw{border:0.5px solid rgba(0,0,0,.12);border-radius:8px;background:#f5f5f3;overflow:hidden}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr}.header{flex-direction:column}.tabs .tab{font-size:10px;padding:6px 2px}}
+@media print{body{background:#fff}.tabs{display:none}div.hidden{display:block!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header">
+  <div><h1>THERM&#x207a; Pfosten-Riegel Dach &#x2014; Statik-Konfigurator</h1>
+  <p>AI-50 &#x00b7; AI-56 &#x00b7; AI-76 &#x00b7; FSI-50 &#x00b7; FSI-56 &#x00b7; Vorstatik &#x00d6;NORM/DIN EN 1991 &#x00b7; Glasstatik EN 1288 &#x00b7; T-Verbinder abZ Z-14.4-461</p></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+    <div class="norm-switch"><button class="norm-btn active" id="nb-at" onclick="setNorm('ONORM')">&#x00d6;NORM</button><button class="norm-btn" id="nb-de" onclick="setNorm('DIN')">DIN/EC</button></div>
+    <div class="logo">RAICO<span>THERM&#x207a; Konfigurator v1.0</span></div>
+  </div>
+</div>
+<div class="tabs">
+  <button class="tab active" onclick="showTab('geom')" id="t-geom">&#x2460; Geometrie</button>
+  <button class="tab" onclick="showTab('lasten')" id="t-lasten">&#x2461; Lasten</button>
+  <button class="tab" onclick="showTab('profile')" id="t-profile">&#x2462; Profile</button>
+  <button class="tab" onclick="showTab('statik')" id="t-statik">&#x2463; Statik</button>
+  <button class="tab" onclick="showTab('glas')" id="t-glas">&#x2464; Glasstatik</button>
+  <button class="tab" onclick="showTab('report')" id="t-report">&#x2465; Bericht</button>
+</div>
+
+<div id="tab-geom">
+<div class="grid2">
+  <div class="card"><h3>Grundma&#x00df;e Dach</h3>
+    <div class="grid2">
+      <div><label>Dachl&#xe4;nge L</label><div class="input-unit"><input type="number" id="g-L" value="8.0" step="0.1" min="1" max="60" oninput="dsk()"><span>m</span></div></div>
+      <div><label>Dachbreite B</label><div class="input-unit"><input type="number" id="g-B" value="5.0" step="0.1" min="1" max="30" oninput="dsk()"><span>m</span></div></div>
+    </div>
+    <label>Dachneigung &#x3b1; (&#xb0;)</label><div class="input-unit"><input type="number" id="g-alp" value="3" step="0.5" min="0" max="45" oninput="dsk()"><span>&#xb0;</span></div>
+    <label>Traufh&#xf6;he h</label><div class="input-unit"><input type="number" id="g-h" value="3.5" step="0.1" min="0.5" max="20"><span>m</span></div>
+    <label>Dachform</label><select id="g-form" onchange="dsk()"><option value="pult">Pultdach</option><option value="sattel">Satteldach</option><option value="flach">Flachdach</option></select>
+  </div>
+  <div class="card"><h3>Raster</h3>
+    <label>Pfostenabstand e&#x209a;</label><div class="input-unit"><input type="number" id="g-ep" value="1.50" step="0.05" min="0.5" max="4" oninput="dsk()"><span>m</span></div>
+    <label>Riegelabstand e&#x1d63;</label><div class="input-unit"><input type="number" id="g-er" value="1.20" step="0.05" min="0.3" max="3" oninput="dsk()"><span>m</span></div>
+    <label>Fassadensystem</label>
+    <select id="g-sys" onchange="onSC()">
+      <option value="AI50">AI-50 &#x2014; THERM&#x207a; A-I Aluminium 50 mm</option>
+      <option value="AI56">AI-56 &#x2014; THERM&#x207a; A-I Aluminium 56 mm</option>
+      <option value="AI76">AI-76 &#x2014; THERM&#x207a; A-I Aluminium 76 mm</option>
+      <option value="FSI50">FSI-50 &#x2014; THERM&#x207a; FS-I Stahl 50 mm</option>
+      <option value="FSI56">FSI-56 &#x2014; THERM&#x207a; FS-I Stahl 56/60 mm</option>
+    </select>
+    <label>Glasaufbau</label>
+    <select id="g-glas"><option value="3VSG">3-fach ISO-VSG (Standard &#xdc;berkopf)</option><option value="2VSG">2-fach ISO (innen VSG)</option></select>
+  </div>
+</div>
+<div class="grid2" style="margin-top:.75rem">
+  <div class="card"><h3>Standort &amp; Normbasis</h3>
+    <div class="grid2">
+      <div><label>Windzone</label><select id="g-wz"><option value="1">WZ 1</option><option value="2" selected>WZ 2</option><option value="3">WZ 3</option><option value="4">WZ 4 K&#xfc;ste</option></select></div>
+      <div><label>Gel&#xe4;ndekategorie</label><select id="g-gk"><option value="I">I</option><option value="II" selected>II</option><option value="III">III</option><option value="IV">IV</option></select></div>
+    </div>
+    <div class="grid2">
+      <div><label>Schneelastzone</label><select id="g-sz"><option value="A1">A1 (&#x00d6;N)</option><option value="A2" selected>A2 (&#x00d6;N)</option><option value="B">B Alpen</option><option value="D1">DIN Z1</option><option value="D2">DIN Z2</option><option value="D3">DIN Z3</option></select></div>
+      <div><label>Seehoehe (m NN)</label><div class="input-unit"><input type="number" id="g-sh" value="280" step="10" min="0"><span>m</span></div></div>
+    </div>
+    <label>Standort</label><input type="text" id="g-ort" value="Wien, AT">
+  </div>
+  <div class="sw"><svg id="sketch" width="100%" viewBox="0 0 420 200" style="display:block"></svg></div>
+</div>
+<div class="ra"><button class="btn btn-primary" onclick="cL();showTab('lasten')">Weiter: Lasten &#x2192;</button></div>
+</div>
+
+<div id="tab-lasten" class="hidden">
+  <div id="lo"><div class="alert alert-info">Geometrie eingeben und Lasten berechnen.</div></div>
+  <div class="ra"><button class="btn btn-primary" onclick="cL()">Lasten berechnen</button><button class="btn btn-primary" onclick="showTab('profile');rP()">Weiter: Profile &#x2192;</button></div>
+</div>
+
+<div id="tab-profile" class="hidden">
+<div class="grid2">
+  <div class="card"><h3>Pfostenprofil</h3><div id="pl"></div><hr class="dv"><div id="pd"></div></div>
+  <div class="card"><h3>Riegelprofil</h3><div id="rl"></div><hr class="dv"><div id="rd"></div></div>
+</div>
+<div class="card" style="margin-top:.75rem"><h3>T-Verbinder (abZ Z-14.4-461)</h3>
+  <div class="grid3">
+    <div><label>Verbindertyp</label><select id="v-typ" onchange="uV()">
+      <option value="160006">160006 RT25 120kg/2,5kN</option><option value="160008">160008 RT50 140kg/3,5kN</option>
+      <option value="160010" selected>160010 RT75 160kg/3,5kN</option><option value="160016">160016 RT100 180kg/3,5kN</option>
+      <option value="160020">160020 RT125 200kg/3,5kN</option><option value="160026">160026 RT150 250kg/3,5kN</option>
+      <option value="160030">160030 RT175 280kg/3,5kN</option><option value="160035">160035 RT200 300kg/3,5kN</option>
+      <option value="160016-4s">160016 RT100 300kg/6,5kN (4Schr)</option><option value="160026-4s">160026 RT150 340kg/6,5kN (4Schr)</option>
+      <option value="160035-4s">160035 RT200 400kg/6,5kN (4Schr)</option>
+    </select></div>
+    <div><label>Schrauben 908057</label><select id="v-schr"><option value="2" selected>2 Schrauben</option><option value="4">4 Schrauben</option></select></div>
+    <div><label>Anschluss</label><select id="v-a"><option value="g" selected>Gelenkig</option><option value="m">Momentensteif</option></select></div>
+  </div>
+  <div id="vc" style="margin-top:.6rem"></div>
+  <p class="fn">abZ Z-14.4-461 &#x2014; Max. Last/Verbindung = Gesamtlast &#xf7; 2</p>
+</div>
+<div class="ra"><button class="btn btn-primary" onclick="cS();showTab('statik')">Weiter: Statik &#x2192;</button></div>
+</div>
+
+<div id="tab-statik" class="hidden"><div id="so"><div class="alert alert-info">Profile w&#xe4;hlen und Statik starten.</div></div></div>
+
+<div id="tab-glas" class="hidden">
+<div class="card"><h3>Glasaufbau</h3>
+  <div class="grid3">
+    <div><label>Glastyp</label><select id="gl-t" onchange="cG()"><option value="3VSG" selected>3-fach ISO-VSG</option><option value="2VSG">2-fach ISO+VSG</option></select></div>
+    <div><label>Au&#xdf;enscheibe (mm)</label><input type="number" id="gl-d1" value="6" step="1" min="4" max="19" onchange="cG()"></div>
+    <div><label>VSG innen (mm/Scheibe)</label><input type="number" id="gl-d2" value="8" step="1" min="4" max="19" onchange="cG()"></div>
+  </div>
+  <div class="grid3" style="margin-top:.5rem">
+    <div><label>SZR</label><select id="gl-s" onchange="cG()"><option value="12">12mm</option><option value="16" selected>16mm</option><option value="20">20mm</option></select></div>
+    <div><label>Lagerung</label><select id="gl-l" onchange="cG()"><option value="4s" selected>4-seitig</option><option value="2s">2-seitig</option><option value="pt">Punkthalter</option></select></div>
+    <div><label>Abmessung</label><select id="gl-a" onchange="cG()"><option value="auto" selected>Aus Raster</option><option value="c">Manuell</option></select></div>
+  </div>
+</div>
+<div id="go" style="margin-top:.75rem"></div>
+</div>
+
+<div id="tab-report" class="hidden">
+<div class="card"><h3>Statischer Vorbericht &#x2014; RAICO THERM&#x207a;</h3>
+  <div id="ro"></div>
+  <div class="ra" style="margin-top:1rem"><button class="btn btn-primary" onclick="window.print()">Drucken / PDF</button><button class="btn-sm" onclick="eJ()">JSON Export</button></div>
+</div>
+</div>
+</div>
+
+<script>
+var DB={
+AI50:[{art:'110003',n:'50x25',s:'AI-50',b:50,h:25,Ix:8.63,Wx:3.33,Iy:11.00,Wy:4.40,ey:2.50},
+{art:'110005',n:'50x50',s:'AI-50',b:50,h:50,Ix:34.35,Wx:8.58,Iy:19.26,Wy:7.70,ey:2.50},
+{art:'110010',n:'50x75',s:'AI-50',b:50,h:75,Ix:88.65,Wx:15.92,Iy:26.60,Wy:10.64,ey:2.50},
+{art:'110015',n:'50x100',s:'AI-50',b:50,h:100,Ix:170.10,Wx:24.38,Iy:32.75,Wy:13.10,ey:2.50},
+{art:'110020',n:'50x125',s:'AI-50',b:50,h:125,Ix:288.90,Wx:34.02,Iy:39.14,Wy:15.66,ey:2.50},
+{art:'110025',n:'50x150',s:'AI-50',b:50,h:150,Ix:439.00,Wx:44.41,Iy:45.54,Wy:18.22,ey:2.50},
+{art:'110030',n:'50x175',s:'AI-50',b:50,h:175,Ix:627.53,Wx:55.99,Iy:52.23,Wy:20.89,ey:2.50},
+{art:'110035',n:'50x200',s:'AI-50',b:50,h:200,Ix:1017.25,Wx:81.34,Iy:80.10,Wy:32.04,ey:2.50}],
+AI56:[{art:'110053',n:'56x25',s:'AI-56',b:56,h:25,Ix:9.32,Wx:3.50,Iy:15.75,Wy:5.62,ey:2.80},
+{art:'110055',n:'56x50',s:'AI-56',b:56,h:50,Ix:42.75,Wx:9.84,Iy:32.43,Wy:11.58,ey:2.80},
+{art:'110060',n:'56x75',s:'AI-56',b:56,h:75,Ix:101.38,Wx:17.58,Iy:42.65,Wy:15.23,ey:2.80},
+{art:'110065',n:'56x100',s:'AI-56',b:56,h:100,Ix:195.95,Wx:27.23,Iy:51.82,Wy:18.51,ey:2.80},
+{art:'110070',n:'56x125',s:'AI-56',b:56,h:125,Ix:333.31,Wx:38.29,Iy:61.62,Wy:22.01,ey:2.80},
+{art:'110075',n:'56x150',s:'AI-56',b:56,h:150,Ix:510.95,Wx:50.59,Iy:72.45,Wy:25.87,ey:2.80},
+{art:'110080',n:'56x175',s:'AI-56',b:56,h:175,Ix:738.38,Wx:64.31,Iy:83.19,Wy:29.71,ey:2.80},
+{art:'110085',n:'56x200',s:'AI-56',b:56,h:200,Ix:1159.57,Wx:89.25,Iy:108.92,Wy:38.90,ey:2.80}],
+AI76:[{art:'110103',n:'76x25',s:'AI-76',b:76,h:25,Ix:10.6,Wx:3.9,Iy:34.1,Wy:9.0,ey:0},
+{art:'110105',n:'76x50',s:'AI-76',b:76,h:50,Ix:43.1,Wx:10.5,Iy:60.2,Wy:15.9,ey:0},
+{art:'110110',n:'76x75',s:'AI-76',b:76,h:75,Ix:113.1,Wx:20.0,Iy:78.4,Wy:20.6,ey:0},
+{art:'110115',n:'76x100',s:'AI-76',b:76,h:100,Ix:229.2,Wx:31.5,Iy:99.4,Wy:26.2,ey:0},
+{art:'110121',n:'76x125',s:'AI-76',b:76,h:125,Ix:377.8,Wx:43.5,Iy:114.6,Wy:30.2,ey:0},
+{art:'110127',n:'76x150',s:'AI-76',b:76,h:150,Ix:577.5,Wx:58.7,Iy:147.6,Wy:38.8,ey:0},
+{art:'110130',n:'76x175',s:'AI-76',b:76,h:175,Ix:917.4,Wx:80.9,Iy:208.7,Wy:54.9,ey:0},
+{art:'110135',n:'76x200',s:'AI-76',b:76,h:200,Ix:1127.9,Wx:97.8,Iy:226.7,Wy:59.7,ey:0},
+{art:'110140',n:'76x225',s:'AI-76',b:76,h:225,Ix:2083.5,Wx:147.7,Iy:293.3,Wy:77.2,ey:0}],
+FSI50:[{art:'445010',n:'50/60x2',s:'FSI-50',b:50,h:60,Ix:23.51,Wx:7.24,Iy:16.87,Wy:6.75,ey:2.50,m:4.07,t:2},
+{art:'445015',n:'50/90x2',s:'FSI-50',b:50,h:90,Ix:65.03,Wx:13.16,Iy:23.79,Wy:9.52,ey:2.50,m:5.01,t:2},
+{art:'445020',n:'50/120x2',s:'FSI-50',b:50,h:120,Ix:134.90,Wx:20.52,Iy:30.70,Wy:12.28,ey:2.50,m:5.95,t:2},
+{art:'445025',n:'50/120x3',s:'FSI-50',b:50,h:120,Ix:194.11,Wx:29.60,Iy:43.73,Wy:17.94,ey:2.50,m:8.79,t:3},
+{art:'445030',n:'50/150x3',s:'FSI-50',b:50,h:150,Ix:345.64,Wx:42.39,Iy:53.68,Wy:21.47,ey:2.50,m:10.21,t:3},
+{art:'445035',n:'50/150x4',s:'FSI-50',b:50,h:150,Ix:444.75,Wx:54.66,Iy:68.09,Wy:27.24,ey:2.50,m:13.43,t:4}],
+FSI56:[{art:'445060',n:'60/60x2',s:'FSI-56',b:60,h:60,Ix:26.90,Wx:8.33,Iy:25.61,Wy:8.54,ey:3.00,m:4.38,t:2},
+{art:'445065',n:'60/90x2',s:'FSI-56',b:60,h:90,Ix:72.85,Wx:14.82,Iy:35.70,Wy:11.90,ey:3.00,m:5.32,t:2},
+{art:'445070',n:'60/90x4',s:'FSI-56',b:60,h:90,Ix:132.08,Wx:27.05,Iy:64.79,Wy:21.60,ey:3.00,m:10.28,t:4},
+{art:'445075',n:'60/120x2',s:'FSI-56',b:60,h:120,Ix:148.95,Wx:22.76,Iy:45.80,Wy:15.27,ey:3.00,m:6.27,t:2},
+{art:'445080',n:'60/120x4',s:'FSI-56',b:60,h:120,Ix:275.26,Wx:42.26,Iy:83.64,Wy:27.88,ey:3.00,m:12.17,t:4},
+{art:'445085',n:'60/150x3',s:'FSI-56',b:60,h:150,Ix:378.31,Wx:46.57,Iy:80.28,Wy:26.76,ey:3.00,m:10.68,t:3},
+{art:'445090',n:'60/150x4',s:'FSI-56',b:60,h:150,Ix:487.71,Wx:60.14,Iy:102.48,Wy:34.16,ey:3.00,m:14.05,t:4},
+{art:'445095',n:'60/180x3',s:'FSI-56',b:60,h:180,Ix:602.72,Wx:62.15,Iy:94.92,Wy:31.64,ey:3.00,m:12.10,t:3},
+{art:'445100',n:'60/180x5',s:'FSI-56',b:60,h:180,Ix:946.86,Wx:97.96,Iy:145.38,Wy:48.46,ey:3.00,m:19.70,t:5},
+{art:'445105',n:'60/200x5',s:'FSI-56',b:60,h:200,Ix:1247.02,Wx:116.48,Iy:160.55,Wy:53.52,ey:3.00,m:21.27,t:5}]};
+var MP={AI50:{E:7000,fy:16.0,gM:1.1,nm:'Al EN AW-6060 T66'},AI56:{E:7000,fy:16.0,gM:1.1,nm:'Al EN AW-6060 T66'},AI76:{E:7000,fy:16.0,gM:1.1,nm:'Al EN AW-6060 T66'},FSI50:{E:21000,fy:23.5,gM:1.0,nm:'Stahl S235'},FSI56:{E:21000,fy:23.5,gM:1.0,nm:'Stahl S235'}};
+var VB={'160006':{art:'160006',RT:25,G2:120,G4:null,F2:2.5,F4:null},'160008':{art:'160008',RT:50,G2:140,G4:260,F2:3.5,F4:6.5},'160010':{art:'160010',RT:75,G2:160,G4:280,F2:3.5,F4:6.5},'160016':{art:'160016',RT:100,G2:180,G4:300,F2:3.5,F4:6.5},'160020':{art:'160020',RT:125,G2:200,G4:320,F2:3.5,F4:6.5},'160026':{art:'160026',RT:150,G2:250,G4:340,F2:3.5,F4:6.5},'160030':{art:'160030',RT:175,G2:280,G4:380,F2:3.5,F4:6.5},'160035':{art:'160035',RT:200,G2:300,G4:400,F2:3.5,F4:6.5},'160016-4s':{art:'160016',RT:100,G2:300,G4:300,F2:6.5,F4:6.5},'160026-4s':{art:'160026',RT:150,G2:340,G4:340,F2:6.5,F4:6.5},'160035-4s':{art:'160035',RT:200,G2:400,G4:400,F2:6.5,F4:6.5}};
+var norm='ON',sP=3,sR=2,LR={},SR={},GR={};
+var BC=['b0','b1','b2','b3','b4'];
+function g(id){return document.getElementById(id)}
+function v(id){return parseFloat(g(id).value)||0}
+function sv(id){return g(id).value}
+function sc(e){return e>1?'err':e>0.85?'warn':'ok'}
+function st(e){return e>1?'&#10007; Nicht OK':e>0.85?'&#9888; Knapp':'&#10003; OK'}
+function bar(e){var p=Math.min(e*100,105),c=e>1?'#8B1A1A':e>0.85?'#B86800':'#2E7D52';return '<div class="ut"><span>&#951; = '+e.toFixed(3)+'</span><span>'+st(e)+'</span></div><div class="pb"><div class="pf" style="width:'+p+'%;background:'+c+'"></div></div>';}
+function fN(x,d){d=d||2;return(x===undefined||isNaN(x))?'&#8211;':x.toFixed(d)}
+function pill(e){if(e===undefined)return '';return '<span class="pill '+sc(e)+'">'+st(e)+'</span>'}
+function bci(s){return s==='AI-50'?0:s==='AI-56'?1:s==='AI-76'?2:s==='FSI-50'?3:4}
+function setNorm(n){norm=n;g('nb-at').classList.toggle('active',n==='ON');g('nb-de').classList.toggle('active',n==='DIN')}
+function showTab(t){['geom','lasten','profile','statik','glas','report'].forEach(function(id){var e=g('tab-'+id);if(e)e.classList.add('hidden');var b=g('t-'+id);if(b)b.classList.remove('active')});var e=g('tab-'+t);if(e)e.classList.remove('hidden');var b=g('t-'+t);if(b)b.classList.add('active');if(t==='glas')cG();if(t==='report')rR()}
+function onSC(){sP=3;sR=2;rP()}
+function dsk(){
+  var L=v('g-L')||8,B=v('g-B')||5,a=v('g-alp')||3,ep=v('g-ep')||1.5,er=v('g-er')||1.2,f=sv('g-form');
+  var sw=Math.min(300,320),sh=Math.min(90,80);var ox=60,oy=18;
+  var nP=Math.max(2,Math.round(L/ep)+1),nR=Math.max(2,Math.round(B/er)+1);var o='';
+  for(var i=0;i<nP;i++){var x=ox+i*sw/(nP-1);o+='<line x1="'+x+'" y1="'+oy+'" x2="'+x+'" y2="'+(oy+sh)+'" stroke="#1B4F8A" stroke-width="1.5" opacity=".6"/>'}
+  for(var j=0;j<nR;j++){var y=oy+j*sh/(nR-1);o+='<line x1="'+ox+'" y1="'+y+'" x2="'+(ox+sw)+'" y2="'+y+'" stroke="#666" stroke-width="0.75" opacity=".4"/>'}
+  o+='<rect x="'+ox+'" y="'+oy+'" width="'+sw+'" height="'+sh+'" fill="none" stroke="#1B4F8A" stroke-width="1.5"/>';
+  o+='<text x="'+(ox+sw/2)+'" y="'+(oy-5)+'" text-anchor="middle" fill="#666" font-size="10">L='+L+'m</text>';
+  o+='<text x="'+(ox-8)+'" y="'+(oy+sh/2)+'" text-anchor="middle" fill="#666" font-size="10" transform="rotate(-90,'+(ox-10)+','+(oy+sh/2)+')">B='+B+'m</text>';
+  var sy=oy+sh+14,rr=f==='sattel'?28:Math.min(Math.tan(a*Math.PI/180)*sw*0.3+6,28);
+  if(f==='sattel'){o+='<polyline points="'+ox+','+(sy+32)+' '+(ox+sw/2)+','+(sy+32-rr)+' '+(ox+sw)+','+(sy+32)+'" fill="none" stroke="#1B4F8A" stroke-width="2"/>'}
+  else{o+='<polyline points="'+ox+','+(sy+32)+' '+(ox+sw)+','+(sy+32-(f==='flach'?2:rr))+'" fill="none" stroke="#1B4F8A" stroke-width="2"/>'}
+  o+='<line x1="'+ox+'" y1="'+(sy+34)+'" x2="'+(ox+sw)+'" y2="'+(sy+34)+'" stroke="#bbb" stroke-width="0.75" stroke-dasharray="3,2"/>';
+  o+='<text x="'+(ox+sw/2)+'" y="'+(sy+47)+'" text-anchor="middle" fill="#888" font-size="9">&#945;='+a+'&#xb0; eP='+ep+'m eR='+er+'m</text>';
+  g('sketch').innerHTML=o;
+}
+setTimeout(dsk,50);
+function cL(){
+  var L=v('g-L')||8,B=v('g-B')||5,alp=v('g-alp')||3,ep=v('g-ep')||1.5,er=v('g-er')||1.2,h=v('g-h')||3.5;
+  var wz=parseInt(sv('g-wz'))||2,gk=sv('g-gk'),sz=sv('g-sz'),sh=v('g-sh')||280,sys=sv('g-sys');
+  var vb={1:22.5,2:25,3:27.5,4:30}[wz],qb=0.5*1.25*vb*vb/1000;
+  var crp={I:{k:0.17,z:0.01,zm:1},II:{k:0.19,z:0.05,zm:2},III:{k:0.22,z:0.3,zm:5},IV:{k:0.24,z:1.0,zm:10}};
+  var cr=crp[gk],ze=Math.max(h,cr.zm),cz=cr.k*Math.log(ze/cr.z),Iv=cr.k/Math.log(ze/cr.z),ce=cz*cz*(1+7*Iv),qp=qb*ce;
+  var cn,cp;if(alp<=5){cn=-1.4;cp=0.7}else if(alp<=15){cn=-1.3;cp=0.2}else if(alp<=30){cn=-0.8;cp=0}else{cn=-0.5;cp=-0.3}
+  var ws=qp*cn;
+  var sk;if(sz==='A1')sk=Math.max(0.5+sh/1000*0.5,0.5);else if(sz==='A2')sk=Math.max(1+sh/800,0.75);else if(sz==='B')sk=Math.max(2+(sh>400?(sh-400)/200:0),1.5);else if(sz==='D1')sk=Math.max(0.65+Math.max(sh-100,0)*0.001,0.65);else if(sz==='D2')sk=Math.max(0.85+Math.max(sh-200,0)*0.0015,0.85);else sk=Math.max(1.1+Math.max(sh-285,0)*0.002,1.1);
+  var mu=alp<=30?0.8:alp<=60?0.8*(60-alp)/30:0,s=mu*sk;
+  var gg=sv('g-glas')==='3VSG'?0.45:0.36,gp=sys.startsWith('AI')?0.15:0.20,gt=gg+gp+0.05;
+  var qEs=1.35*gt+1.5*s,qEw=1.35*gt+1.5*Math.abs(ws),qE=Math.max(qEs,qEw);
+  var mg=qEs>=qEw?'Schneelast':'Windsog',qc=gt+Math.max(s,Math.abs(ws));
+  var qR=qE*ep,qRc=qc*ep,Vv=qR*er/2,Np=qE*ep*B,wh=1.5*Math.abs(ws)*ep;
+  LR={L,B,alp,ep,er,h,wz,gk,sz,sh,sys,vb,qb,qp,ce,ws,cn,sk,mu,s,gt,gg,gp,qE,qR,qRc,qc,Vv,Np,wh,mg};
+  var lb=norm==='ON'?'&#x00d6;NORM B 1991':'DIN EN 1991';
+  g('lo').innerHTML='<div class="alert alert-ok">'+lb+' &#x00b7; WZ '+wz+' &#x00b7; GK '+gk+' &#x00b7; SZ '+sz+' &#x00b7; Ma&#xdf;gebend: <strong>'+mg+'</strong></div>'+
+  '<div class="st">Windlasten</div><div class="rg">'+rc('info','v&#x2090;',fN(vb,1),'m/s')+rc('info','q&#x2090;',fN(qb,3),'kN/m&#xb2;')+rc('info','c&#xe;',fN(ce,2),'&#x2013;')+rc('info','q&#x2098;',fN(qp,3),'kN/m&#xb2;')+rc('warn','c&#x209a;&#xe; Sog',fN(cn,2),'&#x2013;')+rc('err','w&#xe; Sog',fN(ws,3),'kN/m&#xb2;')+'</div>'+
+  '<div class="st">Schneelasten</div><div class="rg">'+rc('info','s&#x2096;',fN(sk,2),'kN/m&#xb2;')+rc('info','&#x3bc;&#x2081;',fN(mu,2),'&#x2013;')+rc(s>1.5?'warn':'ok','s Dachlast',fN(s,2),'kN/m&#xb2;')+'</div>'+
+  '<div class="st">Einwirkungskombination GZT</div><div class="rg">'+rc('info','g Eigenlast',fN(gt,3),'kN/m&#xb2;')+rc(qE>3?'warn':'ok','q&#x2091;&#x2089; GZT',fN(qE,3),'kN/m&#xb2;')+rc(qR>6?'warn':'ok','q&#x1d479; Riegel',fN(qR,3),'kN/m')+rc(Vv>5?'warn':'ok','V&#x2091;&#x2089; Verbinder',fN(Vv,2),'kN')+rc(Np>40?'warn':'ok','N&#x2091;&#x2089; Pfosten',fN(Np,1),'kN')+'</div>'+
+  '<div class="card" style="margin-top:.75rem"><h3>Lastkombination</h3><table><tr><th>Einwirkung</th><th>Char.</th><th>&#x3b3;</th><th>Bemessung</th></tr><tr><td>Eigenlast g</td><td>'+fN(gt,3)+'</td><td>1,35</td><td>'+fN(1.35*gt,3)+' kN/m&#xb2;</td></tr><tr><td>Schnee s</td><td>'+fN(s,3)+'</td><td>1,50</td><td>'+fN(1.5*s,3)+' kN/m&#xb2;</td></tr><tr><td>Windsog w</td><td>'+fN(Math.abs(ws),3)+'</td><td>1,50</td><td>'+fN(1.5*Math.abs(ws),3)+' kN/m&#xb2;</td></tr><tr style="font-weight:500"><td>Ma&#xdf;gebend ('+mg+')</td><td>'+fN(qc,3)+'</td><td>&#x2013;</td><td>'+fN(qE,3)+' kN/m&#xb2;</td></tr></table></div>';
+}
+function rc(cl,lb,val,un){return '<div class="rc '+cl+'"><div class="lbl">'+lb+'</div><div class="val">'+val+'</div><div class="unt">'+un+'</div></div>'}
+function rP(){
+  var sys=sv('g-sys'),pr=DB[sys]||DB['AI50'],mx=pr.length-1;
+  if(sP>mx)sP=Math.min(3,mx);if(sR>mx)sR=Math.min(2,mx);
+  ['p','r'].forEach(function(t,i){
+    var sel=i===0?sP:sR,bc=BC[bci(pr[0].s)];
+    g(t+'l').innerHTML=pr.map(function(p,j){return '<div class="po '+(j===sel?'sel':'')+'" onclick="sP2(\''+t+'\','+j+')"><div><div class="pn"><span class="badge '+bc+'">'+p.s+'</span> '+p.art+' &#x2014; '+p.n+(p.t?' t='+p.t+'mm':'')+'</div><div class="pv">I&#x2093;='+p.Ix+' cm&#x2074; W&#x2093;='+p.Wx+' cm&#xb3;</div></div><span class="pz">'+p.h+' mm</span></div>';}).join('');
+    sPD(t,pr[Math.min(sel,mx)]);
+  });uV();
+}
+function sP2(t,i){if(t==='p')sP=i;else sR=i;rP()}
+function sPD(t,p){
+  var m=MP[p.s.replace('-','')]||MP['AI50'];
+  g(t+'d').innerHTML='<div class="rg">'+rc('info','I&#x2093;',p.Ix,'cm&#x2074;')+rc('info','W&#x2093;',p.Wx,'cm&#xb3;')+rc('info','I&#x1d67;',p.Iy,'cm&#x2074;')+rc('info','W&#x1d67;',p.Wy,'cm&#xb3;')+'</div><p class="fn">E='+m.E+' kN/cm&#xb2; f&#x1d67;='+m.fy+' kN/cm&#xb2; &#x3b3;&#x2098;='+m.gM+' '+m.nm+(p.m?' '+p.m+' kg/m':'')+'</p>';
+}
+function uV(){
+  var vk=sv('v-typ'),vd=VB[vk]||VB['160010'],sc2=parseInt(sv('v-schr'))||2;
+  var Fh=sc2===4?(vd.F4||vd.F2):vd.F2,Gm=sc2===4?(vd.G4||vd.G2):vd.G2;
+  if(!LR.Vv){g('vc').innerHTML='';return}
+  var FE=LR.Vv,et=FE/(Fh||1),Gf=(LR.gg||0.45)*(LR.ep||1.5)*(LR.er||1.2)*1000/9.81*2,gO=!Gm||Gf<=Gm;
+  g('vc').innerHTML='<div class="rg">'+rc(et>1?'err':et>0.85?'warn':'ok','F&#x2091;&#x2089;',fN(FE,2),'kN')+rc('info','F&#x2095;&#x2c1;&#x2099;',Fh||'&#x2013;','kN')+rc(gO?'ok':'warn','G&#x1Da0;&#x2091;&#x2097;&#x2097;',fN(Gf,0),'kg')+rc('info','G&#x2098;&#x2090;&#x2093;',Gm||'&#x2013;','kg')+'</div>'+bar(et)+(et>1?'<div class="alert alert-err" style="margin-top:.3rem">&#10007; Verbinder &#xfc;berlastet</div>':'')+(!gO&&Gm?'<div class="alert alert-warn" style="margin-top:.3rem">&#9888; Glasgewicht '+fN(Gf,0)+' kg &gt; '+Gm+' kg</div>':'');
+}
+function cS(){
+  if(!LR.qE)cL();
+  var sys=sv('g-sys'),pr=DB[sys]||DB['AI50'],mx=pr.length-1;
+  var pP=pr[Math.min(sP,mx)],pR=pr[Math.min(sR,mx)],m=MP[sys]||MP['AI50'];
+  var E=m.E,fyd=m.fy/m.gM,lR=LR.er||1.2,hp=LR.h||3.5;
+  var qR=LR.qR||3,qRc=LR.qRc||2,Np=LR.Np||20,wh=LR.wh||1.5;
+  var MeR=qR*lR*lR/8,VeR=qR*lR/2,MrR=pR.Wx*fyd/100,emR=MeR/MrR;
+  var fR=(5/384)*qRc*(lR*100)**4/(E*pR.Ix),lmm=lR*1000;
+  var flR=lmm<=3000?lmm/200:(lmm<7500?5+lmm/300:lmm/250),efR=fR/flR;
+  var MeP=wh*hp*hp/2,MrP=pP.Wx*fyd/100;
+  var ta=pP.t||Math.max(pP.b,pP.h)*0.06,Ap=(pP.b+pP.h)*2*ta/100,NrP=Ap*fyd;
+  var eNP=Np/Math.max(NrP,1),eMP=MeP/MrP,eNM=eNP+eMP;
+  var wc=Math.abs(LR.ws||0.8)*(LR.ep||1.5);
+  var fP=wc*(hp*100)**4/(8*E*pP.Ix),flP=hp*1000/150,efP=fP/flP;
+  var vk=sv('v-typ'),vd=VB[vk]||VB['160010'],sc2=parseInt(sv('v-schr'))||2;
+  var FhR=sc2===4?(vd.F4||vd.F2):vd.F2,FeV=VeR,evV=FeV/FhR;
+  var Gm=sc2===4?(vd.G4||vd.G2):vd.G2,Gf=(LR.gg||0.45)*(LR.ep||1.5)*(LR.er||1.2)*1000/9.81*2,eG=Gm?Gf/Gm:0.5;
+  SR={pP,pR,m,fyd,lR,hp,MeR,MrR,emR,VeR,fR,flR,efR,MeP,MrP,eMP,Np,NrP,eNP,eNM,fP,flP,efP,FeV,FhR,evV,vd,vk,Gf,Gm,eG};
+  var ok=emR<=1&&efR<=1&&eNM<=1&&efP<=1&&evV<=1;
+  g('so').innerHTML='<div class="alert '+(ok?'alert-ok':'alert-err')+'"><strong>Statik '+(norm==='ON'?'&#x00d6;NORM':'DIN/EC')+' &#x2014; '+m.nm+'</strong> &#x2014; '+(ok?'&#10003; Alle Nachweise erf&#xfc;llt':'&#10007; Nachweise nicht erf&#xfc;llt &#x2014; Profile anpassen!')+'</div>'+
+  '<div class="grid2"><div class="card"><h3>Riegel '+pR.art+' '+pR.s+' '+pR.n+' &#x2014; '+fN(lR,2)+'m</h3>'+
+  '<div class="st" style="font-size:12px;margin:.2rem 0 .3rem">Biegenachweis GZT</div>'+
+  '<div class="rg">'+rc(sc(emR),'M&#x2091;&#x2089;',fN(MeR,3),'kNm')+rc('info','M&#x1d479;&#x2089;',fN(MrR,3),'kNm')+'</div>'+bar(emR)+
+  '<div class="st" style="font-size:12px;margin:.4rem 0 .3rem">Durchbiegung GZG</div>'+
+  '<div class="rg">'+rc(sc(efR),'f&#x2098;&#x2090;&#x2093;',fN(fR,2),'mm')+rc('info','f&#x2097;&#x2122;&#x2098;',fN(flR,2),'mm')+'</div>'+bar(efR)+'</div>'+
+  '<div class="card"><h3>Pfosten '+pP.art+' '+pP.s+' '+pP.n+' &#x2014; '+fN(hp,2)+'m</h3>'+
+  '<div class="st" style="font-size:12px;margin:.2rem 0 .3rem">N+M Interaktion GZT</div>'+
+  '<div class="rg">'+rc(sc(eMP),'M&#x2091;&#x2089; Wind',fN(MeP,3),'kNm')+rc('info','M&#x1d479;&#x2089;',fN(MrP,3),'kNm')+rc(sc(eNP),'N&#x2091;&#x2089;',fN(Np,1),'kN')+rc('info','N&#x1d479;&#x2089;',fN(NrP,1),'kN')+'</div>'+
+  '<div class="ut"><span>&#951; N+M = '+fN(eNM,3)+'</span><span>'+st(eNM)+'</span></div><div class="pb"><div class="pf" style="width:'+Math.min(eNM*100,105)+'%;background:'+(eNM>1?'#8B1A1A':eNM>0.85?'#B86800':'#2E7D52')+'"></div></div>'+
+  '<div class="st" style="font-size:12px;margin:.4rem 0 .3rem">Durchbiegung Wind GZG</div>'+
+  '<div class="rg">'+rc(sc(efP),'f&#x2098;&#x2090;&#x2093;',fN(fP,2),'mm')+rc('info','f&#x2097;&#x2122;&#x2098; H/150',fN(flP,2),'mm')+'</div>'+bar(efP)+'</div></div>'+
+  '<div class="card" style="margin-top:.75rem"><h3>T-Verbinder '+vd.art+' &#x2014; abZ Z-14.4-461</h3>'+
+  '<div class="rg">'+rc(sc(evV),'F&#x2091;&#x2089;',fN(FeV,2),'kN')+rc('info','F&#x2095;&#x2c1;&#x2099;',fN(FhR,1),'kN')+rc(sc(eG),'G&#x1Da0;&#x2091;&#x2097;&#x2097;',fN(Gf,0),'kg')+rc('info','G&#x2098;&#x2090;&#x2093;',Gm||'&#x2013;','kg')+'</div>'+bar(evV)+'</div>'+
+  '<div class="card" style="margin-top:.75rem"><h3>Nachweis-Zusammenfassung</h3><table>'+
+  '<tr><th>Bauteil</th><th>Nachweis</th><th>E&#x2089;</th><th>R&#x2089;</th><th>&#x3b7;</th><th>Status</th></tr>'+
+  '<tr><td>Riegel '+pR.art+'</td><td>Biegung GZT</td><td>'+fN(MeR,3)+' kNm</td><td>'+fN(MrR,3)+' kNm</td><td>'+fN(emR,3)+'</td><td>'+pill(emR)+'</td></tr>'+
+  '<tr><td>Riegel</td><td>Durchbiegung GZG</td><td>'+fN(fR,2)+' mm</td><td>'+fN(flR,2)+' mm</td><td>'+fN(efR,3)+'</td><td>'+pill(efR)+'</td></tr>'+
+  '<tr><td>Pfosten '+pP.art+'</td><td>N+M GZT</td><td>&#x2013;</td><td>&#x2013;</td><td>'+fN(eNM,3)+'</td><td>'+pill(eNM)+'</td></tr>'+
+  '<tr><td>Pfosten</td><td>Durchbieg. Wind GZG</td><td>'+fN(fP,2)+' mm</td><td>'+fN(flP,2)+' mm</td><td>'+fN(efP,3)+'</td><td>'+pill(efP)+'</td></tr>'+
+  '<tr><td>Verbinder '+vd.art+'</td><td>Horizontallast abZ</td><td>'+fN(FeV,2)+' kN</td><td>'+fN(FhR,1)+' kN</td><td>'+fN(evV,3)+'</td><td>'+pill(evV)+'</td></tr>'+
+  '<tr><td>Verbinder</td><td>Glasgewicht abZ</td><td>'+fN(Gf,0)+' kg</td><td>'+(Gm||'&#x2013;')+' kg</td><td>'+fN(eG,3)+'</td><td>'+pill(eG)+'</td></tr></table></div>'+
+  '<div class="ra"><button class="btn btn-primary" onclick="cG();showTab(\'glas\')">Weiter: Glasstatik &#x2192;</button></div>';
+}
+function cG(){
+  if(!LR.qE)cL();
+  var gt=sv('gl-t'),d1=parseFloat(g('gl-d1').value)||6,d2=parseFloat(g('gl-d2').value)||8,lag=sv('gl-l');
+  var ep=LR.ep||1.5,er=LR.er||1.2,a=Math.min(ep,er)*100,b2=Math.max(ep,er)*100,r=b2/a;
+  var de=d1,dg=Math.pow(d1**3+(2*d2)**3,1/3)*0.85;
+  var qE=LR.qE||3,qc=LR.qc||2;
+  var bt=lag==='4s'?(r<=1?0.2874:r<=1.1?0.3159:r<=1.2?0.3448:r<=1.5?0.4094:r<=2?0.4754:0.5):lag==='2s'?0.125:0.185;
+  var sa=bt*qE*1000*a*a/(de**2)*0.01,sz=25.0,es=sa/sz;
+  var af=lag==='4s'?(r<=1?0.01302:r<=1.5?0.0199:0.0249):5/384;
+  var fg=af*(qc/100)*a**4/(7000*(dg/10)**3/12)*10,fl=Math.min(a,b2)*10/100,ef=fg/fl;
+  GR={gt,d1,d2,de,dg,a,b2,sa,sz,es,fg,fl,ef,lag,bt,r};
+  g('go').innerHTML=(gt==='2VSG'?'<div class="alert alert-warn">&#9888; 2-fach ISO: Innenscheibe VSG Pflicht. TRAV/&#x00d6;NORM B 3716!</div>':'')+
+  '<div class="alert '+(es>1||ef>1?'alert-err':es>0.85||ef>0.85?'alert-warn':'alert-ok')+'">'+(gt==='3VSG'?'3-fach ISO-VSG':'2-fach ISO+VSG')+' Au&#xdf;en '+d1+'mm+VSG '+d2+'+'+d2+'mm &#x2014; '+(es>1?'&#10007; Spannung!':ef>1?'&#10007; Durchbiegung!':'&#10003; OK')+'</div>'+
+  '<div class="grid2"><div class="card"><h3>Spannungsnachweis (TRAV/&#x00d6;NORM B 3716)</h3>'+
+  '<div class="rg">'+rc(sc(es),'&#x3c3;&#x2098;&#x2090;&#x2093;',fN(sa,1),'N/mm&#xb2;')+rc('info','&#x3c3;&#x1e91;&#x1d41;&#x2097;',fN(sz,1),'N/mm&#xb2;')+rc('info','d Au&#xdf;en',d1,'mm')+rc('info','&#x3b2;',fN(bt,4),'&#x2013;')+'</div>'+bar(es)+
+  '<p class="fn">'+fN(a/100,2)+'&#xd7;'+fN(b2/100,2)+'m b/a='+fN(r,2)+'</p></div>'+
+  '<div class="card"><h3>Durchbiegungsnachweis L/100</h3>'+
+  '<div class="rg">'+rc(sc(ef),'f&#x2098;&#x2090;&#x2093;',fN(fg,2),'mm')+rc('info','f&#x2097;&#x2122;&#x2098; L/100',fN(fl,2),'mm')+rc('info','d&#x2091;&#x1D1B;&#x1D1B;',fN(dg,1),'mm')+'</div>'+bar(ef)+'</div></div>'+
+  '<div class="card" style="margin-top:.75rem"><h3>Glasnachweis</h3><table><tr><th>Nachweis</th><th>E&#x2089;</th><th>R&#x2089;</th><th>&#x3b7;</th><th>Status</th></tr>'+
+  '<tr><td>Spannung '+d1+'mm</td><td>'+fN(sa,1)+' N/mm&#xb2;</td><td>'+fN(sz,1)+' N/mm&#xb2;</td><td>'+fN(es,3)+'</td><td>'+pill(es)+'</td></tr>'+
+  '<tr><td>Durchbiegung GZG</td><td>'+fN(fg,2)+' mm</td><td>'+fN(fl,2)+' mm</td><td>'+fN(ef,3)+'</td><td>'+pill(ef)+'</td></tr>'+
+  '<tr><td>Resttragsicherheit</td><td colspan="2">VSG '+d2+'+'+d2+'mm innen</td><td>&#x2013;</td><td><span class="pill ok">&#10003; VSG</span></td></tr></table>'+
+  '<p class="fn">EN 1288-2 / &#x00d6;NORM B 3716 / TRAV &#x00b7; Gepr&#xfc;fte Statik durch befugten Ingenieur erforderlich</p></div>'+
+  '<div class="ra"><button class="btn btn-primary" onclick="rR();showTab(\'report\')">Weiter: Bericht &#x2192;</button></div>';
+}
+function rR(){
+  if(!LR.qE)cL();if(!SR.pP)cS();
+  var L=LR,S=SR,G=GR,ort=sv('g-ort'),sys=sv('g-sys');
+  var d=new Date().toLocaleDateString('de-AT',{year:'numeric',month:'long',day:'numeric'});
+  var sn={AI50:'THERM&#x207a; A-I 50mm Alu',AI56:'THERM&#x207a; A-I 56mm Alu',AI76:'THERM&#x207a; A-I 76mm Alu',FSI50:'THERM&#x207a; FS-I Stahl 50mm',FSI56:'THERM&#x207a; FS-I Stahl 56mm'};
+  g('ro').innerHTML='<div style="border-bottom:2px solid #1B4F8A;padding-bottom:.6rem;margin-bottom:.75rem">'+
+  '<div style="font-size:17px;font-weight:500;color:#1B4F8A">Statischer Vorbericht &#x2014; RAICO THERM&#x207a;</div>'+
+  '<div style="font-size:12px;color:#666">Pfosten-Riegel Dachelemente &#x00b7; '+ort+' &#x00b7; '+d+'</div>'+
+  '<div style="margin-top:.35rem"><span class="tag">'+(norm==='ON'?'&#x00d6;NORM':'DIN/EC')+'</span><span class="tag">'+sys+'</span><span class="tag">L='+L.L+'&#xd7;B='+L.B+'m</span><span class="tag">&#x3b1;='+L.alp+'&#xb0;</span><span class="tag">eP='+L.ep+'/eR='+L.er+'m</span></div></div>'+
+  '<div style="margin-bottom:.75rem"><div class="st">1. Systemangaben</div><table><tbody>'+
+  '<tr><td style="color:#666;width:55%">System</td><td>'+(sn[sys]||sys)+'</td></tr>'+
+  '<tr><td style="color:#666">Pfostenprofil</td><td>Art. '+(S.pP?S.pP.art:'&#x2013;')+' &#x00b7; '+(S.pP?S.pP.n:'&#x2013;')+' &#x00b7; I&#x2093;='+(S.pP?S.pP.Ix:'&#x2013;')+' cm&#x2074;</td></tr>'+
+  '<tr><td style="color:#666">Riegelprofil</td><td>Art. '+(S.pR?S.pR.art:'&#x2013;')+' &#x00b7; '+(S.pR?S.pR.n:'&#x2013;')+' &#x00b7; I&#x2093;='+(S.pR?S.pR.Ix:'&#x2013;')+' cm&#x2074;</td></tr>'+
+  '<tr><td style="color:#666">T-Verbinder</td><td>Art. '+(S.vd?S.vd.art:'&#x2013;')+' RT '+(S.vd?S.vd.RT:'&#x2013;')+'mm F&#x2095;&#x2c1;&#x2099;='+fN(S.FhR,1)+' kN G&#x2098;&#x2090;&#x2093;='+(S.Gm||'&#x2013;')+' kg</td></tr>'+
+  '<tr><td style="color:#666">Glasaufbau</td><td>'+(G.gt||'&#x2013;')+' Au&#xdf;en '+(G.d1||6)+'mm VSG '+(G.d2||8)+'+'+(G.d2||8)+'mm</td></tr>'+
+  '<tr><td style="color:#666">Dach L&#xd7;B / Neigung</td><td>'+L.L+'&#xd7;'+L.B+'m &#x3b1;='+L.alp+'&#xb0; h='+L.h+'m</td></tr>'+
+  '<tr><td style="color:#666">Raster eP&#xd7;eR</td><td>'+L.ep+'&#xd7;'+L.er+'m</td></tr>'+
+  '<tr><td style="color:#666">WZ / GK / SZ</td><td>WZ'+L.wz+' / GK'+L.gk+' / '+L.sz+' / '+L.sh+'m NN</td></tr></tbody></table></div>'+
+  '<div style="margin-bottom:.75rem"><div class="st">2. Einwirkungen</div><table><tbody>'+
+  '<tr><td style="color:#666;width:55%">Windsog w&#xe; (c&#x209a;&#xe;='+fN(L.cn,2)+')</td><td>'+fN(L.ws,3)+' kN/m&#xb2;</td></tr>'+
+  '<tr><td style="color:#666">Schneelast s</td><td>'+fN(L.s,3)+' kN/m&#xb2;</td></tr>'+
+  '<tr><td style="color:#666">Eigenlast g</td><td>'+fN(L.gt,3)+' kN/m&#xb2;</td></tr>'+
+  '<tr><td style="color:#666">Ma&#xdf;gebend / q&#x2091;&#x2089; GZT</td><td><strong>'+L.mg+' / '+fN(L.qE,3)+' kN/m&#xb2;</strong></td></tr></tbody></table></div>'+
+  '<div style="margin-bottom:.75rem"><div class="st">3. Nachweis-Ergebnisse</div><table>'+
+  '<tr><th>Bauteil</th><th>Nachweis</th><th>E&#x2089;</th><th>R&#x2089;</th><th>&#x3b7;</th><th>Status</th></tr>'+
+  '<tr><td>Riegel '+(S.pR?S.pR.art:'&#x2013;')+'</td><td>Biegung GZT</td><td>'+fN(S.MeR,3)+' kNm</td><td>'+fN(S.MrR,3)+' kNm</td><td>'+fN(S.emR,3)+'</td><td>'+pill(S.emR)+'</td></tr>'+
+  '<tr><td>Riegel</td><td>Durchbiegung GZG</td><td>'+fN(S.fR,2)+' mm</td><td>'+fN(S.flR,2)+' mm</td><td>'+fN(S.efR,3)+'</td><td>'+pill(S.efR)+'</td></tr>'+
+  '<tr><td>Pfosten '+(S.pP?S.pP.art:'&#x2013;')+'</td><td>N+M GZT</td><td>&#x2013;</td><td>&#x2013;</td><td>'+fN(S.eNM,3)+'</td><td>'+pill(S.eNM)+'</td></tr>'+
+  '<tr><td>Pfosten</td><td>Durchbieg. Wind GZG</td><td>'+fN(S.fP,2)+' mm</td><td>'+fN(S.flP,2)+' mm</td><td>'+fN(S.efP,3)+'</td><td>'+pill(S.efP)+'</td></tr>'+
+  '<tr><td>Verbinder '+(S.vd?S.vd.art:'&#x2013;')+'</td><td>Horizontallast abZ</td><td>'+fN(S.FeV,2)+' kN</td><td>'+fN(S.FhR,1)+' kN</td><td>'+fN(S.evV,3)+'</td><td>'+pill(S.evV)+'</td></tr>'+
+  '<tr><td>Glas '+(G.d1||6)+'mm</td><td>Spannung TRAV</td><td>'+fN(G.sa,1)+' N/mm&#xb2;</td><td>'+fN(G.sz,1)+' N/mm&#xb2;</td><td>'+fN(G.es,3)+'</td><td>'+(G.es?pill(G.es):'&#x2013;')+'</td></tr>'+
+  '<tr><td>Glas</td><td>Durchbiegung GZG</td><td>'+fN(G.fg,2)+' mm</td><td>'+fN(G.fl,2)+' mm</td><td>'+fN(G.ef,3)+'</td><td>'+(G.ef?pill(G.ef):'&#x2013;')+'</td></tr></table></div>'+
+  '<div style="margin-bottom:.75rem"><div class="st">4. Normen</div><div style="font-size:11px;color:#888;line-height:1.9">'+(norm==='ON'?'&#x00d6;NORM B 1990/1991-1-1/1-3/1-4 &#x00b7; &#x00d6;NORM EN 1999-1-1 &#x00b7; &#x00d6;NORM EN 1993-1-1 &#x00b7; &#x00d6;NORM B 3716':'DIN EN 1990/1991-1-1/1-3/1-4 &#x00b7; DIN EN 1999-1-1 &#x00b7; DIN EN 1993-1-1 &#x00b7; TRAV')+' &#x00b7; DIN EN 13830 &#x00b7; EN 1288-2 &#x00b7; abZ Z-14.4-461</div></div>'+
+  '<div class="alert alert-warn" style="font-size:11px"><strong>Hinweis:</strong> Vorbericht nach RAICO THERM&#x207a; Systemdaten 2022. Kein Ersatz f&#xfc;r pr&#xfc;fungsfähige Statik. 1-Feld-Modell. 2-Feld: I&#x2093;&#xd7;0,42. &#xdc;berkopf: TRAV/&#x00d6;NORM B 3716 gesondert nachweisen.</div>';
+}
+function eJ(){var d={norm:norm==='ON'?'OENORM':'DIN_EC',datum:new Date().toISOString(),system:sv('g-sys'),lasten:{qEd:LR.qE,qRiegel:LR.qR,windsog:LR.ws,schnee:LR.s},statik:{pfosten:SR.pP?SR.pP.art:null,riegel:SR.pR?SR.pR.art:null,eta_M_R:SR.emR,eta_f_R:SR.efR,eta_NM:SR.eNM,eta_f_P:SR.efP,eta_verb:SR.evV},glas:{eta_sigma:GR.es,eta_f:GR.ef}};var a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(d,null,2));a.download='raico-statik.json';a.click()}
+showTab('geom');setTimeout(function(){cL();rP()},80);
+</script>
+</body>
+</html>
