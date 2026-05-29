@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAICO THERM+ — Pfosten-Riegel Statik-Konfigurator v2</title>
+<title>RAICO THERM+ Statik-Konfigurator v2</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a1a;font-size:14px;line-height:1.5;background:#f0f0ee;min-height:100vh}
 .app{max-width:1040px;margin:0 auto;padding:1rem}
-.header{background:#1B4F8A;color:#fff;padding:.85rem 1.25rem;border-radius:8px;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.header h1{font-size:15px;font-weight:500}
-.header p{font-size:10px;opacity:.7;margin-top:2px}
+.hdr{background:#1B4F8A;color:#fff;padding:.85rem 1.25rem;border-radius:8px;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.hdr h1{font-size:15px;font-weight:500}.hdr p{font-size:10px;opacity:.7;margin-top:2px}
 .logo{font-size:11px;font-weight:700;letter-spacing:.1em;text-align:right;white-space:nowrap}
 .logo span{display:block;font-size:9px;font-weight:400;opacity:.7;margin-top:1px}
 .ns{display:flex;background:rgba(255,255,255,.15);border-radius:20px;padding:2px;gap:2px;flex-shrink:0}
@@ -28,8 +27,7 @@ label:first-of-type{margin-top:0}
 input[type=number],input[type=text],select{width:100%;padding:6px 9px;border:0.5px solid rgba(0,0,0,.15);border-radius:6px;font-size:12px;font-family:inherit;background:#fff;color:#1a1a1a;outline:none}
 input:focus,select:focus{border-color:#1B4F8A}
 input[type=checkbox]{width:auto!important;margin-right:5px;vertical-align:middle}
-.iu{position:relative}
-.iu input{padding-right:30px}
+.iu{position:relative}.iu input{padding-right:30px}
 .iu span{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;color:#888;pointer-events:none}
 .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:inherit}
 .bp{background:#1B4F8A;color:#fff}.bp:hover{background:#15427a}
@@ -56,12 +54,13 @@ tr:last-child td{border-bottom:none}
 .po{border:0.5px solid rgba(0,0,0,.12);border-radius:6px;padding:.45rem .7rem;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
 .po:hover{border-color:#1B4F8A;background:#E8F0FA}
 .po.sel{border-color:#1B4F8A;background:#E8F0FA;border-width:1.5px}
-.po.disabled{opacity:.38;cursor:not-allowed;pointer-events:none;background:#f9f9f9}
+.po.dis{opacity:.38;cursor:not-allowed;pointer-events:none;background:#f9f9f9}
 .po .pn{font-weight:500;font-size:11px;color:#1a1a1a}
 .po .pv{font-size:10px;color:#666;margin-top:1px}
 .po .pz{font-size:10px;padding:2px 5px;border-radius:6px;background:#f0f0ee;white-space:nowrap;flex-shrink:0;margin-left:6px}
 .badge{font-size:10px;padding:2px 6px;border-radius:8px;font-weight:600;display:inline-block;margin-right:3px}
-.b0{background:#E8F0FA;color:#1B4F8A}.b1{background:#E6F5EC;color:#2E7D52}.b2{background:#FEF3DC;color:#B86800}.b3{background:#FAEAEA;color:#8B1A1A}.b4{background:#F0E8F5;color:#6B1A8B}
+.b0{background:#E8F0FA;color:#1B4F8A}.b1{background:#E6F5EC;color:#2E7D52}.b2{background:#FEF3DC;color:#B86800}
+.b3{background:#FAEAEA;color:#8B1A1A}.b4{background:#F0E8F5;color:#6B1A8B}
 .dv{border:none;border-top:0.5px solid rgba(0,0,0,.1);margin:.65rem 0}
 .fn{font-size:10px;color:#888;margin-top:.4rem;line-height:1.5}
 .ra{display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap;align-items:center}
@@ -69,175 +68,199 @@ tr:last-child td{border-bottom:none}
 .hidden{display:none}
 .tag{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;background:#E8F0FA;color:#1B4F8A;margin-right:3px;margin-bottom:3px}
 .sw{border:0.5px solid rgba(0,0,0,.12);border-radius:8px;background:#f5f5f3;overflow:hidden}
-.info-box{background:#E8F0FA;border:1px solid #b8d0f0;border-radius:6px;padding:.5rem .75rem;margin-top:.5rem;font-size:11px;color:#1B4F8A}
-@media(max-width:680px){.g2,.g3{grid-template-columns:1fr}.header{flex-direction:column}.tabs .tab{font-size:9px;padding:6px 1px}}
-@media print{body{background:#fff}.tabs{display:none!important}div.hidden{display:block!important}.ra{display:none}}
+@media(max-width:680px){.g2,.g3{grid-template-columns:1fr}.hdr{flex-direction:column}.tabs .tab{font-size:9px;padding:6px 1px}}
+@media print{body{background:#fff}.tabs{display:none!important}.ra{display:none}}
 </style>
 </head>
 <body>
 <div class="app">
-
-<div class="header">
+<div class="hdr">
   <div>
-    <h1>THERM&#x207a; Pfosten-Riegel Dach &#x2014; Statik-Konfigurator</h1>
-    <p>AI-50 &#xb7; AI-56 &#xb7; AI-76 &#xb7; FSI-50 &#xb7; FSI-56 &#xb7; Vorstatik &#xd6;NORM/DIN EN 1991 &#xb7; Glasstatik EN 1288 &#xb7; T-Verbinder abZ Z-14.4-461</p>
+    <h1>THERM+ Pfosten-Riegel Dach &mdash; Statik-Konfigurator</h1>
+    <p>AI-50 &middot; AI-56 &middot; AI-76 &middot; FSI-50 &middot; FSI-56 &middot; &Ouml;NORM/DIN EN 1991 &middot; Glasstatik EN 1288 &middot; abZ Z-14.4-461</p>
   </div>
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
     <div class="ns">
-      <button class="nb active" id="nb-at" onclick="setNorm('ON')">&#xd6;NORM</button>
+      <button class="nb active" id="nb-at" onclick="setNorm('ON')">&Ouml;NORM</button>
       <button class="nb" id="nb-de" onclick="setNorm('DIN')">DIN/EC</button>
     </div>
-    <div class="logo">RAICO<span>THERM&#x207a; Konfigurator v2.0</span></div>
+    <div class="logo">RAICO<span>THERM+ Konfigurator v2.0</span></div>
   </div>
 </div>
 
 <div class="tabs">
-  <button class="tab active" onclick="showTab('geom')" id="t-geom">&#x2460; Geometrie</button>
-  <button class="tab" onclick="showTab('lasten')" id="t-lasten">&#x2461; Lasten</button>
-  <button class="tab" onclick="showTab('profile')" id="t-profile">&#x2462; Profile</button>
-  <button class="tab" onclick="showTab('statik')" id="t-statik">&#x2463; Statik</button>
-  <button class="tab" onclick="showTab('glas')" id="t-glas">&#x2464; Glasstatik</button>
-  <button class="tab" onclick="showTab('report')" id="t-report">&#x2465; Bericht</button>
+  <button class="tab active" id="t-geom"   onclick="showTab('geom')">&#x2460; Geometrie</button>
+  <button class="tab"        id="t-glas"   onclick="showTab('glas')">&#x2461; Glasaufbau</button>
+  <button class="tab"        id="t-lasten" onclick="showTab('lasten')">&#x2462; Lasten</button>
+  <button class="tab"        id="t-profile" onclick="showTab('profile')">&#x2463; Profile</button>
+  <button class="tab"        id="t-statik" onclick="showTab('statik')">&#x2464; Statik</button>
+  <button class="tab"        id="t-report" onclick="showTab('report')">&#x2465; Bericht</button>
 </div>
 
 <!-- GEOMETRIE -->
 <div id="tab-geom">
 <div class="g2">
   <div class="card">
-    <h3>Grundma&#xdf;e Dach</h3>
-    <div class="g2">
-      <div><label>Dachl&#xe4;nge L &#x2014; Gef&#xe4;llerichtung</label><div class="iu"><input type="number" id="g-L" value="8.0" step="0.1" min="1" max="60" oninput="dsk()"><span>m</span></div></div>
-      <div><label>Dachbreite B &#x2014; quer zum Gef&#xe4;lle</label><div class="iu"><input type="number" id="g-B" value="5.0" step="0.1" min="1" max="30" oninput="dsk()"><span>m</span></div></div>
+    <h3>Grundma&szlig;e Dach</h3>
+    <div style="background:#FEF3DC;color:#B86800;border-radius:6px;padding:.4rem .7rem;font-size:10px;margin-bottom:.5rem;line-height:1.5">
+      &#9432; Alle Ma&szlig;angaben beziehen sich auf <strong>Systemachsen</strong>
     </div>
-    <label>Dachneigung &#x3b1; (&#xb0;)</label>
-    <div class="iu"><input type="number" id="g-alp" value="3" step="0.5" min="0" max="45" oninput="dsk()"><span>&#xb0;</span></div>
-    <label>Traufh&#xf6;he h</label>
+    <div class="g2">
+      <div><label>Dachl&auml;nge L &mdash; Gef&auml;llerichtung</label>
+        <div class="iu"><input type="number" id="g-L" value="8.0" step="0.1" min="1" max="60" oninput="dsk()"><span>m</span></div></div>
+      <div><label>Dachbreite B &mdash; quer</label>
+        <div class="iu"><input type="number" id="g-B" value="5.0" step="0.1" min="1" max="30" oninput="dsk()"><span>m</span></div></div>
+    </div>
+    <label>Dachneigung &alpha;</label>
+    <div class="iu"><input type="number" id="g-alp" value="3" step="0.5" min="0" max="45" oninput="dsk()"><span>&deg;</span></div>
+    <label>Traufh&ouml;he h</label>
     <div class="iu"><input type="number" id="g-h" value="3.5" step="0.1" min="0.5" max="20"><span>m</span></div>
     <label>Dachform</label>
     <select id="g-form" onchange="dsk()">
-      <option value="pult">Pultdach</option>
-      <option value="sattel">Satteldach</option>
-      <option value="flach">Flachdach</option>
+      <option value="pult">Pultdach</option><option value="sattel">Satteldach</option>
     </select>
   </div>
   <div class="card">
     <h3>Raster &amp; System</h3>
-    <label>Pfostenabstand e&#x209a; &#x2014; in Gef&#xe4;llerichtung</label>
-    <div class="iu"><input type="number" id="g-ep" value="1.50" step="0.05" min="0.5" max="4" oninput="dsk()"><span>m</span></div>
-    <label>Riegelabstand e&#x1d63; &#x2014; quer zum Gef&#xe4;lle</label>
-    <div class="iu"><input type="number" id="g-er" value="1.20" step="0.05" min="0.3" max="3" oninput="dsk()"><span>m</span></div>
+    <label>Anzahl Pfosten &mdash; quer zum Gef&auml;lle</label>
+    <select id="g-np" onchange="dsk()">
+      <option value="2">2 Pfosten</option>
+      <option value="3">3 Pfosten</option>
+      <option value="4">4 Pfosten</option>
+      <option value="5">5 Pfosten</option>
+      <option value="6" selected>6 Pfosten</option>
+      <option value="7">7 Pfosten</option>
+      <option value="8">8 Pfosten</option>
+      <option value="9">9 Pfosten</option>
+      <option value="10">10 Pfosten</option>
+      <option value="12">12 Pfosten</option>
+      <option value="15">15 Pfosten</option>
+    </select>
+    <label>Anzahl Riegel &mdash; in Gef&auml;llerichtung</label>
+    <select id="g-nr" onchange="dsk()">
+      <option value="2">2 Riegel</option>
+      <option value="3">3 Riegel</option>
+      <option value="4">4 Riegel</option>
+      <option value="5" selected>5 Riegel</option>
+      <option value="6">6 Riegel</option>
+      <option value="7">7 Riegel</option>
+      <option value="8">8 Riegel</option>
+      <option value="9">9 Riegel</option>
+      <option value="10">10 Riegel</option>
+      <option value="12">12 Riegel</option>
+    </select>
+    <div id="raster-info" style="margin-top:.4rem;padding:.4rem .7rem;background:#f5f5f3;border-radius:6px;font-size:10px;color:#666"></div>
     <label>Fassadensystem</label>
     <select id="g-sys" onchange="onSC()">
-      <option value="AI50">AI-50 &#x2014; THERM&#x207a; A-I Aluminium 50 mm</option>
-      <option value="AI56">AI-56 &#x2014; THERM&#x207a; A-I Aluminium 56 mm</option>
-      <option value="AI76">AI-76 &#x2014; THERM&#x207a; A-I Aluminium 76 mm</option>
-      <option value="FSI50">FSI-50 &#x2014; THERM&#x207a; FS-I Stahl 50 mm</option>
-      <option value="FSI56">FSI-56 &#x2014; THERM&#x207a; FS-I Stahl 56/60 mm</option>
-    </select>
-    <label>Glasaufbau</label>
-    <select id="g-glas">
-      <option value="3VSG">3-fach ISO-VSG (Standard &#xdc;berkopf)</option>
-      <option value="2VSG">2-fach ISO (innen VSG)</option>
+      <option value="AI50">AI-50 &mdash; THERM+ A-I Alu 50 mm</option>
+      <option value="AI56">AI-56 &mdash; THERM+ A-I Alu 56 mm</option>
+      <option value="AI76">AI-76 &mdash; THERM+ A-I Alu 76 mm</option>
+      <option value="FSI50">FSI-50 &mdash; THERM+ FS-I Stahl 50 mm</option>
+      <option value="FSI56">FSI-56 &mdash; THERM+ FS-I Stahl 56/60 mm</option>
     </select>
   </div>
 </div>
 <div class="g2" style="margin-top:.75rem">
   <div class="card">
-    <h3>Tr&#xe4;gersystem &amp; Sonderlasten</h3>
-    <label>Pfosten-Tr&#xe4;gersystem (in Gef&#xe4;llerichtung)</label>
+    <h3>Tr&auml;gersystem &amp; Sonderlasten</h3>
+    <label>Pfosten-Tr&auml;gersystem (Gef&auml;llerichtung)</label>
     <select id="g-traeger" onchange="toggleZF()">
-      <option value="1">Einfeldtr&#xe4;ger</option>
-      <option value="2">Zweifeldtr&#xe4;ger</option>
+      <option value="1">Einfeldtr&auml;ger</option>
+      <option value="2">Zweifeldtr&auml;ger</option>
     </select>
-    <div id="zf-box" class="hidden" style="margin-top:.5rem">
-      <label>Lage Mittelauflager &#x2014; Abstand vom First (m)</label>
-      <div class="iu"><input type="number" id="g-L2" value="4.0" step="0.1" min="0.5" max="30" oninput="dsk()"><span>m</span></div>
-      <p class="fn">Nur Pfosten in Gef&#xe4;llerichtung. Riegel bleibt immer Einfeldtr&#xe4;ger.</p>
+    <div id="zf-box" class="hidden" style="margin-top:.5rem;padding:.5rem .75rem;background:#E8F0FA;border-radius:6px">
+      <label style="color:#1B4F8A;font-weight:500">Lage Mittelauflager &mdash; Abstand vom First</label>
+      <div class="iu" style="margin-top:4px"><input type="number" id="g-L2" value="4.0" step="0.1" min="0.5" max="30" oninput="dsk()"><span>m</span></div>
+      <p class="fn" style="color:#1B4F8A">Nur Pfosten in Gef&auml;llerichtung. Riegel bleibt Einfeldtr&auml;ger.</p>
     </div>
-    <label style="margin-top:.75rem;display:flex;align-items:center;gap:0">
-      <input type="checkbox" id="g-begeh"> F&#xfc;r Reparaturen begehbar (q&#x2096; = 1,0 kN/m&#xb2; lt. Norm)
+    <label style="margin-top:.75rem;display:flex;align-items:center;cursor:pointer">
+      <input type="checkbox" id="g-wind" checked> Windlast ber&uuml;cksichtigen (deaktivieren f&uuml;r Atrium/Innenbereich)
+    </label>
+    <label style="margin-top:.5rem;display:flex;align-items:center;cursor:pointer">
+      <input type="checkbox" id="g-begeh"> F&uuml;r Reparaturen begehbar (q<sub>k</sub>=1,0 kN/m&sup2;)
     </label>
     <hr class="dv">
-    <h3 style="margin-top:0">Standort &amp; Normbasis</h3>
+    <h3 style="margin-top:0">Standort &amp; Norm</h3>
     <div class="g2">
-      <div><label>Windzone</label><select id="g-wz"><option value="1">WZ 1</option><option value="2" selected>WZ 2</option><option value="3">WZ 3</option><option value="4">WZ 4 K&#xfc;ste</option></select></div>
-      <div><label>Gel&#xe4;ndekategorie</label><select id="g-gk"><option value="I">I</option><option value="II" selected>II</option><option value="III">III</option><option value="IV">IV</option></select></div>
+      <div><label>Windzone</label><select id="g-wz">
+        <option value="1">WZ 1</option><option value="2" selected>WZ 2</option><option value="3">WZ 3</option><option value="4">WZ 4 K&uuml;ste</option>
+      </select></div>
+      <div><label>Gel&auml;ndekategorie</label><select id="g-gk">
+        <option value="I">I</option><option value="II" selected>II</option><option value="III">III</option><option value="IV">IV</option>
+      </select></div>
     </div>
     <div class="g2">
-      <div><label>Schneelastzone</label><select id="g-sz"><option value="A1">A1 (&#xd6;N)</option><option value="A2" selected>A2 (&#xd6;N)</option><option value="B">B Alpen</option><option value="D1">DIN Z1</option><option value="D2">DIN Z2</option><option value="D3">DIN Z3</option></select></div>
+      <div><label>Schneelastzone</label><select id="g-sz">
+        <option value="A1">A1 (&Ouml;N)</option><option value="A2" selected>A2 (&Ouml;N)</option><option value="B">B Alpen</option>
+        <option value="D1">DIN Z1</option><option value="D2">DIN Z2</option><option value="D3">DIN Z3</option>
+      </select></div>
       <div><label>Seehoehe (m NN)</label><div class="iu"><input type="number" id="g-sh" value="280" step="10" min="0"><span>m</span></div></div>
     </div>
     <label>Standort</label><input type="text" id="g-ort" value="Wien, AT">
   </div>
-  <div class="sw" style="padding:0"><svg id="sketch" width="100%" viewBox="0 0 420 230" style="display:block"></svg></div>
+  <div class="sw"><svg id="sketch" width="100%" viewBox="0 0 420 230" style="display:block"></svg></div>
 </div>
-<div class="ra"><button class="btn bp" onclick="cL();showTab('lasten')">Weiter: Lasten berechnen &#x2192;</button></div>
+<div class="ra">
+  <button class="btn bp" onclick="cG();showTab('glas')">Weiter: Glasaufbau &rarr;</button>
+</div>
 </div>
 
 <!-- LASTEN -->
 <div id="tab-lasten" class="hidden">
-  <div id="lo"><div class="alert ai">Geometrie eingeben und Lasten berechnen.</div></div>
-  <div class="ra"><button class="btn bp" onclick="cL()">Lasten berechnen</button><button class="btn bp" onclick="showTab('profile');rP()">Weiter: Profile &#x2192;</button></div>
+  <div id="lo"><div class="alert ai">Geometrie eingeben und berechnen.</div></div>
+  <div class="ra">
+    <button class="btn bp" onclick="cL()">Lasten berechnen</button>
+    <button class="btn bp" onclick="showTab('profile');rP()">Weiter: Profile &rarr;</button>
+  </div>
 </div>
 
 <!-- PROFILE -->
 <div id="tab-profile" class="hidden">
 <div class="g2">
-  <div class="card">
-    <h3>Pfostenprofil &#x2014; Gef&#xe4;llerichtung (Spannw. = e&#x209a;)</h3>
-    <div id="pl"></div><hr class="dv"><div id="pd"></div>
-  </div>
-  <div class="card">
-    <h3>Riegelprofil &#x2014; quer (Spannw. = e&#x1d63;) &#xb7; max. = Pfostenprofil</h3>
-    <div id="rl"></div><hr class="dv"><div id="rd"></div>
-  </div>
+  <div class="card"><h3>Pfostenprofil &mdash; Gef&auml;llerichtung (Spannw. = e<sub>P</sub>)</h3><div id="pl"></div><hr class="dv"><div id="pd"></div></div>
+  <div class="card"><h3>Riegelprofil &mdash; quer (Spannw. = e<sub>R</sub>) &middot; max. = Pfostenprofil</h3><div id="rl"></div><hr class="dv"><div id="rd"></div></div>
 </div>
 <div class="card" style="margin-top:.75rem">
   <h3>T-Verbinder (abZ Z-14.4-461)</h3>
   <div class="g3">
-    <div><label>Verbindertyp</label>
-    <select id="v-typ" onchange="uV()">
-      <option value="160006">160006 RT25 &#x2014; 120 kg / 2,5 kN</option>
-      <option value="160008">160008 RT50 &#x2014; 140 kg / 3,5 kN</option>
-      <option value="160010" selected>160010 RT75 &#x2014; 160 kg / 3,5 kN</option>
-      <option value="160016">160016 RT100 &#x2014; 180 kg / 3,5 kN</option>
-      <option value="160020">160020 RT125 &#x2014; 200 kg / 3,5 kN</option>
-      <option value="160026">160026 RT150 &#x2014; 250 kg / 3,5 kN</option>
-      <option value="160030">160030 RT175 &#x2014; 280 kg / 3,5 kN</option>
-      <option value="160035">160035 RT200 &#x2014; 300 kg / 3,5 kN</option>
-      <option value="160016-4s">160016 RT100 &#x2014; 300 kg / 6,5 kN (4 Schr.)</option>
-      <option value="160026-4s">160026 RT150 &#x2014; 340 kg / 6,5 kN (4 Schr.)</option>
-      <option value="160035-4s">160035 RT200 &#x2014; 400 kg / 6,5 kN (4 Schr.)</option>
+    <div><label>Verbindertyp</label><select id="v-typ" onchange="uV()">
+      <option value="160006">160006 RT25 &mdash; 120 kg / 2,5 kN</option>
+      <option value="160008">160008 RT50 &mdash; 140 kg / 3,5 kN</option>
+      <option value="160010" selected>160010 RT75 &mdash; 160 kg / 3,5 kN</option>
+      <option value="160016">160016 RT100 &mdash; 180 kg / 3,5 kN</option>
+      <option value="160020">160020 RT125 &mdash; 200 kg / 3,5 kN</option>
+      <option value="160026">160026 RT150 &mdash; 250 kg / 3,5 kN</option>
+      <option value="160030">160030 RT175 &mdash; 280 kg / 3,5 kN</option>
+      <option value="160035">160035 RT200 &mdash; 300 kg / 3,5 kN</option>
+      <option value="160016-4s">160016 RT100 &mdash; 300 kg / 6,5 kN (4 Schr.)</option>
+      <option value="160026-4s">160026 RT150 &mdash; 340 kg / 6,5 kN (4 Schr.)</option>
+      <option value="160035-4s">160035 RT200 &mdash; 400 kg / 6,5 kN (4 Schr.)</option>
     </select></div>
-    <div><label>Schrauben Art.-Nr. 908057</label><select id="v-schr"><option value="2" selected>2 Schrauben</option><option value="4">4 Schrauben</option></select></div>
+    <div><label>Schrauben 908057</label><select id="v-schr"><option value="2" selected>2 Schrauben</option><option value="4">4 Schrauben</option></select></div>
     <div><label>Anschluss</label><select id="v-a"><option value="g" selected>Gelenkig</option><option value="m">Momentensteif</option></select></div>
   </div>
   <div id="vc" style="margin-top:.6rem"></div>
-  <p class="fn">abZ Z-14.4-461 &#x2014; Max. Last pro Verbindung = Gesamtlast &#xf7; 2</p>
+  <p class="fn" id="verb-glas-fn">abZ Z-14.4-461 &mdash; Ma&szlig;gebendes Glasgewicht je Feld: wird berechnet</p>
 </div>
-<div class="ra"><button class="btn bp" onclick="cS();showTab('statik')">Weiter: Statik &#x2192;</button></div>
+<div class="ra"><button class="btn bp" onclick="cS();showTab('statik')">Weiter: Statik &rarr;</button></div>
 </div>
 
 <!-- STATIK -->
-<div id="tab-statik" class="hidden"><div id="so"><div class="alert ai">Profile w&#xe4;hlen und Statik starten.</div></div></div>
+<div id="tab-statik" class="hidden"><div id="so"><div class="alert ai">Profile w&auml;hlen und Statik starten.</div></div></div>
 
 <!-- GLASSTATIK -->
 <div id="tab-glas" class="hidden">
 <div class="card">
-  <h3>Glasaufbau &#x2014; Glasfeld = Rasterfeld minus 15 mm umlaufend</h3>
+  <h3>Glasaufbau &mdash; Glasfeld = Rasterfeld minus 15 mm umlaufend</h3>
   <div class="g3">
-    <div><label>Glastyp</label>
-    <select id="gl-t" onchange="cG()">
-      <option value="3VSG" selected>3-fach ISO-VSG (Standard)</option>
-      <option value="2VSG">2-fach ISO + VSG innen</option>
-    </select></div>
-    <div><label>Au&#xdf;enscheibe (mm)</label><input type="number" id="gl-d1" value="6" step="1" min="4" max="19" onchange="cG()"></div>
-    <div><label>Mittelscheibe (mm) &#x2014; nur 3-fach</label><input type="number" id="gl-dm" value="6" step="1" min="4" max="19" onchange="cG()"></div>
+    <div><label>Glastyp</label><select id="gl-t" onchange="cG()"><option value="3VSG" selected>3-fach ISO</option><option value="2VSG">2-fach ISO</option></select></div>
+    <div><label>Au&szlig;enscheibe (mm)</label><input type="number" id="gl-d1" value="6" step="1" min="4" max="19" onchange="cG()"></div>
+    <div><label>Mittelscheibe (mm) &mdash; nur 3-fach</label><input type="number" id="gl-dm" value="6" step="1" min="4" max="19" onchange="cG()"></div>
   </div>
   <div class="g3" style="margin-top:.5rem">
     <div><label>VSG innen (mm je Scheibe)</label><input type="number" id="gl-d2" value="8" step="1" min="4" max="19" onchange="cG()"></div>
     <div><label>SZR</label><select id="gl-s" onchange="cG()"><option value="12">12 mm</option><option value="16" selected>16 mm</option><option value="20">20 mm</option></select></div>
-    <div><label>Lagerungsart</label><select id="gl-l" onchange="cG()"><option value="4s" selected>4-seitig</option><option value="2s">2-seitig</option><option value="pt">Punkthalter</option></select></div>
+    <div><label>Lagerung</label><select id="gl-l" onchange="cG()"><option value="4s" selected>4-seitig</option><option value="2s">2-seitig</option><option value="pt">Punkthalter</option></select></div>
   </div>
   <div id="gl-abm" style="margin-top:.5rem;padding:.5rem .75rem;background:#E8F0FA;border-radius:6px;font-size:11px;color:#1B4F8A"></div>
 </div>
@@ -247,7 +270,7 @@ tr:last-child td{border-bottom:none}
 <!-- BERICHT -->
 <div id="tab-report" class="hidden">
 <div class="card">
-  <h3>Statischer Vorbericht &#x2014; RAICO THERM&#x207a;</h3>
+  <h3>Statischer Vorbericht &mdash; RAICO THERM+</h3>
   <div id="ro"></div>
   <div class="ra" style="margin-top:1rem">
     <button class="btn bp" onclick="window.print()">Drucken / PDF</button>
@@ -258,453 +281,613 @@ tr:last-child td{border-bottom:none}
 </div>
 
 <script>
+// ============================================================
+// DATA
+// ============================================================
 var DB={
 AI50:[
-{art:'110003',n:'50x25',s:'AI-50',b:50,h:25,Ix:8.63,Wx:3.33,Iy:11.00,Wy:4.40,ey:2.50,kg:0.65},
-{art:'110005',n:'50x50',s:'AI-50',b:50,h:50,Ix:34.35,Wx:8.58,Iy:19.26,Wy:7.70,ey:2.50,kg:0.90},
-{art:'110010',n:'50x75',s:'AI-50',b:50,h:75,Ix:88.65,Wx:15.92,Iy:26.60,Wy:10.64,ey:2.50,kg:1.15},
-{art:'110015',n:'50x100',s:'AI-50',b:50,h:100,Ix:170.10,Wx:24.38,Iy:32.75,Wy:13.10,ey:2.50,kg:1.40},
-{art:'110020',n:'50x125',s:'AI-50',b:50,h:125,Ix:288.90,Wx:34.02,Iy:39.14,Wy:15.66,ey:2.50,kg:1.70},
-{art:'110025',n:'50x150',s:'AI-50',b:50,h:150,Ix:439.00,Wx:44.41,Iy:45.54,Wy:18.22,ey:2.50,kg:1.95},
-{art:'110030',n:'50x175',s:'AI-50',b:50,h:175,Ix:627.53,Wx:55.99,Iy:52.23,Wy:20.89,ey:2.50,kg:2.25},
-{art:'110035',n:'50x200',s:'AI-50',b:50,h:200,Ix:1017.25,Wx:81.34,Iy:80.10,Wy:32.04,ey:2.50,kg:2.80}],
+{art:"110003",n:"50x25",s:"AI-50",b:50,h:25,Ix:8.63,Wx:3.33,Iy:11.00,Wy:4.40,ey:2.50,kg:0.65},
+{art:"110005",n:"50x50",s:"AI-50",b:50,h:50,Ix:34.35,Wx:8.58,Iy:19.26,Wy:7.70,ey:2.50,kg:0.90},
+{art:"110010",n:"50x75",s:"AI-50",b:50,h:75,Ix:88.65,Wx:15.92,Iy:26.60,Wy:10.64,ey:2.50,kg:1.15},
+{art:"110015",n:"50x100",s:"AI-50",b:50,h:100,Ix:170.10,Wx:24.38,Iy:32.75,Wy:13.10,ey:2.50,kg:1.40},
+{art:"110020",n:"50x125",s:"AI-50",b:50,h:125,Ix:288.90,Wx:34.02,Iy:39.14,Wy:15.66,ey:2.50,kg:1.70},
+{art:"110025",n:"50x150",s:"AI-50",b:50,h:150,Ix:439.00,Wx:44.41,Iy:45.54,Wy:18.22,ey:2.50,kg:1.95},
+{art:"110030",n:"50x175",s:"AI-50",b:50,h:175,Ix:627.53,Wx:55.99,Iy:52.23,Wy:20.89,ey:2.50,kg:2.25},
+{art:"110035",n:"50x200",s:"AI-50",b:50,h:200,Ix:1017.25,Wx:81.34,Iy:80.10,Wy:32.04,ey:2.50,kg:2.80}],
 AI56:[
-{art:'110053',n:'56x25',s:'AI-56',b:56,h:25,Ix:9.32,Wx:3.50,Iy:15.75,Wy:5.62,ey:2.80,kg:0.75},
-{art:'110055',n:'56x50',s:'AI-56',b:56,h:50,Ix:42.75,Wx:9.84,Iy:32.43,Wy:11.58,ey:2.80,kg:1.05},
-{art:'110060',n:'56x75',s:'AI-56',b:56,h:75,Ix:101.38,Wx:17.58,Iy:42.65,Wy:15.23,ey:2.80,kg:1.35},
-{art:'110065',n:'56x100',s:'AI-56',b:56,h:100,Ix:195.95,Wx:27.23,Iy:51.82,Wy:18.51,ey:2.80,kg:1.65},
-{art:'110070',n:'56x125',s:'AI-56',b:56,h:125,Ix:333.31,Wx:38.29,Iy:61.62,Wy:22.01,ey:2.80,kg:1.95},
-{art:'110075',n:'56x150',s:'AI-56',b:56,h:150,Ix:510.95,Wx:50.59,Iy:72.45,Wy:25.87,ey:2.80,kg:2.25},
-{art:'110080',n:'56x175',s:'AI-56',b:56,h:175,Ix:738.38,Wx:64.31,Iy:83.19,Wy:29.71,ey:2.80,kg:2.60},
-{art:'110085',n:'56x200',s:'AI-56',b:56,h:200,Ix:1159.57,Wx:89.25,Iy:108.92,Wy:38.90,ey:2.80,kg:3.10}],
+{art:"110053",n:"56x25",s:"AI-56",b:56,h:25,Ix:9.32,Wx:3.50,Iy:15.75,Wy:5.62,ey:2.80,kg:0.75},
+{art:"110055",n:"56x50",s:"AI-56",b:56,h:50,Ix:42.75,Wx:9.84,Iy:32.43,Wy:11.58,ey:2.80,kg:1.05},
+{art:"110060",n:"56x75",s:"AI-56",b:56,h:75,Ix:101.38,Wx:17.58,Iy:42.65,Wy:15.23,ey:2.80,kg:1.35},
+{art:"110065",n:"56x100",s:"AI-56",b:56,h:100,Ix:195.95,Wx:27.23,Iy:51.82,Wy:18.51,ey:2.80,kg:1.65},
+{art:"110070",n:"56x125",s:"AI-56",b:56,h:125,Ix:333.31,Wx:38.29,Iy:61.62,Wy:22.01,ey:2.80,kg:1.95},
+{art:"110075",n:"56x150",s:"AI-56",b:56,h:150,Ix:510.95,Wx:50.59,Iy:72.45,Wy:25.87,ey:2.80,kg:2.25},
+{art:"110080",n:"56x175",s:"AI-56",b:56,h:175,Ix:738.38,Wx:64.31,Iy:83.19,Wy:29.71,ey:2.80,kg:2.60},
+{art:"110085",n:"56x200",s:"AI-56",b:56,h:200,Ix:1159.57,Wx:89.25,Iy:108.92,Wy:38.90,ey:2.80,kg:3.10}],
 AI76:[
-{art:'110103',n:'76x25',s:'AI-76',b:76,h:25,Ix:10.6,Wx:3.9,Iy:34.1,Wy:9.0,ey:0,kg:0.85},
-{art:'110105',n:'76x50',s:'AI-76',b:76,h:50,Ix:43.1,Wx:10.5,Iy:60.2,Wy:15.9,ey:0,kg:1.15},
-{art:'110110',n:'76x75',s:'AI-76',b:76,h:75,Ix:113.1,Wx:20.0,Iy:78.4,Wy:20.6,ey:0,kg:1.50},
-{art:'110115',n:'76x100',s:'AI-76',b:76,h:100,Ix:229.2,Wx:31.5,Iy:99.4,Wy:26.2,ey:0,kg:1.85},
-{art:'110121',n:'76x125',s:'AI-76',b:76,h:125,Ix:377.8,Wx:43.5,Iy:114.6,Wy:30.2,ey:0,kg:2.20},
-{art:'110127',n:'76x150',s:'AI-76',b:76,h:150,Ix:577.5,Wx:58.7,Iy:147.6,Wy:38.8,ey:0,kg:2.60},
-{art:'110130',n:'76x175',s:'AI-76',b:76,h:175,Ix:917.4,Wx:80.9,Iy:208.7,Wy:54.9,ey:0,kg:3.10},
-{art:'110135',n:'76x200',s:'AI-76',b:76,h:200,Ix:1127.9,Wx:97.8,Iy:226.7,Wy:59.7,ey:0,kg:3.55},
-{art:'110140',n:'76x225',s:'AI-76',b:76,h:225,Ix:2083.5,Wx:147.7,Iy:293.3,Wy:77.2,ey:0,kg:4.20}],
+{art:"110103",n:"76x25",s:"AI-76",b:76,h:25,Ix:10.6,Wx:3.9,Iy:34.1,Wy:9.0,ey:0,kg:0.85},
+{art:"110105",n:"76x50",s:"AI-76",b:76,h:50,Ix:43.1,Wx:10.5,Iy:60.2,Wy:15.9,ey:0,kg:1.15},
+{art:"110110",n:"76x75",s:"AI-76",b:76,h:75,Ix:113.1,Wx:20.0,Iy:78.4,Wy:20.6,ey:0,kg:1.50},
+{art:"110115",n:"76x100",s:"AI-76",b:76,h:100,Ix:229.2,Wx:31.5,Iy:99.4,Wy:26.2,ey:0,kg:1.85},
+{art:"110121",n:"76x125",s:"AI-76",b:76,h:125,Ix:377.8,Wx:43.5,Iy:114.6,Wy:30.2,ey:0,kg:2.20},
+{art:"110127",n:"76x150",s:"AI-76",b:76,h:150,Ix:577.5,Wx:58.7,Iy:147.6,Wy:38.8,ey:0,kg:2.60},
+{art:"110130",n:"76x175",s:"AI-76",b:76,h:175,Ix:917.4,Wx:80.9,Iy:208.7,Wy:54.9,ey:0,kg:3.10},
+{art:"110135",n:"76x200",s:"AI-76",b:76,h:200,Ix:1127.9,Wx:97.8,Iy:226.7,Wy:59.7,ey:0,kg:3.55},
+{art:"110140",n:"76x225",s:"AI-76",b:76,h:225,Ix:2083.5,Wx:147.7,Iy:293.3,Wy:77.2,ey:0,kg:4.20}],
 FSI50:[
-{art:'445010',n:'50/60x2',s:'FSI-50',b:50,h:60,Ix:23.51,Wx:7.24,Iy:16.87,Wy:6.75,ey:2.50,kg:4.07,t:2},
-{art:'445015',n:'50/90x2',s:'FSI-50',b:50,h:90,Ix:65.03,Wx:13.16,Iy:23.79,Wy:9.52,ey:2.50,kg:5.01,t:2},
-{art:'445020',n:'50/120x2',s:'FSI-50',b:50,h:120,Ix:134.90,Wx:20.52,Iy:30.70,Wy:12.28,ey:2.50,kg:5.95,t:2},
-{art:'445025',n:'50/120x3',s:'FSI-50',b:50,h:120,Ix:194.11,Wx:29.60,Iy:43.73,Wy:17.94,ey:2.50,kg:8.79,t:3},
-{art:'445030',n:'50/150x3',s:'FSI-50',b:50,h:150,Ix:345.64,Wx:42.39,Iy:53.68,Wy:21.47,ey:2.50,kg:10.21,t:3},
-{art:'445035',n:'50/150x4',s:'FSI-50',b:50,h:150,Ix:444.75,Wx:54.66,Iy:68.09,Wy:27.24,ey:2.50,kg:13.43,t:4}],
+{art:"445010",n:"50/60x2",s:"FSI-50",b:50,h:60,Ix:23.51,Wx:7.24,Iy:16.87,Wy:6.75,ey:2.50,kg:4.07,t:2},
+{art:"445015",n:"50/90x2",s:"FSI-50",b:50,h:90,Ix:65.03,Wx:13.16,Iy:23.79,Wy:9.52,ey:2.50,kg:5.01,t:2},
+{art:"445020",n:"50/120x2",s:"FSI-50",b:50,h:120,Ix:134.90,Wx:20.52,Iy:30.70,Wy:12.28,ey:2.50,kg:5.95,t:2},
+{art:"445025",n:"50/120x3",s:"FSI-50",b:50,h:120,Ix:194.11,Wx:29.60,Iy:43.73,Wy:17.94,ey:2.50,kg:8.79,t:3},
+{art:"445030",n:"50/150x3",s:"FSI-50",b:50,h:150,Ix:345.64,Wx:42.39,Iy:53.68,Wy:21.47,ey:2.50,kg:10.21,t:3},
+{art:"445035",n:"50/150x4",s:"FSI-50",b:50,h:150,Ix:444.75,Wx:54.66,Iy:68.09,Wy:27.24,ey:2.50,kg:13.43,t:4}],
 FSI56:[
-{art:'445060',n:'60/60x2',s:'FSI-56',b:60,h:60,Ix:26.90,Wx:8.33,Iy:25.61,Wy:8.54,ey:3.00,kg:4.38,t:2},
-{art:'445065',n:'60/90x2',s:'FSI-56',b:60,h:90,Ix:72.85,Wx:14.82,Iy:35.70,Wy:11.90,ey:3.00,kg:5.32,t:2},
-{art:'445070',n:'60/90x4',s:'FSI-56',b:60,h:90,Ix:132.08,Wx:27.05,Iy:64.79,Wy:21.60,ey:3.00,kg:10.28,t:4},
-{art:'445075',n:'60/120x2',s:'FSI-56',b:60,h:120,Ix:148.95,Wx:22.76,Iy:45.80,Wy:15.27,ey:3.00,kg:6.27,t:2},
-{art:'445080',n:'60/120x4',s:'FSI-56',b:60,h:120,Ix:275.26,Wx:42.26,Iy:83.64,Wy:27.88,ey:3.00,kg:12.17,t:4},
-{art:'445085',n:'60/150x3',s:'FSI-56',b:60,h:150,Ix:378.31,Wx:46.57,Iy:80.28,Wy:26.76,ey:3.00,kg:10.68,t:3},
-{art:'445090',n:'60/150x4',s:'FSI-56',b:60,h:150,Ix:487.71,Wx:60.14,Iy:102.48,Wy:34.16,ey:3.00,kg:14.05,t:4},
-{art:'445095',n:'60/180x3',s:'FSI-56',b:60,h:180,Ix:602.72,Wx:62.15,Iy:94.92,Wy:31.64,ey:3.00,kg:12.10,t:3},
-{art:'445100',n:'60/180x5',s:'FSI-56',b:60,h:180,Ix:946.86,Wx:97.96,Iy:145.38,Wy:48.46,ey:3.00,kg:19.70,t:5},
-{art:'445105',n:'60/200x5',s:'FSI-56',b:60,h:200,Ix:1247.02,Wx:116.48,Iy:160.55,Wy:53.52,ey:3.00,kg:21.27,t:5}]};
+{art:"445060",n:"60/60x2",s:"FSI-56",b:60,h:60,Ix:26.90,Wx:8.33,Iy:25.61,Wy:8.54,ey:3.00,kg:4.38,t:2},
+{art:"445065",n:"60/90x2",s:"FSI-56",b:60,h:90,Ix:72.85,Wx:14.82,Iy:35.70,Wy:11.90,ey:3.00,kg:5.32,t:2},
+{art:"445070",n:"60/90x4",s:"FSI-56",b:60,h:90,Ix:132.08,Wx:27.05,Iy:64.79,Wy:21.60,ey:3.00,kg:10.28,t:4},
+{art:"445075",n:"60/120x2",s:"FSI-56",b:60,h:120,Ix:148.95,Wx:22.76,Iy:45.80,Wy:15.27,ey:3.00,kg:6.27,t:2},
+{art:"445080",n:"60/120x4",s:"FSI-56",b:60,h:120,Ix:275.26,Wx:42.26,Iy:83.64,Wy:27.88,ey:3.00,kg:12.17,t:4},
+{art:"445085",n:"60/150x3",s:"FSI-56",b:60,h:150,Ix:378.31,Wx:46.57,Iy:80.28,Wy:26.76,ey:3.00,kg:10.68,t:3},
+{art:"445090",n:"60/150x4",s:"FSI-56",b:60,h:150,Ix:487.71,Wx:60.14,Iy:102.48,Wy:34.16,ey:3.00,kg:14.05,t:4},
+{art:"445095",n:"60/180x3",s:"FSI-56",b:60,h:180,Ix:602.72,Wx:62.15,Iy:94.92,Wy:31.64,ey:3.00,kg:12.10,t:3},
+{art:"445100",n:"60/180x5",s:"FSI-56",b:60,h:180,Ix:946.86,Wx:97.96,Iy:145.38,Wy:48.46,ey:3.00,kg:19.70,t:5},
+{art:"445105",n:"60/200x5",s:"FSI-56",b:60,h:200,Ix:1247.02,Wx:116.48,Iy:160.55,Wy:53.52,ey:3.00,kg:21.27,t:5}]};
 
-var MP={AI50:{E:7000,fy:16.0,gM:1.1,nm:'Al EN AW-6060 T66'},AI56:{E:7000,fy:16.0,gM:1.1,nm:'Al EN AW-6060 T66'},AI76:{E:7000,fy:16.0,gM:1.1,nm:'Al EN AW-6060 T66'},FSI50:{E:21000,fy:23.5,gM:1.0,nm:'Stahl S235'},FSI56:{E:21000,fy:23.5,gM:1.0,nm:'Stahl S235'}};
-var VB={'160006':{art:'160006',RT:25,G2:120,G4:null,F2:2.5,F4:null},'160008':{art:'160008',RT:50,G2:140,G4:260,F2:3.5,F4:6.5},'160010':{art:'160010',RT:75,G2:160,G4:280,F2:3.5,F4:6.5},'160016':{art:'160016',RT:100,G2:180,G4:300,F2:3.5,F4:6.5},'160020':{art:'160020',RT:125,G2:200,G4:320,F2:3.5,F4:6.5},'160026':{art:'160026',RT:150,G2:250,G4:340,F2:3.5,F4:6.5},'160030':{art:'160030',RT:175,G2:280,G4:380,F2:3.5,F4:6.5},'160035':{art:'160035',RT:200,G2:300,G4:400,F2:3.5,F4:6.5},'160016-4s':{art:'160016',RT:100,G2:300,G4:300,F2:6.5,F4:6.5},'160026-4s':{art:'160026',RT:150,G2:340,G4:340,F2:6.5,F4:6.5},'160035-4s':{art:'160035',RT:200,G2:400,G4:400,F2:6.5,F4:6.5}};
+var MP={
+  AI50:{E:7000,fy:16.0,gM:1.1,nm:"Al EN AW-6060 T66"},
+  AI56:{E:7000,fy:16.0,gM:1.1,nm:"Al EN AW-6060 T66"},
+  AI76:{E:7000,fy:16.0,gM:1.1,nm:"Al EN AW-6060 T66"},
+  FSI50:{E:21000,fy:23.5,gM:1.0,nm:"Stahl S235"},
+  FSI56:{E:21000,fy:23.5,gM:1.0,nm:"Stahl S235"}};
 
-var norm='ON',sP=3,sR=2,LR={},SR={},GR={};
-var BCLS=['b0','b1','b2','b3','b4'];
+var VB={
+  "160006":{art:"160006",RT:25,G2:120,G4:null,F2:2.5,F4:null},
+  "160008":{art:"160008",RT:50,G2:140,G4:260,F2:3.5,F4:6.5},
+  "160010":{art:"160010",RT:75,G2:160,G4:280,F2:3.5,F4:6.5},
+  "160016":{art:"160016",RT:100,G2:180,G4:300,F2:3.5,F4:6.5},
+  "160020":{art:"160020",RT:125,G2:200,G4:320,F2:3.5,F4:6.5},
+  "160026":{art:"160026",RT:150,G2:250,G4:340,F2:3.5,F4:6.5},
+  "160030":{art:"160030",RT:175,G2:280,G4:380,F2:3.5,F4:6.5},
+  "160035":{art:"160035",RT:200,G2:300,G4:400,F2:3.5,F4:6.5},
+  "160016-4s":{art:"160016",RT:100,G2:300,G4:300,F2:6.5,F4:6.5},
+  "160026-4s":{art:"160026",RT:150,G2:340,G4:340,F2:6.5,F4:6.5},
+  "160035-4s":{art:"160035",RT:200,G2:400,G4:400,F2:6.5,F4:6.5}};
 
-function g(id){return document.getElementById(id)}
-function v(id){return parseFloat(g(id).value)||0}
-function sv(id){return g(id).value}
-function sc(e){return e>1?'err':e>0.85?'warn':'ok'}
-function st(e){return e>1?'&#10007; Nicht OK':e>0.85?'&#9888; Knapp':'&#10003; OK'}
-function pct(e){return Math.min(Math.round(e*100),105)}
-function bar(e){var p=Math.min(e*100,105),c=e>1?'#8B1A1A':e>0.85?'#B86800':'#2E7D52';return '<div class="ut"><span>&#951; = '+e.toFixed(3)+'</span><span>'+st(e)+'</span></div><div class="pbar"><div class="pfill" style="width:'+p+'%;background:'+c+'"></div></div>';}
-function fN(x,d){d=d===undefined?2:d;return(x===undefined||isNaN(x)||x===null)?'&#8211;':Number(x).toFixed(d)}
-function pill(e){if(e===undefined||isNaN(e))return '';return '<span class="pill '+sc(e)+'">'+st(e)+'</span>'}
-function bci(s){return s==='AI-50'?0:s==='AI-56'?1:s==='AI-76'?2:s==='FSI-50'?3:4}
-function rc(cl,lb,val,un){return '<div class="rc '+cl+'"><div class="lb">'+lb+'</div><div class="vl">'+val+'</div><div class="un">'+un+'</div></div>'}
+// ============================================================
+// STATE
+// ============================================================
+var norm="ON", sP=3, sR=2, LR={}, SR={}, GR={};
 
-function setNorm(n){norm=n;g('nb-at').classList.toggle('active',n==='ON');g('nb-de').classList.toggle('active',n==='DIN')}
+// Pfosten verlaufen in Gefällerichtung (L), stehen mit Abstand in B-Richtung
+// Riegel verlaufen quer (B), stehen mit Abstand in L-Richtung
+function getEP(){var B=v("g-B")||5,nP=parseInt(sv("g-np"))||6;return B/(nP-1);}
+function getER(){var L=v("g-L")||8,nR=parseInt(sv("g-nr"))||5;return L/(nR-1);}
+var BCLS=["b0","b1","b2","b3","b4"];
+
+// ============================================================
+// HELPERS
+// ============================================================
+function g(id){return document.getElementById(id);}
+function v(id){var el=g(id);return el?parseFloat(el.value)||0:0;}
+function sv(id){var el=g(id);return el?el.value:"";}
+function sc(e){return e>1?"err":e>0.85?"warn":"ok";}
+function st(e){return e>1?"&#10007; Nicht OK":e>0.85?"&#9888; Knapp":"&#10003; OK";}
+function pct(e){return Math.min(Math.round(e*100),105);}
+function fN(x,d){d=d===undefined?2:d;return(x===undefined||x===null||isNaN(x))?"&ndash;":Number(x).toFixed(d);}
+function pill(e){if(e===undefined||isNaN(e))return "";return "<span class=\"pill "+sc(e)+"\">"+st(e)+"</span>";}
+function bci(s){return s==="AI-50"?0:s==="AI-56"?1:s==="AI-76"?2:s==="FSI-50"?3:4;}
+
+function bar(e){
+  var p=Math.min(e*100,105),c=e>1?"#8B1A1A":e>0.85?"#B86800":"#2E7D52";
+  return "<div class=\"ut\"><span>&eta; = "+e.toFixed(3)+"</span><span>"+st(e)+"</span></div>"+
+         "<div class=\"pbar\"><div class=\"pfill\" style=\"width:"+p+"%;background:"+c+"\"></div></div>";
+}
+
+function rc(cl,lb,val,un){
+  return "<div class=\"rc "+cl+"\"><div class=\"lb\">"+lb+"</div><div class=\"vl\">"+val+"</div><div class=\"un\">"+un+"</div></div>";
+}
+
+function mkBtn(label,onclick){
+  return "<div class=\"ra\"><button class=\"btn bp\" onclick=\""+onclick+"\">"+label+"</button></div>";
+}
+
+// ============================================================
+// NORM & TABS
+// ============================================================
+function setNorm(n){
+  norm=n;
+  g("nb-at").classList.toggle("active",n==="ON");
+  g("nb-de").classList.toggle("active",n==="DIN");
+}
 
 function showTab(t){
-  ['geom','lasten','profile','statik','glas','report'].forEach(function(id){
-    var e=g('tab-'+id);if(e)e.classList.add('hidden');
-    var b=g('t-'+id);if(b)b.classList.remove('active');
+  ["geom","glas","lasten","profile","statik","report"].forEach(function(id){
+    var el=g("tab-"+id); if(el) el.classList.add("hidden");
+    var bt=g("t-"+id); if(bt) bt.classList.remove("active");
   });
-  var e=g('tab-'+t);if(e)e.classList.remove('hidden');
-  var b=g('t-'+t);if(b)b.classList.add('active');
-  if(t==='glas')cG();
-  if(t==='report')rR();
+  var el=g("tab-"+t); if(el) el.classList.remove("hidden");
+  var bt=g("t-"+t); if(bt) bt.classList.add("active");
+  if(t==="glas") cG();
+  if(t==="statik") cS();
+  if(t==="report") rR();
 }
 
-function onSC(){sP=3;sR=2;rP()}
-function toggleZF(){var zf=sv('g-traeger')==='2';g('zf-box').classList.toggle('hidden',!zf);dsk()}
+function onSC(){sP=3;sR=2;rP();}
 
-// ---- SKIZZE ----
+function toggleZF(){
+  var zf=sv("g-traeger")==="2";
+  g("zf-box").classList.toggle("hidden",!zf);
+  dsk();
+}
+
+// ============================================================
+// SKIZZE
+// ============================================================
 function dsk(){
-  var L=v('g-L')||8,B=v('g-B')||5,alp=v('g-alp')||3,ep=v('g-ep')||1.5,er=v('g-er')||1.2;
-  var form=sv('g-form'),zf=sv('g-traeger')==='2',L2=v('g-L2')||4;
+  var L=v("g-L")||8,B=v("g-B")||5,alp=v("g-alp")||3;var ep=getEP(),er=getER();var npLabel=sv("g-np"),nrLabel=sv("g-nr");
+  var form=sv("g-form"),zf=sv("g-traeger")==="2",L2=v("g-L2")||4;
   var sw=270,sh=72,ox=70,oy=15;
-  var nP=Math.max(2,Math.round(L/ep)+1),nR=Math.max(2,Math.round(B/er)+1);
-  var o='';
-  for(var i=0;i<nP;i++){var x=ox+i*sw/(nP-1);o+='<line x1="'+x+'" y1="'+oy+'" x2="'+x+'" y2="'+(oy+sh)+'" stroke="#1B4F8A" stroke-width="1.5" opacity=".6"/>';}
-  for(var j=0;j<nR;j++){var y=oy+j*sh/(nR-1);o+='<line x1="'+ox+'" y1="'+y+'" x2="'+(ox+sw)+'" y2="'+y+'" stroke="#888" stroke-width="0.75" opacity=".4"/>';}
-  o+='<rect x="'+ox+'" y="'+oy+'" width="'+sw+'" height="'+sh+'" fill="none" stroke="#1B4F8A" stroke-width="1.5"/>';
-  o+='<text x="'+(ox+sw/2)+'" y="'+(oy-4)+'" text-anchor="middle" fill="#555" font-size="9" font-family="Segoe UI,sans-serif">L='+L+'m (Gef&#xe4;lle) &#xb7; eP='+ep+'m</text>';
-  o+='<text x="'+(ox-8)+'" y="'+(oy+sh/2)+'" text-anchor="middle" fill="#555" font-size="9" font-family="Segoe UI,sans-serif" transform="rotate(-90,'+(ox-12)+','+(oy+sh/2)+')">B='+B+'m &#xb7; eR='+er+'m</text>';
-  // Querschnitt Pfosten in Gefällerichtung
+  var nP=parseInt(sv("g-np"))||6,nR=parseInt(sv("g-nr"))||5;
+  var o="";
+  for(var i=0;i<nR;i++){var x=ox+i*sw/(nR-1);o+="<line x1=\""+x+"\" y1=\""+oy+"\" x2=\""+x+"\" y2=\""+(oy+sh)+"\" stroke=\"#1B4F8A\" stroke-width=\"1.5\" opacity=\".6\"/>";}
+  for(var j=0;j<nP;j++){var y=oy+j*sh/(nP-1);o+="<line x1=\""+ox+"\" y1=\""+y+"\" x2=\""+(ox+sw)+"\" y2=\""+y+"\" stroke=\"#888\" stroke-width=\"0.75\" opacity=\".4\"/>";}
+  o+="<rect x=\""+ox+"\" y=\""+oy+"\" width=\""+sw+"\" height=\""+sh+"\" fill=\"none\" stroke=\"#1B4F8A\" stroke-width=\"1.5\"/>";
+  o+="<text x=\""+(ox+sw/2)+"\" y=\""+(oy-4)+"\" text-anchor=\"middle\" fill=\"#555\" font-size=\"9\" font-family=\"Segoe UI,sans-serif\">L="+L+"m &middot; eR="+er.toFixed(2)+"m ("+nrLabel+" Riegel)</text>";
+  o+="<text x=\""+(ox-10)+"\" y=\""+(oy+sh/2)+"\" text-anchor=\"middle\" fill=\"#555\" font-size=\"9\" font-family=\"Segoe UI,sans-serif\" transform=\"rotate(-90,"+(ox-12)+","+(oy+sh/2)+")\">B="+B+"m &middot; eP="+ep.toFixed(2)+"m ("+npLabel+" Pfosten)</text>";
   var sy=oy+sh+18,sheight=32;
-  var rr=form==='sattel'?22:Math.min(Math.tan(alp*Math.PI/180)*sw*0.28+5,22);
-  if(form==='sattel'){o+='<polyline points="'+ox+','+(sy+sheight)+' '+(ox+sw/2)+','+(sy+sheight-rr)+' '+(ox+sw)+','+(sy+sheight)+'" fill="none" stroke="#1B4F8A" stroke-width="2"/>';}
-  else{o+='<polyline points="'+ox+','+(sy+sheight)+' '+(ox+sw)+','+(sy+sheight-(form==='flach'?2:rr))+'" fill="none" stroke="#1B4F8A" stroke-width="2"/>';}
-  // Auflagerdreiecke (gruen)
-  var aw=7,ah=7;
-  function auflager(x,y,filled){return '<polygon points="'+x+','+(y)+' '+(x-aw)+','+(y+ah)+' '+(x+aw)+','+(y+ah)+'" fill="'+(filled?'#2E7D52':'none')+'" stroke="#2E7D52" stroke-width="1.5"/><line x1="'+(x-aw-2)+'" y1="'+(y+ah+1)+'" x2="'+(x+aw+2)+'" y2="'+(y+ah+1)+'" stroke="#2E7D52" stroke-width="1.5"/>';}
-  // Endauflager First (links)
-  o+=auflager(ox,sy+sheight,false);
-  // Endauflager Traufe (rechts)
-  var xR=ox+sw,yR=sy+sheight-(form==='flach'?2:form==='sattel'?0:rr);
-  o+=auflager(xR,yR,false);
-  // Mittelauflager Zweifeldtraeger
+  var rr=form==="sattel"?22:Math.min(Math.tan(alp*Math.PI/180)*sw*0.28+5,22);
+  if(form==="sattel"){
+    o+="<polyline points=\""+ox+","+(sy+sheight)+" "+(ox+sw/2)+","+(sy+sheight-rr)+" "+(ox+sw)+","+(sy+sheight)+"\" fill=\"none\" stroke=\"#1B4F8A\" stroke-width=\"2\"/>";
+  } else {
+    o+="<polyline points=\""+ox+","+(sy+sheight)+" "+(ox+sw)+","+(sy+sheight-(form==="flach"?2:rr))+"\" fill=\"none\" stroke=\"#1B4F8A\" stroke-width=\"2\"/>";
+  }
+  var aw=7,ah=8;
+  function aufl(ax,ay,filled){
+    return "<polygon points=\""+ax+","+ay+" "+(ax-aw)+","+(ay+ah)+" "+(ax+aw)+","+(ay+ah)+"\" fill=\""+(filled?"#2E7D52":"none")+"\" stroke=\"#2E7D52\" stroke-width=\"1.5\"/>"+
+           "<line x1=\""+(ax-aw-3)+"\" y1=\""+(ay+ah+1)+"\" x2=\""+(ax+aw+3)+"\" y2=\""+(ay+ah+1)+"\" stroke=\"#2E7D52\" stroke-width=\"1.5\"/>";
+  }
+  o+=aufl(ox,sy+sheight,false);
+  var yR=sy+sheight-(form==="flach"?2:form==="sattel"?0:rr);
+  o+=aufl(ox+sw,yR,false);
   if(zf&&L2>0&&L2<L){
     var xM=ox+sw*(L2/L);
-    var yM=sy+sheight-(form==='sattel'?(L2<L/2?rr*(L2/(L/2)):rr*(1-(L2-L/2)/(L/2))):rr*L2/L);
-    o+=auflager(xM,yM,true);
-    o+='<text x="'+xM+'" y="'+(yM+ah+14)+'" text-anchor="middle" fill="#2E7D52" font-size="8" font-family="Segoe UI,sans-serif">L2='+L2+'m</text>';
+    var yM=sy+sheight-(form==="sattel"?(L2<L/2?rr*L2/(L/2):rr*(1-(L2-L/2)/(L/2))):rr*L2/L);
+    o+=aufl(xM,yM,true);
+    o+="<text x=\""+xM+"\" y=\""+(yM+ah+14)+"\" text-anchor=\"middle\" fill=\"#2E7D52\" font-size=\"9\" font-family=\"Segoe UI,sans-serif\">L2="+L2+"m</text>";
   }
-  o+='<line x1="'+ox+'" y1="'+(sy+sheight+2)+'" x2="'+(ox+sw)+'" y2="'+(sy+sheight+2)+'" stroke="#ccc" stroke-width="0.75" stroke-dasharray="3,2"/>';
-  o+='<text x="'+(ox+sw/2)+'" y="'+(sy+sheight+16)+'" text-anchor="middle" fill="#888" font-size="8.5" font-family="Segoe UI,sans-serif">Pfosten-Querschnitt &#x2014; &#x3b1;='+alp+'&#xb0; &#x25b3;=Auflager</text>';
-  g('sketch').innerHTML=o;
+  o+="<line x1=\""+ox+"\" y1=\""+(sy+sheight+2)+"\" x2=\""+(ox+sw)+"\" y2=\""+(sy+sheight+2)+"\" stroke=\"#ccc\" stroke-width=\"0.75\" stroke-dasharray=\"3,2\"/>";
+  o+="<text x=\""+(ox+sw/2)+"\" y=\""+(sy+sheight+16)+"\" text-anchor=\"middle\" fill=\"#888\" font-size=\"8.5\" font-family=\"Segoe UI,sans-serif\">Pfosten-Schnitt &mdash; &alpha;="+alp+"&deg; &mdash; &nabla;=Auflager</text>";
+  g("sketch").innerHTML=o;
+  var ri=document.getElementById("raster-info");
+  if(ri) ri.innerHTML="eP (Pfosten, quer): <strong>"+ep.toFixed(3)+"m</strong> &middot; eR (Riegel, Gef&auml;lle): <strong>"+er.toFixed(3)+"m</strong>";
 }
-setTimeout(dsk,50);
 
-// ---- LASTEN ----
+// ============================================================
+// LASTBERECHNUNG
+// ============================================================
 function cL(){
-  var L=v('g-L')||8,B=v('g-B')||5,alp=v('g-alp')||3,ep=v('g-ep')||1.5,er=v('g-er')||1.2,h=v('g-h')||3.5;
-  var wz=parseInt(sv('g-wz'))||2,gk=sv('g-gk'),sz=sv('g-sz'),sh=v('g-sh')||280,sys=sv('g-sys');
-  var begeh=g('g-begeh').checked;
-  var vb={1:22.5,2:25,3:27.5,4:30}[wz],qb=0.5*1.25*vb*vb/1000;
+  var L=v("g-L")||8,B=v("g-B")||5,alp=v("g-alp")||3,h=v("g-h")||3.5;var ep=getEP(),er=getER();
+  var wz=parseInt(sv("g-wz"))||2,gk=sv("g-gk"),sz=sv("g-sz"),sh=v("g-sh")||280,sys=sv("g-sys");
+  var begeh=g("g-begeh").checked,useWind=g("g-wind")?g("g-wind").checked:true;
+  var vb={1:22.5,2:25,3:27.5,4:30}[wz];
+  var qb=0.5*1.25*vb*vb/1000;
   var crp={I:{k:0.17,z:0.01,zm:1},II:{k:0.19,z:0.05,zm:2},III:{k:0.22,z:0.3,zm:5},IV:{k:0.24,z:1.0,zm:10}};
-  var cr=crp[gk],ze=Math.max(h,cr.zm),cz=cr.k*Math.log(ze/cr.z),Iv=cr.k/Math.log(ze/cr.z),ce=cz*cz*(1+7*Iv),qp=qb*ce;
+  var cr=crp[gk],ze=Math.max(h,cr.zm),cz=cr.k*Math.log(ze/cr.z),Iv=cr.k/Math.log(ze/cr.z);
+  var ce=cz*cz*(1+7*Iv),qp=qb*ce;
   var cn,cp;
-  if(alp<=5){cn=-1.4;cp=0.7}else if(alp<=15){cn=-1.3;cp=0.2}else if(alp<=30){cn=-0.8;cp=0}else{cn=-0.5;cp=-0.3}
-  var ws=qp*cn;
+  if(alp<=5){cn=-1.4;cp=0.7;}else if(alp<=15){cn=-1.3;cp=0.2;}else if(alp<=30){cn=-0.8;cp=0.0;}else{cn=-0.5;cp=-0.3;}
+  var ws=useWind?qp*cn:0;
   var sk;
-  if(sz==='A1')sk=Math.max(0.5+sh/1000*0.5,0.5);
-  else if(sz==='A2')sk=Math.max(1+sh/800,0.75);
-  else if(sz==='B')sk=Math.max(2+(sh>400?(sh-400)/200:0),1.5);
-  else if(sz==='D1')sk=Math.max(0.65+Math.max(sh-100,0)*0.001,0.65);
-  else if(sz==='D2')sk=Math.max(0.85+Math.max(sh-200,0)*0.0015,0.85);
+  if(sz==="A1") sk=Math.max(0.5+sh/1000*0.5,0.5);
+  else if(sz==="A2") sk=Math.max(1+sh/800,0.75);
+  else if(sz==="B") sk=Math.max(2+(sh>400?(sh-400)/200:0),1.5);
+  else if(sz==="D1") sk=Math.max(0.65+Math.max(sh-100,0)*0.001,0.65);
+  else if(sz==="D2") sk=Math.max(0.85+Math.max(sh-200,0)*0.0015,0.85);
   else sk=Math.max(1.1+Math.max(sh-285,0)*0.002,1.1);
   var mu=alp<=30?0.8:alp<=60?0.8*(60-alp)/30:0,s=mu*sk;
   var qBeg=begeh?1.0:0;
-  var gg=sv('g-glas')==='3VSG'?0.45:0.36,gp=sys.startsWith('AI')?0.15:0.20,gt=gg+gp+0.05;
-  var qEs=1.35*gt+1.5*Math.max(s,qBeg);
-  var qEw=1.35*gt+1.5*Math.abs(ws);
-  var qE=Math.max(qEs,qEw);
-  var mg=qEs>=qEw?('Schneelast'+(begeh?' + Begehbarkeit':'')):'Windsog';
-  var qc=gt+Math.max(s+qBeg,Math.abs(ws));
-  // Pfosten in Gefaellerichtung: Einzugsbreite = eR
-  var qP_Ed=qE*er, qP_char=qc*er;
-  // Riegel quer: Einzugsbreite = eP
-  var qR_Ed=qE*ep, qR_char=qc*ep;
-  var Av_Ri=qR_Ed*er/2;
-  var Av_Pf=qP_Ed*ep/2;
-  var Np=qE*er*L;
-  var wh=1.5*Math.abs(ws)*er;
-  LR={L,B,alp,ep,er,h,wz,gk,sz,sh,sys,vb,qb,qp,ce,ws,cn,sk,mu,s,gt,gg,gp,qE,qP_Ed,qP_char,qR_Ed,qR_char,qc,Av_Pf,Av_Ri,Np,wh,mg,begeh,qBeg};
-  var lb=norm==='ON'?'&#xd6;NORM B 1991':'DIN EN 1991';
-  g('lo').innerHTML=
-    '<div class="alert ao">'+lb+' &#xb7; WZ '+wz+' &#xb7; GK '+gk+' &#xb7; SZ '+sz+(begeh?' &#xb7; <strong>Begehbar q&#x2096;=1,0 kN/m&#xb2;</strong>':'')+' &#xb7; Ma&#xdf;gebend: <strong>'+mg+'</strong></div>'+
-    '<div class="st">Windlasten</div><div class="rg">'+rc('info','v&#x2090;',fN(vb,1),'m/s')+rc('info','q&#x2090;',fN(qb,3),'kN/m&#xb2;')+rc('info','c&#xe3;',fN(ce,2),'&#x2013;')+rc('info','q&#x209a;',fN(qp,3),'kN/m&#xb2;')+rc('warn','c&#x209a;&#x2091; Sog',fN(cn,2),'&#x2013;')+rc('err','w&#x2091; Sog',fN(ws,3),'kN/m&#xb2;')+'</div>'+
-    '<div class="st">Schneelasten'+(begeh?' &amp; Begehbarkeit':'')+'</div><div class="rg">'+rc('info','s&#x2096;',fN(sk,2),'kN/m&#xb2;')+rc('info','&#x3bc;&#x2081;',fN(mu,2),'&#x2013;')+rc(s>1.5?'warn':'ok','s Dach',fN(s,2),'kN/m&#xb2;')+(begeh?rc('warn','q&#x2096; Begeh.',fN(qBeg,1),'kN/m&#xb2;'):'')+'</div>'+
-    '<div class="st">Bemessungslasten &amp; Auflagerkr&#xe4;fte</div><div class="rg">'+rc('info','g Eigenlast',fN(gt,3),'kN/m&#xb2;')+rc(qE>3?'warn':'ok','q&#x2091;&#x2089; GZT',fN(qE,3),'kN/m&#xb2;')+rc('info','q&#x209a;,&#x2091;&#x2089; Pfosten',fN(qP_Ed,3),'kN/m')+rc('info','q&#x1d479;,&#x2091;&#x2089; Riegel',fN(qR_Ed,3),'kN/m')+rc(Av_Ri>5?'warn':'ok','A&#x1d479;&#x2091; T-Verb.',fN(Av_Ri,2),'kN')+rc('ok','A&#x209a;&#x2091; Pfosten',fN(Av_Pf,2),'kN')+'</div>'+
-    '<div class="card" style="margin-top:.75rem"><h3>Lastkombination (EN 1990 Gl. 6.10)</h3><table>'+
-    '<tr><th>Einwirkung</th><th>Char. Wert</th><th>&#x3b3;</th><th>Bemessungswert</th><th>Norm</th></tr>'+
-    '<tr><td>Eigenlast g (Profil+Glas+Dichtung)</td><td>'+fN(gt,3)+' kN/m&#xb2;</td><td>1,35</td><td>'+fN(1.35*gt,3)+' kN/m&#xb2;</td><td>EN 1991-1-1</td></tr>'+
-    '<tr><td>Schneelast s</td><td>'+fN(s,3)+' kN/m&#xb2;</td><td>1,50</td><td>'+fN(1.5*s,3)+' kN/m&#xb2;</td><td>EN 1991-1-3</td></tr>'+
-    (begeh?'<tr><td>Begehbarkeit q&#x2096;</td><td>'+fN(qBeg,1)+' kN/m&#xb2;</td><td>1,50</td><td>'+fN(1.5*qBeg,1)+' kN/m&#xb2;</td><td>EN 1991-1-1</td></tr>':'')+
-    '<tr><td>Windsog w (Dach)</td><td>'+fN(Math.abs(ws),3)+' kN/m&#xb2;</td><td>1,50</td><td>'+fN(1.5*Math.abs(ws),3)+' kN/m&#xb2;</td><td>EN 1991-1-4</td></tr>'+
-    '<tr style="font-weight:500"><td>Ma&#xdf;gebend ('+mg+')</td><td>'+fN(qc,3)+' kN/m&#xb2;</td><td>&#x2013;</td><td>'+fN(qE,3)+' kN/m&#xb2;</td><td>EN 1990</td></tr></table></div>';
+  var d1g=parseFloat((g("gl-d1")||{value:"6"}).value)||6,dmg=parseFloat((g("gl-dm")||{value:"6"}).value)||6,d2g=parseFloat((g("gl-d2")||{value:"8"}).value)||8,is3g=sv("gl-t")==="3VSG";var gg=(d1g+(is3g?dmg:0)+2*d2g)*2.5/10/1000*10;gg=(d1g+(is3g?dmg:0)+2*d2g)*0.025;var gp=sys.startsWith("AI")?0.15:0.20,gt=gg+gp+0.05;
+  var qEs1=1.35*gt+1.5*s+(begeh?1.5*0.7*qBeg:0);var qEs2=begeh?(1.35*gt+1.5*qBeg+1.5*0.7*s):0;var qEw=1.35*gt+1.5*Math.abs(ws)+(s>0?1.5*0.7*s:0);var qEs=Math.max(qEs1,qEs2);var qE=Math.max(qEs,qEw);var mgK=qEs>=qEw?("Schnee"+(begeh?" + Begeh. (EN1990 Komb.)":"")):"Wind + Schnee (Begleit)";
+  var mg=qEs>=qEw?("Schnee"+(begeh?"+Begeh.":"")):(useWind?"Windsog":"Schneelast");
+  var qc=gt+Math.max(s+(begeh?0.7*qBeg:0), begeh?(qBeg+0.7*s):0, Math.abs(ws)+0.7*s);
+  var qP_Ed=qE*er,qP_char=qc*er,qR_Ed=qE*ep,qR_char=qc*ep;
+  var Av_Ri=qR_Ed*er/2,Av_Pf=qP_Ed*ep/2,Np=qE*er*L,wh=useWind?1.5*Math.abs(ws)*er:0,wh_pf=useWind?1.5*Math.abs(ws)*ep:0;
+  LR={L:L,B:B,alp:alp,ep:ep,er:er,h:h,wz:wz,gk:gk,sz:sz,sh:sh,sys:sys,gg:gg,
+    vb:vb,qb:qb,qp:qp,ce:ce,ws:ws,cn:cn,sk:sk,mu:mu,s:s,
+    gt:gt,gg:gg,gp:gp,qE:qE,qP_Ed:qP_Ed,qP_char:qP_char,
+    qR_Ed:qR_Ed,qR_char:qR_char,qc:qc,Av_Pf:Av_Pf,Av_Ri:Av_Ri,
+    Np:Np,wh:wh,wh_pf:wh_pf,mg:mg,begeh:begeh,qBeg:qBeg,useWind:useWind};
+  var lb=norm==="ON"?"&Ouml;NORM B 1991":"DIN EN 1991";
+  var h1=begeh?" &middot; <strong>Begehbar q<sub>k</sub>=1,0 kN/m&sup2;</strong>":"";
+  var windWarn=!useWind?"<div class=\"alert aw\">&#9888; Windlast deaktiviert &mdash; Berechnung ohne Windeinwirkung (Atrium/Innenbereich)</div>":"";
+  g("lo").innerHTML=
+    windWarn+
+    "<div class=\"alert ao\">"+lb+" &middot; WZ "+wz+" &middot; GK "+gk+" &middot; SZ "+sz+h1+" &middot; Ma&szlig;gebend: <strong>"+mg+"</strong></div>"+
+    "<div class=\"st\">Windlasten</div>"+
+    (!useWind?"<div class=\"alert aw\">Windlast nicht ber&uuml;cksichtigt (Atrium/Innenbereich)</div>":"")+
+    "<div class=\"rg\">"+rc("info","v<sub>b</sub>",fN(vb,1),"m/s")+rc("info","q<sub>b</sub>",fN(qb,3),"kN/m&sup2;")+
+    rc("info","c<sub>e</sub>",fN(ce,2),"&ndash;")+rc("info","q<sub>p</sub>",fN(qp,3),"kN/m&sup2;")+
+    rc("warn","c<sub>pe</sub> Sog",fN(cn,2),"&ndash;")+rc("err","w<sub>e</sub> Sog",fN(ws,3),"kN/m&sup2;")+"</div>"+
+    "<div class=\"st\">Schneelasten"+(begeh?" &amp; Begehbarkeit":"")+"</div>"+
+    "<div class=\"rg\">"+rc("info","s<sub>k</sub>",fN(sk,2),"kN/m&sup2;")+rc("info","&mu;<sub>1</sub>",fN(mu,2),"&ndash;")+
+    rc(s>1.5?"warn":"ok","s Dach",fN(s,2),"kN/m&sup2;")+(begeh?rc("warn","q<sub>k</sub> Begeh.",fN(qBeg,1),"kN/m&sup2;"):"")+"</div>"+
+    "<div class=\"st\">Bemessungslasten</div>"+
+    "<div class=\"rg\">"+rc("info","g Eigenlast (inkl. Glas)",fN(gt,3),"kN/m&sup2;")+rc("info","davon Glas",fN(gg,3),"kN/m&sup2;")+rc(qE>3?"warn":"ok","q<sub>Ed</sub>",fN(qE,3),"kN/m&sup2;")+
+    rc("info","q<sub>P,Ed</sub>",fN(qP_Ed,3),"kN/m")+rc("info","q<sub>R,Ed</sub>",fN(qR_Ed,3),"kN/m")+
+    rc(Av_Ri>5?"warn":"ok","A<sub>Ri</sub> T-Verb.",fN(Av_Ri,2),"kN")+rc("ok","A<sub>Pf</sub>",fN(Av_Pf,2),"kN")+"</div>"+
+    "<div class=\"card\" style=\"margin-top:.75rem\"><h3>Lastkombination (EN 1990)</h3>"+
+    "<table><tr><th>Einwirkung</th><th>Char.</th><th>&gamma;</th><th>Bemes.</th></tr>"+
+    "<tr><td>Eigenlast g</td><td>"+fN(gt,3)+" kN/m&sup2;</td><td>1,35</td><td>"+fN(1.35*gt,3)+" kN/m&sup2;</td></tr>"+
+    "<tr><td>Schneelast s</td><td>"+fN(s,3)+" kN/m&sup2;</td><td>1,50</td><td>"+fN(1.5*s,3)+" kN/m&sup2;</td></tr>"+
+    (begeh?"<tr><td>Begehbarkeit q<sub>k</sub> (+ Schnee &psi;=0,7)</td><td>"+fN(qBeg,1)+" kN/m&sup2;</td><td>1,50</td><td>"+fN(1.5*qBeg+1.05*s,2)+" kN/m&sup2;</td></tr>":"")+
+    "<tr><td>Windsog w</td><td>"+fN(Math.abs(ws),3)+" kN/m&sup2;</td><td>1,50</td><td>"+fN(1.5*Math.abs(ws),3)+" kN/m&sup2;</td></tr>"+
+    "<tr style=\"font-weight:500\"><td>Ma&szlig;gebend</td><td>"+fN(qc,3)+" kN/m&sup2;</td><td>&ndash;</td><td>"+fN(qE,3)+" kN/m&sup2;</td></tr></table></div>";
 }
 
-// ---- PROFILE ----
+// ============================================================
+// PROFILE
+// ============================================================
 function rP(){
-  var sys=sv('g-sys'),pr=DB[sys]||DB['AI50'],mx=pr.length-1;
-  if(sP>mx)sP=Math.min(3,mx);
-  if(sR>mx||sR>sP)sR=Math.min(sP,Math.min(2,mx));
-  if(!LR.qP_Ed)cL();
-  var m=MP[sys]||MP['AI50'],fyd=m.fy/m.gM;
+  var sys=sv("g-sys"),pr=DB[sys]||DB["AI50"],mx=pr.length-1;
+  if(sP>mx) sP=Math.min(3,mx);
+  if(sR>mx||sR>sP) sR=Math.min(sP,Math.min(2,mx));
+  if(!LR.qP_Ed) cL();
+  var m=MP[sys]||MP["AI50"],fyd=m.fy/m.gM;
   var bc=BCLS[bci(pr[0].s)];
+  var zf=sv("g-traeger")==="2";
+  var qP=LR.qP_Ed||2,ep=LR.ep||1.5,qR=LR.qR_Ed||2,er=LR.er||1.2;
 
-  function etaMP(p){var qP=LR.qP_Ed||2,ep=LR.ep||1.5,zf=sv('g-traeger')==='2';var MeP=zf?qP*ep*ep*0.0703:qP*ep*ep/8;return MeP/(p.Wx*fyd/100);}
-  function etaMR(p){var qR=LR.qR_Ed||2,er=LR.er||1.2;return (qR*er*er/8)/(p.Wx*fyd/100);}
+  // Build profile lists using DOM to avoid string-in-string quoting
+  var plEl=g("pl"),rlEl=g("rl");
+  plEl.innerHTML="";
+  rlEl.innerHTML="";
 
-  // Pfosten
-  g('pl').innerHTML=pr.map(function(p,i){
-    var et=etaMP(p),pp=pct(et),col=et>1?'#8B1A1A':et>0.85?'#B86800':'#2E7D52';
-    return '<div class="po '+(i===sP?'sel':'')+'" onclick="selP(\'p\','+i+')">'+
-      '<div style="flex:1;min-width:0"><div class="pn"><span class="badge '+bc+'">'+p.s+'</span>'+p.art+' &#x2013; '+p.n+(p.t?' t='+p.t+'mm':'')+'</div>'+
-      '<div class="pv">I&#x2093;='+p.Ix+' cm&#x2074; &#xb7; W&#x2093;='+p.Wx+' cm&#xb3; &#xb7; '+fN(p.kg,2)+' kg/m</div>'+
-      '<div class="pct-bar"><div class="pct-fill" style="width:'+pp+'%;background:'+col+'"></div></div>'+
-      '<div style="font-size:9px;color:'+col+'">'+pp+'% Auslastung Biegung</div></div>'+
-      '<span class="pz">'+p.h+' mm</span></div>';
-  }).join('');
+  for(var i=0;i<pr.length;i++){
+    var p=pr[i];
+    var MeP=zf?qP*ep*ep*0.0703:qP*ep*ep/8;
+    var MeR=qR*er*er/8;
+    var MrP=p.Wx*fyd/100,etP=MeP/MrP,ppP=pct(etP);
+    var MrR=p.Wx*fyd/100,etR=MeR/MrR,ppR=pct(etR);
 
-  // Riegel — max. = Pfostenprofil (nach Index gesperrt)
-  g('rl').innerHTML=pr.map(function(p,i){
+    // PFOSTEN
+    var colP=etP>1?"#8B1A1A":etP>0.85?"#B86800":"#2E7D52";
+    var divP=document.createElement("div");
+    divP.className="po"+(i===sP?" sel":"");
+    divP.dataset.idx=i;
+    divP.innerHTML=
+      "<div style=\"flex:1;min-width:0\">"+
+      "<div class=\"pn\"><span class=\"badge "+bc+"\">"+p.s+"</span> "+p.art+" &ndash; "+p.n+(p.t?" t="+p.t+"mm":"")+"</div>"+
+      "<div class=\"pv\">I<sub>x</sub>="+p.Ix+" cm&#8308; &middot; W<sub>x</sub>="+p.Wx+" cm&#179; &middot; "+fN(p.kg,2)+" kg/m</div>"+
+      "<div class=\"pct-bar\"><div class=\"pct-fill\" style=\"width:"+ppP+"%;background:"+colP+"\"></div></div>"+
+      "<div style=\"font-size:9px;color:"+colP+"\">"+ppP+"% Auslastung Biegung</div></div>"+
+      "<span class=\"pz\">"+p.h+" mm</span>";
+    (function(idx){divP.addEventListener("click",function(){selP("p",idx);});})(i);
+    plEl.appendChild(divP);
+
+    // RIEGEL
     var disabled=i>sP;
-    var et=etaMR(p),pp=pct(et),col=disabled?'#bbb':et>1?'#8B1A1A':et>0.85?'#B86800':'#2E7D52';
-    return '<div class="po '+(i===sR&&!disabled?'sel':'')+(disabled?' disabled':'')+'" onclick="'+(disabled?'':('selP(\'r\','+i+')'))+'">' +
-      '<div style="flex:1;min-width:0"><div class="pn"><span class="badge '+bc+'">'+p.s+'</span>'+p.art+' &#x2013; '+p.n+(p.t?' t='+p.t+'mm':'')+(disabled?' <span style="color:#B86800;font-size:9px">&#x2192; gr&#xf6;&#xdf;er als Pfosten</span>':'')+'</div>'+
-      '<div class="pv">I&#x2093;='+p.Ix+' cm&#x2074; &#xb7; W&#x2093;='+p.Wx+' cm&#xb3; &#xb7; '+fN(p.kg,2)+' kg/m</div>'+
-      '<div class="pct-bar"><div class="pct-fill" style="width:'+(disabled?0:pp)+'%;background:'+col+'"></div></div>'+
-      '<div style="font-size:9px;color:'+col+'">'+(disabled?'Nicht w&#xe4;hlbar &#x2014; technisch nicht m&#xf6;glich':pp+'% Auslastung Biegung')+'</div></div>'+
-      '<span class="pz">'+p.h+' mm</span></div>';
-  }).join('');
-
-  sPD('p',pr[Math.min(sP,mx)]);
-  sPD('r',pr[Math.min(sR,mx)]);
-  uV();
+    var colR=disabled?"#bbb":etR>1?"#8B1A1A":etR>0.85?"#B86800":"#2E7D52";
+    var divR=document.createElement("div");
+    divR.className="po"+(i===sR&&!disabled?" sel":"")+(disabled?" dis":"");
+    divR.dataset.idx=i;
+    divR.innerHTML=
+      "<div style=\"flex:1;min-width:0\">"+
+      "<div class=\"pn\"><span class=\"badge "+bc+"\">"+p.s+"</span> "+p.art+" &ndash; "+p.n+(p.t?" t="+p.t+"mm":"")+(disabled?" <span style=\"color:#B86800;font-size:9px\">&rarr; gr&ouml;&szlig;er als Pfosten</span>":"")+"</div>"+
+      "<div class=\"pv\">I<sub>x</sub>="+p.Ix+" cm&#8308; &middot; W<sub>x</sub>="+p.Wx+" cm&#179; &middot; "+fN(p.kg,2)+" kg/m</div>"+
+      "<div class=\"pct-bar\"><div class=\"pct-fill\" style=\"width:"+(disabled?0:ppR)+"%;background:"+colR+"\"></div></div>"+
+      "<div style=\"font-size:9px;color:"+colR+"\">"+(disabled?"Nicht w&auml;hlbar":ppR+"% Auslastung Biegung")+"</div></div>"+
+      "<span class=\"pz\">"+p.h+" mm</span>";
+    if(!disabled){(function(idx){divR.addEventListener("click",function(){selP("r",idx);});})(i);}
+    rlEl.appendChild(divR);
+  }
+  sPD("p",pr[Math.min(sP,mx)],fyd,qP,ep,qR,er,zf);
+  sPD("r",pr[Math.min(sR,mx)],fyd,qP,ep,qR,er,zf);
+  updateVerbSelect();
 }
 
 function selP(t,i){
-  if(t==='p'){sP=i;if(sR>sP)sR=sP;}
+  if(t==="p"){sP=i;if(sR>sP)sR=sP;}
   else{if(i<=sP)sR=i;}
   rP();
 }
 
-function sPD(t,p){
-  var m=MP[p.s.replace('-','')]||MP['AI50'],fyd=m.fy/m.gM;
-  var qP=LR.qP_Ed||2,ep=LR.ep||1.5,qR=LR.qR_Ed||2,er=LR.er||1.2,zf=sv('g-traeger')==='2';
+function updateVerbSelect(){
+  // Verbinder-RT darf max. = Riegelprofil-Tiefe (h) sein
+  var sys=sv("g-sys"),pr=DB[sys]||DB["AI50"],mx=pr.length-1;
+  var riegel=pr[Math.min(sR,mx)];
+  var riegelH=riegel?riegel.h:200;
+  var sel=g("v-typ");
+  if(!sel) return;
+  var opts=sel.options;
+  var curVal=sel.value;
+  var firstValid=null;
+  for(var i=0;i<opts.length;i++){
+    var vk=opts[i].value;
+    var vd=VB[vk]||VB["160010"];
+    var allowed=(vd.RT<=riegelH);
+    opts[i].disabled=!allowed;
+    opts[i].style.color=allowed?"":"#bbb";
+    if(allowed&&!firstValid) firstValid=vk;
+  }
+  // If currently selected is now invalid, switch to largest valid
+  var curVD=VB[curVal]||VB["160010"];
+  if(curVD.RT>riegelH && firstValid){
+    // Find the largest valid RT
+    var bestKey=firstValid;
+    for(var i=0;i<opts.length;i++){
+      var vk2=opts[i].value;
+      var vd2=VB[vk2];
+      if(vd2&&vd2.RT<=riegelH) bestKey=vk2;
+    }
+    sel.value=bestKey;
+  }
+  uV();
+}
+
+function sPD(t,p,fyd,qP,ep,qR,er,zf){
   var MeP=zf?qP*ep*ep*0.0703:qP*ep*ep/8;
   var MeR=qR*er*er/8;
-  var Mr=p.Wx*fyd/100,Me=t==='p'?MeP:MeR,et=Me/Mr,pp=pct(et),col=et>1?'#8B1A1A':et>0.85?'#B86800':'#2E7D52';
-  g(t+'d').innerHTML=
-    '<div class="rg">'+rc('info','I&#x2093;',p.Ix,'cm&#x2074;')+rc('info','W&#x2093;',p.Wx,'cm&#xb3;')+rc('info','I&#x1d67;',p.Iy,'cm&#x2074;')+'<div class="rc '+(et>1?'err':et>0.85?'warn':'ok')+'"><div class="lb">Auslastung M</div><div class="vl">'+pp+'</div><div class="un">%</div></div></div>'+
-    '<div class="ut" style="margin-top:4px"><span>&#951; = '+et.toFixed(3)+'</span><span style="color:'+col+'">'+st(et)+'</span></div>'+
-    '<div class="pbar"><div class="pfill" style="width:'+pp+'%;background:'+col+'"></div></div>'+
-    '<p class="fn">E='+m.E+' kN/cm&#xb2; &#xb7; f&#x1d67;='+m.fy+' kN/cm&#xb2; &#xb7; &#x3b3;&#x2098;='+m.gM+' &#xb7; '+m.nm+(p.kg?' &#xb7; '+fN(p.kg,2)+' kg/m':'')+'</p>';
+  var Mr=p.Wx*fyd/100,Me=t==="p"?MeP:MeR,et=Me/Mr,pp=pct(et);
+  var col=et>1?"#8B1A1A":et>0.85?"#B86800":"#2E7D52";
+  var sys=sv("g-sys"),m=MP[sys]||MP["AI50"];
+  g(t+"d").innerHTML=
+    "<div class=\"rg\">"+rc("info","I<sub>x</sub>",p.Ix,"cm&#8308;")+rc("info","W<sub>x</sub>",p.Wx,"cm&#179;")+
+    rc("info","I<sub>y</sub>",p.Iy,"cm&#8308;")+"<div class=\"rc "+(et>1?"err":et>0.85?"warn":"ok")+"\">"+
+    "<div class=\"lb\">Auslastung M</div><div class=\"vl\">"+pp+"</div><div class=\"un\">%</div></div></div>"+
+    "<div class=\"ut\" style=\"margin-top:4px\"><span>&eta; = "+et.toFixed(3)+"</span><span style=\"color:"+col+"\">"+st(et)+"</span></div>"+
+    "<div class=\"pbar\"><div class=\"pfill\" style=\"width:"+pp+"%;background:"+col+"\"></div></div>"+
+    "<p class=\"fn\">E="+m.E+" kN/cm&sup2; &middot; f<sub>y</sub>="+m.fy+" &middot; &gamma;<sub>M</sub>="+m.gM+" &middot; "+m.nm+(p.kg?" &middot; "+fN(p.kg,2)+" kg/m":"")+"</p>";
 }
 
 function uV(){
-  var vk=sv('v-typ'),vd=VB[vk]||VB['160010'],sc2=parseInt(sv('v-schr'))||2;
+  var vk=sv("v-typ"),vd=VB[vk]||VB["160010"],sc2=parseInt(sv("v-schr"))||2;
   var Fh=sc2===4?(vd.F4||vd.F2):vd.F2,Gm=sc2===4?(vd.G4||vd.G2):vd.G2;
-  if(!LR.Av_Ri){g('vc').innerHTML='';return}
-  var FE=LR.Av_Ri,et=FE/(Fh||1),Gf=(LR.gg||0.45)*(LR.ep||1.5)*(LR.er||1.2)*1000/9.81*2,gO=!Gm||Gf<=Gm;
-  g('vc').innerHTML=
-    '<div class="rg">'+rc(et>1?'err':et>0.85?'warn':'ok','F&#x2091;&#x2089;',fN(FE,2),'kN')+rc('info','F&#x210e;,&#x1d479;&#x2089;',Fh||'&#x2013;','kN')+rc(gO?'ok':'warn','G&#x1Da0;&#x2091;&#x2097;&#x2097;',fN(Gf,0),'kg')+rc('info','G&#x2098;&#x2090;&#x2093;',Gm||'&#x2013;','kg')+'</div>'+bar(et)+
-    (et>1?'<div class="alert ae" style="margin-top:.3rem">&#10007; Verbinder &#xfc;berlastet &#x2014; gr&#xf6;&#xdf;eren Verbinder w&#xe4;hlen.</div>':'')+
-    (!gO&&Gm?'<div class="alert aw" style="margin-top:.3rem">&#9888; Glasgewicht '+fN(Gf,0)+' kg &gt; G&#x2098;&#x2090;&#x2093; '+Gm+' kg</div>':'');
+  if(!LR.Av_Ri){g("vc").innerHTML="";return;}
+  var FE=LR.Av_Ri,et=FE/(Fh||1);
+  var d1u=parseFloat((g("gl-d1")||{value:"6"}).value)||6,dmu=parseFloat((g("gl-dm")||{value:"6"}).value)||6,d2u=parseFloat((g("gl-d2")||{value:"8"}).value)||8,is3u=sv("gl-t")==="3VSG";var dGesU=(d1u+(is3u?dmu:0)+2*d2u),gkgM2U=dGesU*2.5;var epU=LR.ep||1.5,erU=LR.er||1.2;var aFU=Math.max(0,(Math.min(epU,erU)*1000-30)/1000);var bFU=Math.max(0,(Math.max(epU,erU)*1000-30)/1000);var Gf=gkgM2U*aFU*bFU,gO=!Gm||Gf<=Gm;
+  g("vc").innerHTML=
+    "<div class=\"rg\">"+rc(et>1?"err":et>0.85?"warn":"ok","F<sub>Ed</sub>",fN(FE,2),"kN")+
+    rc("info","F<sub>h,Rd</sub>",Fh||"&ndash;","kN")+
+    rc(gO?"ok":"warn","G<sub>Feld</sub>",fN(Gf,0),"kg")+
+    rc("info","G<sub>max</sub>",Gm||"&ndash;","kg")+"</div>"+bar(et)+
+    (et>1?"<div class=\"alert ae\" style=\"margin-top:.3rem\">&#10007; Verbinder &uuml;berlastet &mdash; gr&ouml;&szlig;eren w&auml;hlen.</div>":"")+
+    (!gO&&Gm?"<div class=\"alert aw\" style=\"margin-top:.3rem\">&#9888; Glasgewicht "+fN(Gf,0)+" kg &gt; G<sub>max</sub> "+Gm+" kg &mdash; Verbinder mit h&ouml;herer Glastraglast w&auml;hlen!</div>":"");
+  var fnEl=g("verb-glas-fn");
+  if(fnEl) fnEl.innerHTML="abZ Z-14.4-461 &mdash; Glasgewicht je Feld: <strong>"+fN(Gf,0)+" kg</strong> (G<sub>max</sub> des Verbinders muss &ge; "+fN(Gf,0)+" kg sein)";
 }
 
-// ---- STATIK ----
+// ============================================================
+// STATIK
+// ============================================================
 function cS(){
-  if(!LR.qE)cL();
-  var sys=sv('g-sys'),pr=DB[sys]||DB['AI50'],mx=pr.length-1;
-  var pP=pr[Math.min(sP,mx)],pR=pr[Math.min(sR,mx)],m=MP[sys]||MP['AI50'];
+  if(!LR.qE) cL();
+  var sys=sv("g-sys"),pr=DB[sys]||DB["AI50"],mx=pr.length-1;
+  var pP=pr[Math.min(sP,mx)],pR=pr[Math.min(sR,mx)],m=MP[sys]||MP["AI50"];
   var E=m.E,fyd=m.fy/m.gM;
   var ep=LR.ep||1.5,er=LR.er||1.2,hp=LR.h||3.5;
   var qP_Ed=LR.qP_Ed||3,qP_char=LR.qP_char||2;
   var qR_Ed=LR.qR_Ed||3,qR_char=LR.qR_char||2;
-  var Np=LR.Np||20,wh=LR.wh||1.5;
-  var zf=sv('g-traeger')==='2',L2=v('g-L2')||ep/2;
-
-  // PFOSTEN (Gefaellerichtung, Spannw. = ep)
-  var MeP,VeP,AuflEnd,AuflMid=null;
+  var Np=LR.Np||20,wh=LR.wh_pf||1.5;
+  var zf=sv("g-traeger")==="2";
+  var MeP,AuflEnd,AuflMid=null;
   if(zf){
     MeP=qP_Ed*ep*ep*0.0703;
-    VeP=qP_Ed*ep*0.625;
     AuflEnd=qP_Ed*ep*0.375;
     AuflMid=qP_Ed*ep*1.25;
   } else {
     MeP=qP_Ed*ep*ep/8;
-    VeP=qP_Ed*ep/2;
-    AuflEnd=VeP;
+    AuflEnd=qP_Ed*ep/2;
   }
   var MrP=pP.Wx*fyd/100,emP=MeP/MrP,ppP=pct(emP);
   var fcoef=zf?1/185:5/384;
-  var fP=fcoef*qP_char*(ep*100)**4/(E*pP.Ix);
-  var epMM=ep*1000,flP=epMM<=3000?epMM/200:(epMM<7500?5+epMM/300:epMM/250);
-  var efP=fP/flP;
-
-  // RIEGEL (quer, Spannw. = er) immer Einfeldtraeger
-  var MeR=qR_Ed*er*er/8,VeR=qR_Ed*er/2,AuflR=VeR;
+  var fP=fcoef*qP_char*Math.pow(ep*100,4)/(E*pP.Ix)/10;
+  var epMM=ep*1000,flP=epMM<=3000?epMM/200:(epMM<7500?5+epMM/300:epMM/250),efP=fP/flP;
+  var MeR=qR_Ed*er*er/8,AuflR=qR_Ed*er/2;
   var MrR=pR.Wx*fyd/100,emR=MeR/MrR,ppR=pct(emR);
   var erMM=er*1000,flR=erMM<=3000?erMM/200:(erMM<7500?5+erMM/300:erMM/250);
-  var fR=(5/384)*qR_char*(er*100)**4/(E*pR.Ix),efR=fR/flR;
-
-  // Pfosten Wind N+M
+  var fR=(5/384)*qR_char*Math.pow(er*100,4)/(E*pR.Ix)/10,efR=fR/flR;
   var MeW=wh*hp*hp/2,MrW=pP.Wx*fyd/100;
   var ta=pP.t||Math.max(pP.b,pP.h)*0.06,Ap=(pP.b+pP.h)*2*ta/100,NrP=Ap*fyd;
   var eNP=Np/Math.max(NrP,1),eMW=MeW/MrW,eNM=eNP+eMW;
-  var fW=wh*(hp*100)**4/(8*E*pP.Ix),flW=hp*1000/150,efW=fW/flW;
-
-  // Verbinder
-  var vk=sv('v-typ'),vd=VB[vk]||VB['160010'],sc2=parseInt(sv('v-schr'))||2;
+  var fW=(5/384)*wh*Math.pow(ep*100,4)/(E*pP.Ix)/10,flW=ep*1000/200,efW=fW/flW;
+  var vk=sv("v-typ"),vd=VB[vk]||VB["160010"],sc2=parseInt(sv("v-schr"))||2;
   var FhR=sc2===4?(vd.F4||vd.F2):vd.F2,evV=AuflR/FhR;
-  var Gm=sc2===4?(vd.G4||vd.G2):vd.G2,Gf=(LR.gg||0.45)*(ep)*(er)*1000/9.81*2,eG=Gm?Gf/Gm:0.5;
-
-  // Gewichte (ca.)
-  var nPf=Math.round(LR.B/er)+1,nRi=Math.round(LR.L/ep)+1;
-  var GewPf=pP.kg*ep*nPf*nRi;
-  var GewRi=pR.kg*er*nPf*nRi;
-  var GewGlas=Gf*(nPf-1)*(nRi-1)*2;
-
-  SR={pP,pR,m,fyd,ep,er,hp,MeP,MrP,emP,ppP,VeP,AuflEnd,AuflMid,fP,flP,efP,MeR,MrR,emR,ppR,VeR,AuflR,fR,flR,efR,MeW,MrW,eMW,Np,NrP,eNP,eNM,fW,flW,efW,FhR,evV,vd,vk,Gf,Gm,eG,GewPf,GewRi,GewGlas,zf};
-
+  var Gm=sc2===4?(vd.G4||vd.G2):vd.G2;
+  var d1s=parseFloat((g("gl-d1")||{value:"6"}).value)||6,dms=parseFloat((g("gl-dm")||{value:"6"}).value)||6,d2s=parseFloat((g("gl-d2")||{value:"8"}).value)||8,is3s=sv("gl-t")==="3VSG";var dGesS=(d1s+(is3s?dms:0)+2*d2s),gkgM2S=dGesS*2.5;var aFS=Math.max(0,(Math.min(ep,er)*1000-30)/1000);var bFS=Math.max(0,(Math.max(ep,er)*1000-30)/1000);var Gf=gkgM2S*aFS*bFS,eG=Gm?Gf/Gm:0.5;
+  SR={pP:pP,pR:pR,m:m,fyd:fyd,ep:ep,er:er,hp:hp,
+    MeP:MeP,MrP:MrP,emP:emP,ppP:ppP,AuflEnd:AuflEnd,AuflMid:AuflMid,fP:fP,flP:flP,efP:efP,
+    MeR:MeR,MrR:MrR,emR:emR,ppR:ppR,AuflR:AuflR,fR:fR,flR:flR,efR:efR,
+    MeW:MeW,MrW:MrW,eMW:eMW,Np:Np,NrP:NrP,eNP:eNP,eNM:eNM,fW:fW,flW:flW,efW:efW,
+    FhR:FhR,evV:evV,vd:vd,vk:vk,Gf:Gf,Gm:Gm,eG:eG,zf:zf};
   var ok=emP<=1&&efP<=1&&eNM<=1&&efW<=1&&emR<=1&&efR<=1&&evV<=1;
-  g('so').innerHTML=
-    '<div class="alert '+(ok?'ao':'ae')+'"><strong>Statik '+(norm==='ON'?'&#xd6;NORM':'DIN/EC')+' &#x2014; '+m.nm+'</strong> &#x2014; '+(ok?'&#10003; Alle Nachweise erf&#xfc;llt (GZT + GZG)':'&#10007; Nachweise nicht alle erf&#xfc;llt &#x2014; Profile anpassen!')+'</div>'+
-    '<div class="g2">'+
-    '<div class="card"><h3>Pfosten '+(zf?'2-Feld':'1-Feld')+': '+pP.art+' '+pP.n+' &#x2014; Spannw. '+fN(ep,2)+' m (Gef&#xe4;lle)</h3>'+
-    '<div class="st" style="font-size:11px;margin:.1rem 0 .2rem">Biegung GZT'+(zf?' (Zweifeldmoment)':'')+'</div>'+
-    '<div class="rg">'+rc(sc(emP),'M&#x2091;&#x2089;',fN(MeP,3),'kNm')+rc('info','M&#x1d479;&#x2089;',fN(MrP,3),'kNm')+rc(sc(emP),'Auslastung',ppP,'%')+'</div>'+bar(emP)+
-    '<div class="st" style="font-size:11px;margin:.25rem 0 .2rem">Auflagerkr&#xe4;fte (vertikal)</div>'+
-    '<div class="rg">'+rc('ok','A Endauflager',fN(AuflEnd,2),'kN')+(AuflMid!==null?rc('info','A Mittelauflager',fN(AuflMid,2),'kN'):'')+'</div>'+
-    '<div class="st" style="font-size:11px;margin:.25rem 0 .2rem">Durchbiegung GZG</div>'+
-    '<div class="rg">'+rc(sc(efP),'f&#x2098;&#x2090;&#x2093;',fN(fP,2),'mm')+rc('info','f&#x2097;&#x2122;&#x2098;',fN(flP,2),'mm')+rc(sc(efP),'Auslastung',pct(efP),'%')+'</div>'+bar(efP)+
-    '<div class="st" style="font-size:11px;margin:.25rem 0 .2rem">N+M Interaktion Wind GZT</div>'+
-    '<div class="rg">'+rc(sc(eMW),'M&#x2091;&#x2089; Wind',fN(MeW,3),'kNm')+rc('info','M&#x1d479;&#x2089;',fN(MrW,3),'kNm')+rc(sc(eNM),'N+M &#x3b7;',fN(eNM,3),'&#x2013;')+'</div>'+
-    '<div class="ut"><span>&#951; N+M = '+fN(eNM,3)+'</span><span>'+st(eNM)+'</span></div><div class="pbar"><div class="pfill" style="width:'+Math.min(eNM*100,105)+'%;background:'+(eNM>1?'#8B1A1A':eNM>0.85?'#B86800':'#2E7D52')+'"></div></div>'+
-    '<div class="st" style="font-size:11px;margin:.25rem 0 .2rem">Durchbiegung Wind GZG (H/150)</div>'+
-    '<div class="rg">'+rc(sc(efW),'f&#x2098;&#x2090;&#x2093;',fN(fW,2),'mm')+rc('info','f&#x2097;&#x2122;&#x2098; H/150',fN(flW,2),'mm')+rc(sc(efW),'Auslastung',pct(efW),'%')+'</div>'+bar(efW)+'</div>'+
-    '<div class="card"><h3>Riegel 1-Feld: '+pR.art+' '+pR.n+' &#x2014; Spannw. '+fN(er,2)+' m (quer)</h3>'+
-    '<div class="st" style="font-size:11px;margin:.1rem 0 .2rem">Biegung GZT</div>'+
-    '<div class="rg">'+rc(sc(emR),'M&#x2091;&#x2089;',fN(MeR,3),'kNm')+rc('info','M&#x1d479;&#x2089;',fN(MrR,3),'kNm')+rc(sc(emR),'Auslastung',ppR,'%')+'</div>'+bar(emR)+
-    '<div class="st" style="font-size:11px;margin:.25rem 0 .2rem">Auflagerkraft &#x2192; T-Verbinder</div>'+
-    '<div class="rg">'+rc(sc(evV),'A = F&#x2091;&#x2089;',fN(AuflR,2),'kN')+rc('info','F&#x210e;,&#x1d479;&#x2089;',fN(FhR,1),'kN')+rc(sc(evV),'Auslastung',pct(evV),'%')+'</div>'+bar(evV)+
-    '<div class="st" style="font-size:11px;margin:.25rem 0 .2rem">Durchbiegung GZG</div>'+
-    '<div class="rg">'+rc(sc(efR),'f&#x2098;&#x2090;&#x2093;',fN(fR,2),'mm')+rc('info','f&#x2097;&#x2122;&#x2098;',fN(flR,2),'mm')+rc(sc(efR),'Auslastung',pct(efR),'%')+'</div>'+bar(efR)+
-    '<div class="st" style="font-size:11px;margin:.25rem 0 .2rem">T-Verbinder '+vd.art+' &#x2014; abZ Z-14.4-461</div>'+
-    '<div class="rg">'+rc(sc(eG),'G&#x1Da0;&#x2091;&#x2097;&#x2097;',fN(Gf,0),'kg')+rc('info','G&#x2098;&#x2090;&#x2093;',Gm||'&#x2013;','kg')+rc(sc(eG),'Auslastung Gew.',pct(eG),'%')+'</div>'+bar(eG)+'</div></div>'+
-    '<div class="card" style="margin-top:.75rem"><h3>Nachweis-Zusammenfassung</h3>'+
-    '<table><tr><th>Bauteil</th><th>Nachweis</th><th>E&#x2089;</th><th>R&#x2089;</th><th>&#x3b7;</th><th>Auslastung</th><th>Status</th></tr>'+
-    '<tr><td>Pfosten '+pP.art+'</td><td>Biegung GZT'+(zf?' 2-Feld':'')+'</td><td>'+fN(MeP,3)+' kNm</td><td>'+fN(MrP,3)+' kNm</td><td>'+fN(emP,3)+'</td><td><strong>'+ppP+'%</strong></td><td>'+pill(emP)+'</td></tr>'+
-    '<tr><td>Pfosten</td><td>Durchbiegung GZG</td><td>'+fN(fP,2)+' mm</td><td>'+fN(flP,2)+' mm</td><td>'+fN(efP,3)+'</td><td><strong>'+pct(efP)+'%</strong></td><td>'+pill(efP)+'</td></tr>'+
-    '<tr><td>Pfosten</td><td>N+M Wind GZT</td><td>&#x2013;</td><td>&#x2013;</td><td>'+fN(eNM,3)+'</td><td><strong>'+pct(eNM)+'%</strong></td><td>'+pill(eNM)+'</td></tr>'+
-    '<tr><td>Pfosten</td><td>Durchbieg. Wind GZG</td><td>'+fN(fW,2)+' mm</td><td>'+fN(flW,2)+' mm</td><td>'+fN(efW,3)+'</td><td><strong>'+pct(efW)+'%</strong></td><td>'+pill(efW)+'</td></tr>'+
-    '<tr><td>Riegel '+pR.art+'</td><td>Biegung GZT</td><td>'+fN(MeR,3)+' kNm</td><td>'+fN(MrR,3)+' kNm</td><td>'+fN(emR,3)+'</td><td><strong>'+ppR+'%</strong></td><td>'+pill(emR)+'</td></tr>'+
-    '<tr><td>Riegel</td><td>Durchbiegung GZG</td><td>'+fN(fR,2)+' mm</td><td>'+fN(flR,2)+' mm</td><td>'+fN(efR,3)+'</td><td><strong>'+pct(efR)+'%</strong></td><td>'+pill(efR)+'</td></tr>'+
-    '<tr><td>Verbinder '+vd.art+'</td><td>Horizontallast abZ</td><td>'+fN(AuflR,2)+' kN</td><td>'+fN(FhR,1)+' kN</td><td>'+fN(evV,3)+'</td><td><strong>'+pct(evV)+'%</strong></td><td>'+pill(evV)+'</td></tr>'+
-    '<tr><td>Verbinder</td><td>Glasgewicht abZ</td><td>'+fN(Gf,0)+' kg</td><td>'+(Gm||'&#x2013;')+' kg</td><td>'+fN(eG,3)+'</td><td><strong>'+pct(eG)+'%</strong></td><td>'+pill(eG)+'</td></tr></table></div>'+
-    '<div class="ra"><button class="btn bp" onclick="cG();showTab(\'glas\')">Weiter: Glasstatik &#x2192;</button></div>';
+  var cnm=eNM>1?"#8B1A1A":eNM>0.85?"#B86800":"#2E7D52";
+  var tr=zf?"2-Feld":"1-Feld";
+  g("so").innerHTML=
+    "<div class=\"alert "+(ok?"ao":"ae")+"\"><strong>Statik "+(norm==="ON"?"&Ouml;NORM":"DIN/EC")+" &mdash; "+m.nm+"</strong> &mdash; "+
+    (ok?"&#10003; Alle Nachweise erf&uuml;llt":"&#10007; Nachweise nicht erf&uuml;llt &mdash; Profile anpassen!")+"</div>"+
+    "<div class=\"g2\">"+
+    "<div class=\"card\"><h3>Pfosten "+tr+": "+pP.art+" "+pP.n+" &mdash; "+fN(ep,2)+"m (Gef&auml;lle)</h3>"+
+    "<div class=\"st\" style=\"font-size:11px;margin:.1rem 0 .2rem\">Biegung GZT"+(zf?" (Zweifeldmoment)":"")+"</div>"+
+    "<div class=\"rg\">"+rc(sc(emP),"M<sub>Ed</sub>",fN(MeP,3),"kNm")+rc("info","M<sub>Rd</sub>",fN(MrP,3),"kNm")+rc(sc(emP),"Auslastung",ppP,"%")+"</div>"+bar(emP)+
+    "<div class=\"st\" style=\"font-size:11px;margin:.2rem 0 .2rem\">Auflagerkr&auml;fte</div>"+
+    "<div class=\"rg\">"+rc("ok","A Endauflager",fN(AuflEnd,2),"kN")+(AuflMid!==null?rc("info","A Mittelauflager",fN(AuflMid,2),"kN"):"")+"</div>"+
+    "<div class=\"st\" style=\"font-size:11px;margin:.2rem 0 .2rem\">Durchbiegung GZG</div>"+
+    "<div class=\"rg\">"+rc(sc(efP),"f<sub>max</sub>",fN(fP,2),"mm")+rc("info","f<sub>lim</sub>",fN(flP,2),"mm")+rc(sc(efP),"Auslastung",pct(efP),"%")+"</div>"+bar(efP)+
+    "<div class=\"st\" style=\"font-size:11px;margin:.2rem 0 .2rem\">N+M Wind GZT</div>"+
+    "<div class=\"rg\">"+rc(sc(eMW),"M<sub>Ed,Wind</sub>",fN(MeW,3),"kNm")+rc("info","M<sub>Rd</sub>",fN(MrW,3),"kNm")+rc(sc(eNM),"N+M &eta;",fN(eNM,3),"&ndash;")+"</div>"+
+    "<div class=\"ut\"><span>&eta; N+M = "+fN(eNM,3)+"</span><span>"+st(eNM)+"</span></div>"+
+    "<div class=\"pbar\"><div class=\"pfill\" style=\"width:"+Math.min(eNM*100,105)+"%;background:"+cnm+"\"></div></div>"+
+    "<div class=\"st\" style=\"font-size:11px;margin:.2rem 0 .2rem\">Durchbiegung Wind GZG (H/150)</div>"+
+    "<div class=\"rg\">"+rc(sc(efW),"f<sub>max</sub>",fN(fW,2),"mm")+rc("info","f<sub>lim</sub>",fN(flW,2),"mm")+rc(sc(efW),"Auslastung",pct(efW),"%")+"</div>"+bar(efW)+"</div>"+
+    "<div class=\"card\"><h3>Riegel 1-Feld: "+pR.art+" "+pR.n+" &mdash; "+fN(er,2)+"m (quer)</h3>"+
+    "<div class=\"st\" style=\"font-size:11px;margin:.1rem 0 .2rem\">Biegung GZT</div>"+
+    "<div class=\"rg\">"+rc(sc(emR),"M<sub>Ed</sub>",fN(MeR,3),"kNm")+rc("info","M<sub>Rd</sub>",fN(MrR,3),"kNm")+rc(sc(emR),"Auslastung",ppR,"%")+"</div>"+bar(emR)+
+    "<div class=\"st\" style=\"font-size:11px;margin:.2rem 0 .2rem\">Auflagerkraft &rarr; T-Verbinder</div>"+
+    "<div class=\"rg\">"+rc(sc(evV),"A = F<sub>Ed</sub>",fN(AuflR,2),"kN")+rc("info","F<sub>h,Rd</sub>",fN(FhR,1),"kN")+rc(sc(evV),"Auslastung",pct(evV),"%")+"</div>"+bar(evV)+
+    "<div class=\"st\" style=\"font-size:11px;margin:.2rem 0 .2rem\">Durchbiegung GZG</div>"+
+    "<div class=\"rg\">"+rc(sc(efR),"f<sub>max</sub>",fN(fR,2),"mm")+rc("info","f<sub>lim</sub>",fN(flR,2),"mm")+rc(sc(efR),"Auslastung",pct(efR),"%")+"</div>"+bar(efR)+
+    "<div class=\"st\" style=\"font-size:11px;margin:.2rem 0 .2rem\">T-Verbinder "+vd.art+" &mdash; abZ Z-14.4-461</div>"+
+    "<div class=\"rg\">"+rc(sc(eG),"G<sub>Feld</sub>",fN(Gf,0),"kg")+rc("info","G<sub>max</sub>",Gm||"&ndash;","kg")+rc(sc(eG),"Auslastung",pct(eG),"%")+"</div>"+bar(eG)+"</div></div>"+
+    "<div class=\"card\" style=\"margin-top:.75rem\"><h3>Nachweis-Zusammenfassung</h3>"+
+    "<table><tr><th>Bauteil</th><th>Nachweis</th><th>E<sub>d</sub></th><th>R<sub>d</sub></th><th>&eta;</th><th>Auslast.</th><th>Status</th></tr>"+
+    "<tr><td>Pfosten "+pP.art+"</td><td>Biegung GZT"+(zf?" 2-Feld":"")+"</td><td>"+fN(MeP,3)+" kNm</td><td>"+fN(MrP,3)+" kNm</td><td>"+fN(emP,3)+"</td><td><strong>"+ppP+"%</strong></td><td>"+pill(emP)+"</td></tr>"+
+    "<tr><td>Pfosten</td><td>Durchbiegung GZG</td><td>"+fN(fP,2)+" mm</td><td>"+fN(flP,2)+" mm</td><td>"+fN(efP,3)+"</td><td><strong>"+pct(efP)+"%</strong></td><td>"+pill(efP)+"</td></tr>"+
+    "<tr><td>Pfosten</td><td>N+M Wind GZT</td><td>&ndash;</td><td>&ndash;</td><td>"+fN(eNM,3)+"</td><td><strong>"+pct(eNM)+"%</strong></td><td>"+pill(eNM)+"</td></tr>"+
+    "<tr><td>Pfosten</td><td>Durchbieg. Wind GZG</td><td>"+fN(fW,2)+" mm</td><td>"+fN(flW,2)+" mm</td><td>"+fN(efW,3)+"</td><td><strong>"+pct(efW)+"%</strong></td><td>"+pill(efW)+"</td></tr>"+
+    "<tr><td>Riegel "+pR.art+"</td><td>Biegung GZT</td><td>"+fN(MeR,3)+" kNm</td><td>"+fN(MrR,3)+" kNm</td><td>"+fN(emR,3)+"</td><td><strong>"+ppR+"%</strong></td><td>"+pill(emR)+"</td></tr>"+
+    "<tr><td>Riegel</td><td>Durchbiegung GZG</td><td>"+fN(fR,2)+" mm</td><td>"+fN(flR,2)+" mm</td><td>"+fN(efR,3)+"</td><td><strong>"+pct(efR)+"%</strong></td><td>"+pill(efR)+"</td></tr>"+
+    "<tr><td>Verbinder "+vd.art+"</td><td>Horizontallast abZ</td><td>"+fN(AuflR,2)+" kN</td><td>"+fN(FhR,1)+" kN</td><td>"+fN(evV,3)+"</td><td><strong>"+pct(evV)+"%</strong></td><td>"+pill(evV)+"</td></tr>"+
+    "<tr><td>Verbinder</td><td>Glasgewicht abZ</td><td>"+fN(Gf,0)+" kg</td><td>"+(Gm||"&ndash;")+" kg</td><td>"+fN(eG,3)+"</td><td><strong>"+pct(eG)+"%</strong></td><td>"+pill(eG)+"</td></tr>"+
+    "<tr><td colspan=\"7\" style=\"padding:.65rem .5rem;background:#f5f5f3;border-top:1px solid #e0e0e0;\"><div style=\"font-size:10px;color:#666;line-height:1.8\"><strong style=\"color:#1a1a1a\">Legende:</strong> <b>Biegung GZT</b> = Biegemoment &le; Profilwiderstand &mdash; <b>Durchbiegung GZG</b> = Verformung &le; L/200 bis L/300+5mm (DIN EN 13830) &mdash; <b>N+M Wind GZT</b> = Druckkraft + Biegung aus Wind: N/N<sub>Rd</sub>+M/M<sub>Rd</sub> &le; 1 &mdash; <b>Dbieg. Wind GZG</b> = Pfostenverformung durch Windlast &le; L/200 &mdash; <b>Horiz. abZ</b> = Verbinder-Auflagerkraft &le; zul. Last (abZ Z-14.4-461) &mdash; <b>Glasgew. abZ</b> = Glasgewicht je Feld &le; G<sub>max</sub> Verbinder</div></td></tr></table></div>";
+  // Add Weiter button via DOM to avoid string quoting issues
+  var wBtn=document.createElement("div");
+  wBtn.className="ra";
+  var b=document.createElement("button");
+  b.className="btn bp";
+  b.innerHTML="Weiter: Bericht &rarr;";
+  b.onclick=function(){rR();showTab("report");};
+  wBtn.appendChild(b);
+  g("so").appendChild(wBtn);
 }
 
-// ---- GLASSTATIK ----
+// ============================================================
+// GLASSTATIK
+// ============================================================
 function cG(){
-  if(!LR.qE)cL();
-  var gt=sv('gl-t'),d1=parseFloat(g('gl-d1').value)||6,dm=parseFloat(g('gl-dm').value)||6,d2=parseFloat(g('gl-d2').value)||8,lag=sv('gl-l');
-  var is3=gt==='3VSG';
-  g('gl-dm').disabled=!is3; g('gl-dm').style.opacity=is3?'1':'0.4';
+  if(!LR.qE) cL();
+  var gt=sv("gl-t"),d1=parseFloat(g("gl-d1").value)||6,dm=parseFloat(g("gl-dm").value)||6;
+  var d2=parseFloat(g("gl-d2").value)||8,lag=sv("gl-l");
+  var is3=gt==="3VSG";
+  g("gl-dm").disabled=!is3;g("gl-dm").style.opacity=is3?"1":"0.4";
   var ep=LR.ep||1.5,er=LR.er||1.2;
-  // Glasfeld = Rasterfeld minus 15mm umlaufend (30mm je Seite)
-  var aGlas=(Math.min(ep,er)*1000-30)/10; // cm
-  var bGlas=(Math.max(ep,er)*1000-30)/10; // cm
-  var szr=parseInt(sv('gl-s'))||16;
+  var aGlas=(Math.min(ep,er)*1000-30)/10,bGlas=(Math.max(ep,er)*1000-30)/10;
+  var szr=parseInt(sv("gl-s"))||16;
   var dges=is3?(d1+szr+dm+szr+d2+d2):(d1+szr+d2+d2);
-  g('gl-abm').innerHTML='Glasfeld: <strong>'+(aGlas*10).toFixed(0)+' &#xd7; '+(bGlas*10).toFixed(0)+' mm</strong> (Rasterfeld &#x2212; 15 mm umlaufend) &#xb7; Aufbau: '+d1+(is3?'+SZR+'+dm:'')+(is3?'+SZR+':'+'+SZR+')+d2+'+'+d2+' mm = Gesamt <strong>'+dges+' mm</strong>';
+  var sep="+SZR+"; var aufbauStr=d1+(is3?sep+dm+sep:sep)+d2+sep+d2;
+  var ggewM2=((d1+(is3?dm:0)+2*d2)*0.025).toFixed(2);var ggewFeld=(((d1+(is3?dm:0)+2*d2)*0.025)*(aGlas/100)*(bGlas/100)/9.81*1000).toFixed(1);var gkg_m2=((d1+(is3?dm:0)+2*d2)*2.5).toFixed(1);var gkg_feld=((d1+(is3?dm:0)+2*d2)*2.5*(aGlas/100)*(bGlas/100)).toFixed(1);g("gl-abm").innerHTML="Glasfeld: <strong>"+(aGlas*10).toFixed(0)+" &times; "+(bGlas*10).toFixed(0)+" mm</strong> (Rasterfeld &minus; 15 mm) &middot; Aufbau: "+aufbauStr+" mm = <strong>"+dges+" mm</strong> &middot; Eigengewicht: <strong>"+gkg_m2+" kg/m&sup2;</strong> / <strong>"+gkg_feld+" kg</strong> je Feld";
   var ratio=bGlas/aGlas;
-  var de=d1,dg=is3?Math.pow(d1**3+dm**3+(2*d2)**3,1/3)*0.82:Math.pow(d1**3+(2*d2)**3,1/3)*0.85;
+  var de=d1,dg=is3?Math.pow(Math.pow(d1,3)+Math.pow(dm,3)+Math.pow(2*d2,3),1/3)*0.82:Math.pow(Math.pow(d1,3)+Math.pow(2*d2,3),1/3)*0.85;
   var qE=LR.qE||3,qc=LR.qc||2;
-  var bt=lag==='4s'?(ratio<=1?0.2874:ratio<=1.1?0.3159:ratio<=1.2?0.3448:ratio<=1.5?0.4094:ratio<=2?0.4754:0.5):lag==='2s'?0.125:0.185;
-  var sa=bt*qE*1000*aGlas*aGlas/(de**2)*0.01,sz=25.0,es=sa/sz;
-  var af=lag==='4s'?(ratio<=1?0.01302:ratio<=1.5?0.0199:0.0249):5/384;
-  var fg=af*(qc/100)*aGlas**4/(7000*(dg/10)**3/12)*10,fl=Math.min(aGlas,bGlas)*10/100,ef=fg/fl;
-  var rho=2.5; // kg/dm3
-  var gGlas_m2=(d1+(is3?dm:0)+(2*d2))*rho/10;
-  var gGlas_Feld=gGlas_m2*(aGlas/100)*(bGlas/100);
-  GR={gt,d1,dm,d2,de,dg,aGlas,bGlas,sa,sz,es,fg,fl,ef,lag,bt,ratio,szr,dges,gGlas_m2,gGlas_Feld,is3};
-  g('go').innerHTML=
-    (gt==='2VSG'?'<div class="alert aw">&#9888; 2-fach ISO: Innenscheibe VSG Pflicht. TRAV / &#xd6;NORM B 3716!</div>':'')+
-    '<div class="alert '+(es>1||ef>1?'ae':es>0.85||ef>0.85?'aw':'ao')+'">'+
-    (is3?'3-fach ISO-VSG ':'2-fach ISO+VSG ')+d1+(is3?'+'+dm:'')+'+('+d2+'+'+d2+') mm &#xb7; Glasfeld '+(aGlas*10).toFixed(0)+'&#xd7;'+(bGlas*10).toFixed(0)+' mm &#x2014; '+(es>1?'&#10007; Spannung!':ef>1?'&#10007; Durchbiegung!':'&#10003; Nachweise erf&#xfc;llt')+'</div>'+
-    '<div class="g2"><div class="card"><h3>Spannungsnachweis Au&#xdf;enscheibe (TRAV / &#xd6;NORM B 3716)</h3>'+
-    '<div class="rg">'+rc(sc(es),'&#x3c3;&#x2098;&#x2090;&#x2093;',fN(sa,1),'N/mm&#xb2;')+rc('info','&#x3c3;&#x1e91;&#x1d41;&#x2097;',fN(sz,1),'N/mm&#xb2;')+rc('info','d Au&#xdf;en',d1,'mm')+rc(sc(es),'Auslastung',pct(es),'%')+'</div>'+bar(es)+
-    '<p class="fn">Glasfeld '+fN(aGlas/100,2)+'&#xd7;'+fN(bGlas/100,2)+' m &#xb7; b/a='+fN(ratio,2)+' &#xb7; &#x3b2;='+fN(bt,4)+' &#xb7; Lagerung: '+lag+'</p></div>'+
-    '<div class="card"><h3>Durchbiegungsnachweis (L/100)</h3>'+
-    '<div class="rg">'+rc(sc(ef),'f&#x2098;&#x2090;&#x2093;',fN(fg,2),'mm')+rc('info','f&#x2097;&#x2122;&#x2098; L/100',fN(fl,2),'mm')+rc('info','d&#x2091;&#x1D1B;&#x1D1B;',fN(dg,1),'mm')+rc(sc(ef),'Auslastung',pct(ef),'%')+'</div>'+bar(ef)+
-    '<p class="fn">Glasgewicht Feld: '+fN(gGlas_Feld,1)+' kg &#xb7; '+fN(gGlas_m2,1)+' kg/m&#xb2;</p></div></div>'+
-    '<div class="card" style="margin-top:.75rem"><h3>Glasnachweis-Zusammenfassung</h3><table>'+
-    '<tr><th>Nachweis</th><th>E&#x2089;</th><th>R&#x2089;</th><th>&#x3b7;</th><th>Auslastung</th><th>Status</th></tr>'+
-    '<tr><td>Spannung Au&#xdf;en '+d1+' mm</td><td>'+fN(sa,1)+' N/mm&#xb2;</td><td>'+fN(sz,1)+' N/mm&#xb2;</td><td>'+fN(es,3)+'</td><td><strong>'+pct(es)+'%</strong></td><td>'+pill(es)+'</td></tr>'+
-    '<tr><td>Durchbiegung GZG</td><td>'+fN(fg,2)+' mm</td><td>'+fN(fl,2)+' mm</td><td>'+fN(ef,3)+'</td><td><strong>'+pct(ef)+'%</strong></td><td>'+pill(ef)+'</td></tr>'+
-    '<tr><td>Resttragsicherheit VSG innen</td><td colspan="2">VSG '+d2+'+'+d2+' mm &#x2014; Bruchsicherheit vorhanden</td><td>&#x2013;</td><td>&#x2013;</td><td><span class="pill ok">&#10003; VSG</span></td></tr></table>'+
-    '<p class="fn">EN 1288-2 / &#xd6;NORM B 3716 / TRAV &#xb7; &#xdc;berkopfverglasung &#xb7; Gepr&#xfc;fte Statik durch befugten Ingenieur erforderlich</p></div>'+
-    '<div class="ra"><button class="btn bp" onclick="rR();showTab(\'report\')">Weiter: Bericht &#x2192;</button></div>';
+  var bt=lag==="4s"?(ratio<=1?0.2874:ratio<=1.1?0.3159:ratio<=1.2?0.3448:ratio<=1.5?0.4094:ratio<=2?0.4754:0.5):lag==="2s"?0.125:0.185;
+  var sa=bt*qE*0.1*aGlas*aGlas/(de*de),sz=25.0,es=sa/sz;
+  var af=lag==="4s"?(ratio<=1?0.01302:ratio<=1.5?0.0199:0.0249):5/384;
+  var fg=af*(qc/10000)*Math.pow(aGlas,4)/(7000*Math.pow(dg/10,3)/12)*10,fl=Math.min(aGlas,bGlas)*10/100,ef=fg/fl;
+  var rho=2.5,gGlas_m2=(d1+(is3?dm:0)+(2*d2))*rho/10,gGlas_Feld=gGlas_m2*(aGlas/100)*(bGlas/100);
+  GR={gt:gt,d1:d1,dm:dm,d2:d2,de:de,dg:dg,aGlas:aGlas,bGlas:bGlas,sa:sa,sz:sz,es:es,fg:fg,fl:fl,ef:ef,lag:lag,bt:bt,ratio:ratio,szr:szr,dges:dges,gGlas_m2:gGlas_m2,gGlas_Feld:gGlas_Feld,is3:is3};
+  g("go").innerHTML=
+    (gt==="2VSG"?"<div class=\"alert aw\">&#9888; 2-fach ISO: Innenscheibe VSG Pflicht. TRAV/&Ouml;NORM B 3716!</div>":"")+
+    "<div class=\"alert "+(es>1||ef>1?"ae":es>0.85||ef>0.85?"aw":"ao")+"\">"+
+    (is3?"3-fach ISO-VSG ":"2-fach ISO+VSG ")+d1+(is3?"+"+dm:"")+"+("+d2+"+"+d2+") mm &middot; Glasfeld "+(aGlas*10).toFixed(0)+"&times;"+(bGlas*10).toFixed(0)+" mm &mdash; "+
+    (es>1?"&#10007; Spannung!":ef>1?"&#10007; Durchbiegung!":"&#10003; Nachweise erf&uuml;llt")+"</div>"+
+    "<div class=\"g2\">"+
+    "<div class=\"card\"><h3>Spannungsnachweis Au&szlig;enscheibe (TRAV/&Ouml;NORM B 3716)</h3>"+
+    "<div class=\"rg\">"+rc(sc(es),"&sigma;<sub>max</sub>",fN(sa,1),"N/mm&sup2;")+rc("info","&sigma;<sub>zul</sub>",fN(sz,1),"N/mm&sup2;")+
+    rc("info","d Au&szlig;en",d1,"mm")+rc(sc(es),"Auslastung",pct(es),"%")+"</div>"+bar(es)+
+    "<p class=\"fn\">Glasfeld "+fN(aGlas/100,2)+"&times;"+fN(bGlas/100,2)+" m &middot; b/a="+fN(ratio,2)+" &middot; &beta;="+fN(bt,4)+"</p></div>"+
+    "<div class=\"card\"><h3>Durchbiegungsnachweis (L/100)</h3>"+
+    "<div class=\"rg\">"+rc(sc(ef),"f<sub>max</sub>",fN(fg,2),"mm")+rc("info","f<sub>lim</sub> L/100",fN(fl,2),"mm")+
+    rc("info","d<sub>eff</sub>",fN(dg,1),"mm")+rc(sc(ef),"Auslastung",pct(ef),"%")+"</div>"+bar(ef)+
+    "<p class=\"fn\">Glasgewicht Feld: "+fN(gGlas_Feld,1)+" kg &middot; "+fN(gGlas_m2,1)+" kg/m&sup2;</p></div></div>"+
+    "<div class=\"card\" style=\"margin-top:.75rem\"><h3>Glasnachweis-Zusammenfassung</h3>"+
+    "<table><tr><th>Nachweis</th><th>E<sub>d</sub></th><th>R<sub>d</sub></th><th>&eta;</th><th>Auslastung</th><th>Status</th></tr>"+
+    "<tr><td>Spannung Au&szlig;en "+d1+"mm</td><td>"+fN(sa,1)+" N/mm&sup2;</td><td>"+fN(sz,1)+" N/mm&sup2;</td><td>"+fN(es,3)+"</td><td><strong>"+pct(es)+"%</strong></td><td>"+pill(es)+"</td></tr>"+
+    "<tr><td>Durchbiegung GZG</td><td>"+fN(fg,2)+" mm</td><td>"+fN(fl,2)+" mm</td><td>"+fN(ef,3)+"</td><td><strong>"+pct(ef)+"%</strong></td><td>"+pill(ef)+"</td></tr>"+
+    "<tr><td>Resttragsicherheit VSG</td><td colspan=\"2\">VSG "+d2+"+"+d2+"mm &mdash; Bruchsicherheit</td><td>&ndash;</td><td>&ndash;</td><td><span class=\"pill ok\">&#10003; VSG</span></td></tr></table>"+
+    "<p class=\"fn\">EN 1288-2 / &Ouml;NORM B 3716 / TRAV &middot; &Uuml;berkopfverglasung &middot; Gepr&uuml;fte Statik durch befugten Ingenieur erforderlich</p></div>";
+  // Weiter-Button via DOM
+  var wBtn=document.createElement("div");
+  wBtn.className="ra";
+  var b=document.createElement("button");
+  b.className="btn bp";
+  b.innerHTML="Weiter: Lasten &rarr;";
+  b.onclick=function(){cL();showTab("lasten");};
+  wBtn.appendChild(b);
+  g("go").appendChild(wBtn);
+  // Update Verbinder check with new glass weight
+  uV();
 }
 
-// ---- BERICHT ----
+// ============================================================
+// BERICHT
+// ============================================================
 function rR(){
-  if(!LR.qE)cL();if(!SR.pP)cS();
-  var L=LR,S=SR,G=GR,ort=sv('g-ort'),sys=sv('g-sys');
-  var d=new Date().toLocaleDateString('de-AT',{year:'numeric',month:'long',day:'numeric'});
-  var sn={AI50:'THERM&#x207a; A-I 50mm Alu',AI56:'THERM&#x207a; A-I 56mm Alu',AI76:'THERM&#x207a; A-I 76mm Alu',FSI50:'THERM&#x207a; FS-I Stahl 50mm',FSI56:'THERM&#x207a; FS-I Stahl 56mm'};
-  var tr=S.zf?'Zweifeldtr&#xe4;ger':'Einfeldtr&#xe4;ger';
-  g('ro').innerHTML=
-    '<div style="border-bottom:2px solid #1B4F8A;padding-bottom:.6rem;margin-bottom:.75rem">'+
-    '<div style="font-size:16px;font-weight:500;color:#1B4F8A">Statischer Vorbericht &#x2014; RAICO THERM&#x207a;</div>'+
-    '<div style="font-size:11px;color:#666">Pfosten-Riegel Dachelemente &#xb7; '+ort+' &#xb7; '+d+'</div>'+
-    '<div style="margin-top:.3rem"><span class="tag">'+(norm==='ON'?'&#xd6;NORM':'DIN/EC')+'</span><span class="tag">'+sys+'</span><span class="tag">L='+L.L+'m&#xd7;B='+L.B+'m</span><span class="tag">&#x3b1;='+L.alp+'&#xb0;</span><span class="tag">eP='+L.ep+'m/eR='+L.er+'m</span><span class="tag">'+tr+'</span>'+(L.begeh?'<span class="tag" style="background:#FEF3DC;color:#B86800">Begehbar</span>':'')+'</div></div>'+
-    '<div class="st">1. Systemangaben</div>'+
-    '<table><tbody>'+
-    '<tr><td style="color:#666;width:52%">System / Material</td><td>'+(sn[sys]||sys)+'</td></tr>'+
-    '<tr><td style="color:#666">Pfostenprofil (Gef&#xe4;lle)</td><td>Art. '+(S.pP?S.pP.art:'&#x2013;')+' &#xb7; '+(S.pP?S.pP.n:'&#x2013;')+' &#xb7; I&#x2093;='+(S.pP?S.pP.Ix:'&#x2013;')+' cm&#x2074; &#xb7; W&#x2093;='+(S.pP?S.pP.Wx:'&#x2013;')+' cm&#xb3; &#xb7; '+(S.pP?fN(S.pP.kg,2):'&#x2013;')+' kg/m &#xb7; '+tr+'</td></tr>'+
-    '<tr><td style="color:#666">Riegelprofil (quer)</td><td>Art. '+(S.pR?S.pR.art:'&#x2013;')+' &#xb7; '+(S.pR?S.pR.n:'&#x2013;')+' &#xb7; I&#x2093;='+(S.pR?S.pR.Ix:'&#x2013;')+' cm&#x2074; &#xb7; W&#x2093;='+(S.pR?S.pR.Wx:'&#x2013;')+' cm&#xb3; &#xb7; '+(S.pR?fN(S.pR.kg,2):'&#x2013;')+' kg/m &#xb7; Einfeldtr&#xe4;ger</td></tr>'+
-    '<tr><td style="color:#666">T-Verbinder</td><td>Art. '+(S.vd?S.vd.art:'&#x2013;')+' &#xb7; RT '+(S.vd?S.vd.RT:'&#x2013;')+' mm &#xb7; F&#x210e;,&#x1d479;&#x2089;='+fN(S.FhR,1)+' kN &#xb7; G&#x2098;&#x2090;&#x2093;='+(S.Gm||'&#x2013;')+' kg</td></tr>'+
-    '<tr><td style="color:#666">Glasaufbau / Glasfeld</td><td>'+(G.gt||'&#x2013;')+' &#xb7; '+(G.d1||6)+(G.is3?'+'+G.dm:'')+'+('+G.d2+'+'+G.d2+') mm &#xb7; Feld '+(G.aGlas?(G.aGlas*10).toFixed(0):'&#x2013;')+'&#xd7;'+(G.bGlas?(G.bGlas*10).toFixed(0):'&#x2013;')+' mm (&#x2212;15 mm umlaufend)</td></tr>'+
-    '<tr><td style="color:#666">Dachabmessung L&#xd7;B / Neigung</td><td>'+L.L+' &#xd7; '+L.B+' m &#xb7; &#x3b1;='+L.alp+'&#xb0; &#xb7; h='+L.h+' m</td></tr>'+
-    '<tr><td style="color:#666">Raster eP &#xd7; eR</td><td>'+L.ep+' m &#xd7; '+L.er+' m</td></tr>'+
-    '<tr><td style="color:#666">WZ / GK / SZ / Seehoehe</td><td>WZ'+L.wz+' / GK'+L.gk+' / '+L.sz+' / '+L.sh+' m NN</td></tr>'+
-    (L.begeh?'<tr><td style="color:#666">Begehbarkeit</td><td>Ja &#x2014; q&#x2096; = 1,0 kN/m&#xb2; (Reparaturbegehung lt. Norm)</td></tr>':'')+
-    '</tbody></table>'+
-    '<div class="st" style="margin-top:.75rem">2. Gewichte (Richtwerte)</div>'+
-    '<table><tbody>'+
-    '<tr><td style="color:#666;width:52%">Glasgewicht je Feld</td><td><strong>'+fN(G.gGlas_Feld,1)+' kg</strong> ('+fN(G.gGlas_m2,1)+' kg/m&#xb2;)</td></tr>'+
-    '<tr><td style="color:#666">Profilgewicht Pfosten</td><td>'+(S.pP?fN(S.pP.kg,2):'&#x2013;')+' kg/m</td></tr>'+
-    '<tr><td style="color:#666">Profilgewicht Riegel</td><td>'+(S.pR?fN(S.pR.kg,2):'&#x2013;')+' kg/m</td></tr>'+
-    '</tbody></table>'+
-    '<div class="st" style="margin-top:.75rem">3. Ma&#xdf;gebende Einwirkungen</div>'+
-    '<table><tbody>'+
-    '<tr><td style="color:#666;width:52%">Windsog w&#x2091; (c&#x209a;&#x2091;='+fN(L.cn,2)+')</td><td>'+fN(L.ws,3)+' kN/m&#xb2;</td></tr>'+
-    '<tr><td style="color:#666">Schneelast s</td><td>'+fN(L.s,3)+' kN/m&#xb2;</td></tr>'+
-    (L.begeh?'<tr><td style="color:#666">Begehbarkeit q&#x2096;</td><td>'+fN(L.qBeg,1)+' kN/m&#xb2;</td></tr>':'')+
-    '<tr><td style="color:#666">Eigenlast g</td><td>'+fN(L.gt,3)+' kN/m&#xb2;</td></tr>'+
-    '<tr><td style="color:#666">Ma&#xdf;gebend / q&#x2091;&#x2089; GZT</td><td><strong>'+L.mg+' / '+fN(L.qE,3)+' kN/m&#xb2;</strong></td></tr>'+
-    '<tr><td style="color:#666">q&#x209a;,&#x2091;&#x2089; Pfosten (Einzug eR='+L.er+'m)</td><td>'+fN(L.qP_Ed,3)+' kN/m</td></tr>'+
-    '<tr><td style="color:#666">q&#x1d479;,&#x2091;&#x2089; Riegel (Einzug eP='+L.ep+'m)</td><td>'+fN(L.qR_Ed,3)+' kN/m</td></tr>'+
-    '</tbody></table>'+
-    '<div class="st" style="margin-top:.75rem">4. Auflagerkr&#xe4;fte</div>'+
-    '<table><tbody>'+
-    '<tr><td style="color:#666;width:52%">Pfosten Endauflager</td><td><strong>'+fN(S.AuflEnd,2)+' kN</strong></td></tr>'+
-    (S.AuflMid!==null?'<tr><td style="color:#666">Pfosten Mittelauflager</td><td><strong>'+fN(S.AuflMid,2)+' kN</strong></td></tr>':'')+
-    '<tr><td style="color:#666">Riegel / T-Verbinder F&#x2091;&#x2089;</td><td><strong>'+fN(S.AuflR,2)+' kN</strong> (je Verbindung = Gesamtlast &#xf7; 2)</td></tr>'+
-    '</tbody></table>'+
-    '<div class="st" style="margin-top:.75rem">5. Nachweis-Ergebnisse</div>'+
-    '<table><tr><th>Bauteil</th><th>Nachweis</th><th>E&#x2089;</th><th>R&#x2089;</th><th>&#x3b7;</th><th>Auslastung</th><th>Status</th></tr>'+
-    '<tr><td>Pfosten '+(S.pP?S.pP.art:'&#x2013;')+'</td><td>Biegung GZT'+(S.zf?' 2-Feld':'')+'</td><td>'+fN(S.MeP,3)+' kNm</td><td>'+fN(S.MrP,3)+' kNm</td><td>'+fN(S.emP,3)+'</td><td><strong>'+S.ppP+'%</strong></td><td>'+pill(S.emP)+'</td></tr>'+
-    '<tr><td>Pfosten</td><td>Durchbiegung GZG</td><td>'+fN(S.fP,2)+' mm</td><td>'+fN(S.flP,2)+' mm</td><td>'+fN(S.efP,3)+'</td><td><strong>'+pct(S.efP)+'%</strong></td><td>'+pill(S.efP)+'</td></tr>'+
-    '<tr><td>Pfosten</td><td>N+M Wind GZT</td><td>&#x2013;</td><td>&#x2013;</td><td>'+fN(S.eNM,3)+'</td><td><strong>'+pct(S.eNM)+'%</strong></td><td>'+pill(S.eNM)+'</td></tr>'+
-    '<tr><td>Pfosten</td><td>Durchbieg. Wind GZG</td><td>'+fN(S.fW,2)+' mm</td><td>'+fN(S.flW,2)+' mm</td><td>'+fN(S.efW,3)+'</td><td><strong>'+pct(S.efW)+'%</strong></td><td>'+pill(S.efW)+'</td></tr>'+
-    '<tr><td>Riegel '+(S.pR?S.pR.art:'&#x2013;')+'</td><td>Biegung GZT</td><td>'+fN(S.MeR,3)+' kNm</td><td>'+fN(S.MrR,3)+' kNm</td><td>'+fN(S.emR,3)+'</td><td><strong>'+S.ppR+'%</strong></td><td>'+pill(S.emR)+'</td></tr>'+
-    '<tr><td>Riegel</td><td>Durchbiegung GZG</td><td>'+fN(S.fR,2)+' mm</td><td>'+fN(S.flR,2)+' mm</td><td>'+fN(S.efR,3)+'</td><td><strong>'+pct(S.efR)+'%</strong></td><td>'+pill(S.efR)+'</td></tr>'+
-    '<tr><td>Verbinder '+(S.vd?S.vd.art:'&#x2013;')+'</td><td>Horizontallast abZ</td><td>'+fN(S.AuflR,2)+' kN</td><td>'+fN(S.FhR,1)+' kN</td><td>'+fN(S.evV,3)+'</td><td><strong>'+pct(S.evV)+'%</strong></td><td>'+pill(S.evV)+'</td></tr>'+
-    (G.es!==undefined?'<tr><td>Glas Au&#xdf;en '+G.d1+'mm</td><td>Spannung TRAV</td><td>'+fN(G.sa,1)+' N/mm&#xb2;</td><td>'+fN(G.sz,1)+' N/mm&#xb2;</td><td>'+fN(G.es,3)+'</td><td><strong>'+pct(G.es)+'%</strong></td><td>'+pill(G.es)+'</td></tr>':'')+
-    (G.ef!==undefined?'<tr><td>Glas</td><td>Durchbiegung GZG</td><td>'+fN(G.fg,2)+' mm</td><td>'+fN(G.fl,2)+' mm</td><td>'+fN(G.ef,3)+'</td><td><strong>'+pct(G.ef)+'%</strong></td><td>'+pill(G.ef)+'</td></tr>':'')+
-    '</table>'+
-    '<div style="margin-top:.75rem;font-size:11px;color:#888;line-height:1.9">'+(norm==='ON'?'&#xd6;NORM B 1990/1991-1-1/1-3/1-4 &#xb7; &#xd6;NORM EN 1999-1-1 &#xb7; &#xd6;NORM EN 1993-1-1 &#xb7; &#xd6;NORM B 3716':'DIN EN 1990/1991-1-1/1-3/1-4 &#xb7; DIN EN 1999-1-1 &#xb7; DIN EN 1993-1-1 &#xb7; TRAV')+' &#xb7; DIN EN 13830 &#xb7; EN 1288-2 &#xb7; abZ Z-14.4-461</div>'+
-    '<div class="alert aw" style="font-size:10px;margin-top:.6rem"><strong>Hinweis:</strong> Vorbericht auf Basis RAICO THERM&#x207a; Systemdaten 2022. Ersetzt keine pr&#xfc;fungsfähige Statik durch befugten Ingenieur. Berechnungsmodell: '+tr+'. TRAV/&#xd6;NORM B 3716 gesondert nachweisen.</div>';
+  if(!LR.qE) cL();
+  if(!SR.pP) cS();
+  var L=LR,S=SR,G=GR,ort=sv("g-ort"),sys=sv("g-sys");
+  var d=new Date().toLocaleDateString("de-AT",{year:"numeric",month:"long",day:"numeric"});
+  var sn={AI50:"THERM+ A-I 50mm Alu",AI56:"THERM+ A-I 56mm Alu",AI76:"THERM+ A-I 76mm Alu",FSI50:"THERM+ FS-I Stahl 50mm",FSI56:"THERM+ FS-I Stahl 56mm"};
+  var tr=S.zf?"Zweifeldtr&auml;ger":"Einfeldtr&auml;ger";
+  g("ro").innerHTML=
+    "<div style=\"border-bottom:2px solid #1B4F8A;padding-bottom:.6rem;margin-bottom:.75rem\">"+
+    "<div style=\"font-size:16px;font-weight:500;color:#1B4F8A\">Statischer Vorbericht &mdash; RAICO THERM+</div>"+
+    "<div style=\"font-size:11px;color:#666\">"+ort+" &middot; "+d+"</div>"+
+    "<div style=\"margin-top:.3rem\"><span class=\"tag\">"+(norm==="ON"?"&Ouml;NORM":"DIN/EC")+"</span>"+
+    "<span class=\"tag\">"+sys+"</span><span class=\"tag\">L="+L.L+"m&times;B="+L.B+"m</span>"+
+    "<span class=\"tag\">&alpha;="+L.alp+"&deg;</span><span class=\"tag\">eP="+L.ep+"/eR="+L.er+"m</span>"+
+    "<span class=\"tag\">"+tr+"</span>"+(L.begeh?"<span class=\"tag\" style=\"background:#FEF3DC;color:#B86800\">Begehbar</span>":"")+"</div></div>"+
+    "<div class=\"st\">1. Systemangaben</div>"+
+    "<table><tbody>"+
+    "<tr><td style=\"color:#666;width:52%\">System</td><td>"+(sn[sys]||sys)+"</td></tr>"+
+    "<tr><td style=\"color:#666\">Pfostenprofil (Gef&auml;lle)</td><td>Art. "+(S.pP?S.pP.art:"&ndash;")+" &middot; "+(S.pP?S.pP.n:"&ndash;")+" &middot; Ix="+(S.pP?S.pP.Ix:"&ndash;")+" cm&#8308; &middot; "+(S.pP?fN(S.pP.kg,2):"&ndash;")+" kg/m &middot; "+tr+"</td></tr>"+
+    "<tr><td style=\"color:#666\">Riegelprofil (quer)</td><td>Art. "+(S.pR?S.pR.art:"&ndash;")+" &middot; "+(S.pR?S.pR.n:"&ndash;")+" &middot; Ix="+(S.pR?S.pR.Ix:"&ndash;")+" cm&#8308; &middot; "+(S.pR?fN(S.pR.kg,2):"&ndash;")+" kg/m &middot; Einfeldtr&auml;ger</td></tr>"+
+    "<tr><td style=\"color:#666\">T-Verbinder</td><td>Art. "+(S.vd?S.vd.art:"&ndash;")+" &middot; RT "+(S.vd?S.vd.RT:"&ndash;")+"mm &middot; F<sub>h,Rd</sub>="+fN(S.FhR,1)+" kN &middot; G<sub>max</sub>="+(S.Gm||"&ndash;")+" kg</td></tr>"+
+    "<tr><td style=\"color:#666\">Glasaufbau / Glasfeld</td><td>"+(G.gt||"&ndash;")+" &middot; "+(G.d1||6)+(G.is3?"+"+G.dm:"")+"+("+G.d2+"+"+G.d2+") mm &middot; "+(G.aGlas?(G.aGlas*10).toFixed(0):"&ndash;")+"&times;"+(G.bGlas?(G.bGlas*10).toFixed(0):"&ndash;")+" mm</td></tr>"+
+    "<tr><td style=\"color:#666\">Dachabmessung</td><td>"+L.L+" &times; "+L.B+" m &middot; &alpha;="+L.alp+"&deg; &middot; h="+L.h+" m</td></tr>"+
+    "<tr><td style=\"color:#666\">WZ / GK / SZ</td><td>WZ"+L.wz+" / GK"+L.gk+" / "+L.sz+" / "+L.sh+"m NN</td></tr>"+
+    (L.begeh?"<tr><td style=\"color:#666\">Begehbarkeit</td><td>Ja &mdash; q<sub>k</sub>=1,0 kN/m&sup2;</td></tr>":"")+
+    "</tbody></table>"+
+    "<div class=\"st\" style=\"margin-top:.75rem\">2. Gewichte (Richtwerte)</div>"+
+    "<table><tbody>"+
+    "<tr><td style=\"color:#666;width:52%\">Glasgewicht je Feld</td><td><strong>"+fN(G.gGlas_Feld,1)+" kg</strong> ("+fN(G.gGlas_m2,1)+" kg/m&sup2;)</td></tr>"+
+    "<tr><td style=\"color:#666\">Profilgewicht Pfosten</td><td>"+(S.pP?fN(S.pP.kg,2):"&ndash;")+" kg/m</td></tr>"+
+    "<tr><td style=\"color:#666\">Profilgewicht Riegel</td><td>"+(S.pR?fN(S.pR.kg,2):"&ndash;")+" kg/m</td></tr>"+
+    "</tbody></table>"+
+    "<div class=\"st\" style=\"margin-top:.75rem\">3. Einwirkungen</div>"+
+    "<table><tbody>"+
+    "<tr><td style=\"color:#666;width:52%\">Windsog w<sub>e</sub> (c<sub>pe</sub>="+fN(L.cn,2)+")</td><td>"+fN(L.ws,3)+" kN/m&sup2;</td></tr>"+
+    "<tr><td style=\"color:#666\">Schneelast s</td><td>"+fN(L.s,3)+" kN/m&sup2;</td></tr>"+
+    (L.begeh?"<tr><td style=\"color:#666\">Begehbarkeit q<sub>k</sub></td><td>"+fN(L.qBeg,1)+" kN/m&sup2;</td></tr>":"")+
+    "<tr><td style=\"color:#666\">Eigenlast g</td><td>"+fN(L.gt,3)+" kN/m&sup2;</td></tr>"+
+    "<tr><td style=\"color:#666\">Ma&szlig;gebend / q<sub>Ed</sub> GZT</td><td><strong>"+L.mg+" / "+fN(L.qE,3)+" kN/m&sup2;</strong></td></tr>"+
+    "<tr><td style=\"color:#666\">q<sub>P,Ed</sub> Pfosten (eR="+L.er+"m)</td><td>"+fN(L.qP_Ed,3)+" kN/m</td></tr>"+
+    "<tr><td style=\"color:#666\">q<sub>R,Ed</sub> Riegel (eP="+L.ep+"m)</td><td>"+fN(L.qR_Ed,3)+" kN/m</td></tr>"+
+    "</tbody></table>"+
+    "<div class=\"st\" style=\"margin-top:.75rem\">4. Auflagerkr&auml;fte</div>"+
+    "<table><tbody>"+
+    "<tr><td style=\"color:#666;width:52%\">Pfosten Endauflager</td><td><strong>"+fN(S.AuflEnd,2)+" kN</strong></td></tr>"+
+    (S.AuflMid!==null?"<tr><td style=\"color:#666\">Pfosten Mittelauflager</td><td><strong>"+fN(S.AuflMid,2)+" kN</strong></td></tr>":"")+
+    "<tr><td style=\"color:#666\">Riegel / T-Verbinder F<sub>Ed</sub></td><td><strong>"+fN(S.AuflR,2)+" kN</strong> (= Gesamtlast &divide; 2)</td></tr>"+
+    "</tbody></table>"+
+    "<div class=\"st\" style=\"margin-top:.75rem\">5. Nachweis-Ergebnisse</div>"+
+    "<table><tr><th>Bauteil</th><th>Nachweis</th><th>E<sub>d</sub></th><th>R<sub>d</sub></th><th>&eta;</th><th>Auslastung</th><th>Status</th></tr>"+
+    "<tr><td>Pfosten "+(S.pP?S.pP.art:"&ndash;")+"</td><td>Biegung GZT"+(S.zf?" 2-Feld":"")+"</td><td>"+fN(S.MeP,3)+" kNm</td><td>"+fN(S.MrP,3)+" kNm</td><td>"+fN(S.emP,3)+"</td><td><strong>"+S.ppP+"%</strong></td><td>"+pill(S.emP)+"</td></tr>"+
+    "<tr><td>Pfosten</td><td>Durchbiegung GZG</td><td>"+fN(S.fP,2)+" mm</td><td>"+fN(S.flP,2)+" mm</td><td>"+fN(S.efP,3)+"</td><td><strong>"+pct(S.efP)+"%</strong></td><td>"+pill(S.efP)+"</td></tr>"+
+    "<tr><td>Pfosten</td><td>N+M Wind GZT</td><td>&ndash;</td><td>&ndash;</td><td>"+fN(S.eNM,3)+"</td><td><strong>"+pct(S.eNM)+"%</strong></td><td>"+pill(S.eNM)+"</td></tr>"+
+    "<tr><td>Pfosten</td><td>Durchbieg. Wind GZG</td><td>"+fN(S.fW,2)+" mm</td><td>"+fN(S.flW,2)+" mm</td><td>"+fN(S.efW,3)+"</td><td><strong>"+pct(S.efW)+"%</strong></td><td>"+pill(S.efW)+"</td></tr>"+
+    "<tr><td>Riegel "+(S.pR?S.pR.art:"&ndash;")+"</td><td>Biegung GZT</td><td>"+fN(S.MeR,3)+" kNm</td><td>"+fN(S.MrR,3)+" kNm</td><td>"+fN(S.emR,3)+"</td><td><strong>"+S.ppR+"%</strong></td><td>"+pill(S.emR)+"</td></tr>"+
+    "<tr><td>Riegel</td><td>Durchbiegung GZG</td><td>"+fN(S.fR,2)+" mm</td><td>"+fN(S.flR,2)+" mm</td><td>"+fN(S.efR,3)+"</td><td><strong>"+pct(S.efR)+"%</strong></td><td>"+pill(S.efR)+"</td></tr>"+
+    "<tr><td>Verbinder "+(S.vd?S.vd.art:"&ndash;")+"</td><td>Horizontallast abZ</td><td>"+fN(S.AuflR,2)+" kN</td><td>"+fN(S.FhR,1)+" kN</td><td>"+fN(S.evV,3)+"</td><td><strong>"+pct(S.evV)+"%</strong></td><td>"+pill(S.evV)+"</td></tr>"+
+    (G.es!==undefined?"<tr><td>Glas Au&szlig;en "+G.d1+"mm</td><td>Spannung TRAV</td><td>"+fN(G.sa,1)+" N/mm&sup2;</td><td>"+fN(G.sz,1)+" N/mm&sup2;</td><td>"+fN(G.es,3)+"</td><td><strong>"+pct(G.es)+"%</strong></td><td>"+pill(G.es)+"</td></tr>":"")+
+    (G.ef!==undefined?"<tr><td>Glas</td><td>Durchbiegung GZG</td><td>"+fN(G.fg,2)+" mm</td><td>"+fN(G.fl,2)+" mm</td><td>"+fN(G.ef,3)+"</td><td><strong>"+pct(G.ef)+"%</strong></td><td>"+pill(G.ef)+"</td></tr>":"")+
+    "</table>"+
+    "<div style=\"margin-top:.75rem;font-size:11px;color:#888;line-height:1.9\">"+(norm==="ON"?"&Ouml;NORM B 1990/1991-1-1/1-3/1-4 &middot; &Ouml;NORM EN 1999-1-1 &middot; &Ouml;NORM EN 1993-1-1 &middot; &Ouml;NORM B 3716":"DIN EN 1990/1991-1-1/1-3/1-4 &middot; DIN EN 1999-1-1 &middot; DIN EN 1993-1-1 &middot; TRAV")+" &middot; DIN EN 13830 &middot; EN 1288-2 &middot; abZ Z-14.4-461</div>"+
+    "<div class=\"alert aw\" style=\"font-size:10px;margin-top:.6rem\"><strong>Hinweis:</strong> Vorbericht auf Basis RAICO THERM+ Systemdaten 2022. Kein Ersatz f&uuml;r pr&uuml;fungsfähige Statik durch befugten Ingenieur.</div>";
 }
 
 function eJ(){
-  var d={norm:norm==='ON'?'OENORM':'DIN_EC',datum:new Date().toISOString(),version:'2.0',system:sv('g-sys'),lasten:{qEd:LR.qE,qP_Ed:LR.qP_Ed,qR_Ed:LR.qR_Ed,windsog:LR.ws,schnee:LR.s,begeh:LR.begeh},auflagerkraefte:{Pfosten_End:SR.AuflEnd,Pfosten_Mitte:SR.AuflMid,Riegel_Verbinder:SR.AuflR},statik:{pfosten:SR.pP?SR.pP.art:null,riegel:SR.pR?SR.pR.art:null,traeger:SR.zf?'2-Feld':'1-Feld',eta_MP:SR.emP,pct_MP:SR.ppP,eta_fP:SR.efP,eta_NM:SR.eNM,eta_MR:SR.emR,pct_MR:SR.ppR,eta_fR:SR.efR,eta_verb:SR.evV},glas:{eta_sigma:GR.es,eta_f:GR.ef,gGlas_m2:GR.gGlas_m2,gGlas_Feld:GR.gGlas_Feld}};
-  var a=document.createElement('a');
-  a.href='data:application/json,'+encodeURIComponent(JSON.stringify(d,null,2));
-  a.download='raico-statik-v2.json';a.click();
+  var d={norm:norm==="ON"?"OENORM":"DIN_EC",datum:new Date().toISOString(),version:"2.0",system:sv("g-sys"),
+    lasten:{qEd:LR.qE,qP_Ed:LR.qP_Ed,qR_Ed:LR.qR_Ed,windsog:LR.ws,schnee:LR.s,begeh:LR.begeh},
+    auflagerkraefte:{Pfosten_End:SR.AuflEnd,Pfosten_Mitte:SR.AuflMid,Riegel_Verbinder:SR.AuflR},
+    statik:{pfosten:SR.pP?SR.pP.art:null,riegel:SR.pR?SR.pR.art:null,zf:SR.zf,
+      eta_MP:SR.emP,pct_MP:SR.ppP,eta_fP:SR.efP,eta_NM:SR.eNM,eta_MR:SR.emR,pct_MR:SR.ppR,
+      eta_fR:SR.efR,eta_verb:SR.evV},
+    glas:{eta_sigma:GR.es,eta_f:GR.ef,gGlas_m2:GR.gGlas_m2,gGlas_Feld:GR.gGlas_Feld}};
+  var a=document.createElement("a");
+  a.href="data:application/json,"+encodeURIComponent(JSON.stringify(d,null,2));
+  a.download="raico-statik-v2.json";a.click();
 }
 
-showTab('geom');
-setTimeout(function(){cL();rP();},80);
+showTab("geom");
+setTimeout(function(){dsk();cL();rP();},100);
 </script>
 </body>
 </html>
